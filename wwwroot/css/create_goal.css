@@ -1,0 +1,27 @@
+.div_create_goal
+{
+    border-radius: 15px;
+    background-color: dimgrey;
+    padding: 12px;
+    margin: 23px;
+}
+.textarea_description{
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    background: #E9EFF6;
+    line-height: 25px;
+    border-width: 0;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+.goal_description{
+    background: #f0f0f0;
+    border: 1px solid #333;
+    padding: 10px;
+    font-size: 18px;
+    word-break: break-all;
+    border-radius: 16px;
+}
+

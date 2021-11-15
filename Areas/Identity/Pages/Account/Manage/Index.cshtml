@@ -1,0 +1,37 @@
+﻿@page
+@using LifeGoals
+@using LifeGoals.Dbmanagement
+@using System.Security.Claims
+@model LifeGoals.Areas.Identity.Pages.Account.Manage.IndexModel
+@{
+  
+   var user= UserManagement.GetUser(User.FindFirstValue(ClaimTypes.NameIdentifier));
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+<form asp-action="AddFUserImage" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <h4>@ViewData["Title"]</h4>
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+    <div class="row">
+        <div class="col-md-6">
+            <form id="profile-form" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <img class="profileImage" src="@user.Imag" style="max-width: 295px; margin-bottom: 15px">
+                    <label class="btn btn-primary">
+                        <span class="button bg-green"><i class="far fa-file-image"></i>Загрузить новый аватар (*.jpg/*.png)</span>
+                        <input type="file" name="uploadedFile" accept=".jpg,.png" onchange="this.form.submit()" style="display: none">
+                    </label>
+
+
+                </div>
+                
+                <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+  </form>
+@section Scripts {
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

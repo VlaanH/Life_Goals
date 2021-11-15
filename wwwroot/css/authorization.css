@@ -1,0 +1,31 @@
+.aut-main-form{
+    padding: 50px;
+    position: relative;
+    max-width: 598px;
+    background: #ddd9d9;
+    border-radius: 30px;
+    margin: 40px auto 0;
+    
+}
+.aut-all-Input-Data {
+    
+    margin-bottom: 19px;
+}
+.aut-Input{
+    padding: 15px;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+    background: #E9EFF6;
+    line-height: 40px;
+    border-width: 0;
+    border-radius: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+.aut-button{
+    
+    font-size: 17px;
+    border-radius: 15px;
+    width: 100%;
+}

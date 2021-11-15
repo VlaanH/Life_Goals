@@ -1,0 +1,46 @@
+@using LifeGoals.Dbmanagement
+@using System.Security.Claims+
+@using System.Linq;
+@model string
+@{
+        
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    var modelId= Model;
+    
+    string id = default;
+
+    if (modelId != "non")
+        id = modelId;
+    else
+        id = userId;
+    
+    
+    var user= UserManagement.GetUser(id);
+
+    List<GoalObjects> goalObjectsList = new List<GoalObjects>();
+    goalObjectsList= Goals.GetUserGoals(id);
+}
+@{
+    if (goalObjectsList!=default)
+        for (int i = 0; i < goalObjectsList.Count; i++)
+        {
+        
+
+            <div class="goal">
+                <div class="goalUser">
+                    <img class="profileMiniImage" src="@user.Imag" alt="">
+                    <a>@user.UserName</a>
+                </div>
+                
+                <div class="goalInf">
+                    <div class="goalTitle">@goalObjectsList[i].Titles</div>
+                    <div class="goal_description">@goalObjectsList[i].Body</div>
+                    
+                </div>
+               
+                
+            </div>
+        }
+    
+}

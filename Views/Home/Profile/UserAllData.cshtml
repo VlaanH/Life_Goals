@@ -1,0 +1,37 @@
+@using LifeGoals.Dbmanagement
+@using System.Security.Claims
+@model string
+@{
+    string userId = default;
+    
+    if (User.Identity.IsAuthenticated==true)
+        userId=User.FindFirstValue(ClaimTypes.NameIdentifier);  
+    
+    var user= UserManagement.GetUser(Model);
+}
+<div class="profileAllInfo">
+                
+            <div class="profileLeft">
+                
+                <img class="profileImage" src="@user.Imag" alt="">
+                <span class="profileName">@user.UserName</span>
+                @if (userId == user.Id)
+                {
+                    <button class="btn btn-secondary btn-Edit-Profile" onclick="document.location='/Identity/Account/Manage'"  content="edit">Edit profile</button>  
+                }
+                
+
+            </div>
+
+            <div class="profileInfoRight">
+                
+                
+                <div class="infoGrid">
+                      
+                    <div >Полит. предпочтения:</div>
+                    <div class="labeled">Либертарианские</div>
+
+                </div>
+                
+            </div>
+</div>
