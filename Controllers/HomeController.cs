@@ -118,6 +118,7 @@ namespace LifeGoals.Controllers
         [Authorize] 
         public IActionResult GoalAdd(string body,string titles)
         {
+            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
             Goals.GoalAddDb(new GoalObjects(){Body = body,Titles = titles,User = userId});
