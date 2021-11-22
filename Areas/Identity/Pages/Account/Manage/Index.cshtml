@@ -10,7 +10,10 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 <form asp-action="AddFUserImage" asp-controller="Home" method="post" enctype="multipart/form-data">
+    
+    
     <h4>@ViewData["Title"]</h4>
+    <div style="margin-bottom: 10px;">User ID:@user.Id</div>
     <partial name="_StatusMessage" model="Model.StatusMessage" />
     <div class="row">
         <div class="col-md-6">
@@ -26,6 +29,7 @@
 
                 </div>
                 
+              
                 <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>

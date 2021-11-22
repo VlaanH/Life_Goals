@@ -1,0 +1,48 @@
+@using LifeGoals.Dbmanagement
+@model string
+@{
+    var importantGoals = Goals.GetAllImportantGoals(Model);
+}
+<div id="goalsLine">
+    <form method="get" id="goalsLineForm" data-ajax="true" data-ajax-method="get" data-ajax-update="#goalsLine" data-ajax-mode='replace' data-ajax-url="@Url.Action("GoalLineUpdate", "Home")">
+                                       
+       
+        <div class="points">
+                 
+                   
+            @foreach(var goal in importantGoals)
+            {
+                <div class="point">
+                    <div class="descr">
+                        @goal.Titles
+                        <br>
+                        @if (goal.Body!=default)
+                        {
+                            @if (goal.Body.Length>60)
+                            {
+                                <a >@goal.Body.Substring(0,60)...</a>
+                            }
+                            else
+                            {
+                                <a >@goal.Body</a>
+                            } 
+                        }
+                      
+                        
+                    </div>
+                </div>
+            }
+                     
+                 
+                 
+                           
+        </div>
+        <svg class="goalsLine">
+            <line x1="10px" x2="98%" y1="10%" y2="10%" stroke="black" stroke-width="8" stroke-linecap="round"></line>
+        </svg>
+                     
+                     
+        <input style="display: none" name="userId" value="@Model"/>             
+
+    </form>
+</div>

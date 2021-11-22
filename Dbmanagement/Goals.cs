@@ -20,7 +20,20 @@ namespace LifeGoals.Dbmanagement
             }
            
         }
-        
+
+        public static List<GoalObjects> GetAllImportantGoals(string userId)
+        {
+            List<GoalObjects> userImportantGoalObjectsList;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                userImportantGoalObjectsList = db.Goals.Where(g => g.User == userId&g.Important==true).ToList();
+                
+
+            }
+            userImportantGoalObjectsList.Reverse();
+            return userImportantGoalObjectsList;
+        }
+
         public static void DoImportant(int goalId,bool important)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())

@@ -88,8 +88,11 @@ namespace LifeGoals.Controllers
             return Redirect("/Identity/Account/Manage");
         }
         
-        
-        
+        [Authorize] 
+        public IActionResult GoalLineUpdate(string userId)
+        {
+            return PartialView("Profile/GoalLine",userId);
+        }
        
         public IActionResult Privacy()
         {

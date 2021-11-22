@@ -25,37 +25,10 @@
 <div id="panel" class="text-center">
     
     <div class="profileWrapper">
-
-       
-       <partial name="Profile/UserAllData" model="id"/>
+        <partial name="Profile/UserAllData" model="id"/>
         
-                <div>
-                    <div class="points">
-                        
-                        <div class="point">
-                            <a>dada</a>
-                            <div class="descr">
-                                Какой-то текст который должен быть в блоке<br>
-                                <a href="#">Интересная ссылка</a>
-                            </div>
-                        </div>
-                        
-                        <div class="point">
-                            <div class="descr">
-                                Какой-то текст который должен быть в блоке<br>
-                                <a href="#">Интересная ссылка</a>
-                            </div>
-                        </div>
-                 
-                        
-                </div>
-              <svg class="goalsLine">
-                  <line x1="10px" x2="98%" y1="10%" y2="10%" stroke="black" stroke-width="8" stroke-linecap="round"></line>
-              </svg>
-            
-            
-            
-        </div>
+       <partial name="Profile/GoalLine" model="id"/> 
+       
        @if(id==userId)
        {
            //ovner

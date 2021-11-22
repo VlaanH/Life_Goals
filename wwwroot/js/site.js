@@ -1,4 +1,21 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+function updateGoalLine()
+{
+    
+    $( "#goalsLineForm" ).submit();
+    
+}
+function CopyReefLink(id) 
+{
 
-// Write your JavaScript code.
+  
+    var copyText = id;
+
+    /* Select the text field */
+    copyText.select();
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+}
+

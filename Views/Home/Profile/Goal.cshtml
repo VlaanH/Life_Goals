@@ -18,7 +18,12 @@
 
    
 
-    }
+}
+<script>
+    updateGoalLine();
+    
+</script>
+
 <div name="goalUpdate" id="@ajaxUpdate">
     <div class="goal" >
         <div class="goalUser">
@@ -29,6 +34,7 @@
                     
         <div class="goalInf">
                         
+           
             <div>
                 <div class="goalTitle">
                     <a>@Model.Titles</a>
@@ -42,7 +48,7 @@
                                     <input style="display: none" name="goalId" value="@Model.Id"/>
                                     <input style="display: none" name="status" value="true"/>
 
-                                    <button class="iconButton" type="submit">
+                                    <button class="iconButton" type="submit" OnClick="updateGoalLine()">
                                         <svg aria-hidden="true" focusable="false" class="goalStar">
                                             <use xlink:href="#stars-empty-star"/>
                                         </svg>
@@ -51,7 +57,7 @@
                             }
                             else
                             {
-                                <form class="form-star" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("DoImportant", "Home")">
+                                <form class="form-star" id="myForm" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("DoImportant", "Home")">
                                     <input style="display: none" name="goalId" value="@Model.Id"/>
                                     <input style="display: none" name="status" value="false"/>
 
@@ -61,6 +67,8 @@
                                         </svg>
                                     </button>
                                 </form>
+                            
+                                
                             }
                         
                         
