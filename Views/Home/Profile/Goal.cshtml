@@ -1,0 +1,88 @@
+@using LifeGoals.Dbmanagement
+@using LifeGoals
+@using System.Security.Claims
+@model GoalObjects
+@{
+    var ajaxUpdate = "OneGoal" + Model.Id;
+    var user = UserManagement.GetUser(Model.User);
+
+    bool isOwner  = false;
+
+    if (User.Identity.IsAuthenticated == true)
+    {
+        var userId= User.FindFirstValue(ClaimTypes.NameIdentifier);  
+        if (Model.User==userId)
+            isOwner = true;
+    }
+   
+
+   
+
+    }
+<div name="goalUpdate" id="@ajaxUpdate">
+    <div class="goal" >
+        <div class="goalUser">
+            <img class="profileMiniImage" src="@user.Imag" alt="">
+            <a>@user.UserName</a>
+                        
+        </div>
+                    
+        <div class="goalInf">
+                        
+            <div>
+                <div class="goalTitle">
+                    <a>@Model.Titles</a>
+                    <a>
+                    @if (isOwner)
+                    {
+                      
+                            @if (Model.Important==false)
+                            {
+                                <form class="form-star" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("DoImportant", "Home")">
+                                    <input style="display: none" name="goalId" value="@Model.Id"/>
+                                    <input style="display: none" name="status" value="true"/>
+
+                                    <button class="iconButton" type="submit">
+                                        <svg aria-hidden="true" focusable="false" class="goalStar">
+                                            <use xlink:href="#stars-empty-star"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form class="form-star" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("DoImportant", "Home")">
+                                    <input style="display: none" name="goalId" value="@Model.Id"/>
+                                    <input style="display: none" name="status" value="false"/>
+
+                                    <button class="iconButton" type="submit">
+                                        <svg aria-hidden="true" focusable="false" class="goalStar">
+                                            <use xlink:href="#stars-full-star"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            }
+                        
+                        
+                    }
+                    else if (Model.Important==true)
+                    {
+                        <svg aria-hidden="true" focusable="false" class="goalStar">
+                            <use xlink:href="#stars-full-star"/>
+                        </svg>
+                    }
+                   </a> 
+                                
+                </div>
+                            
+            </div>
+                        
+                        
+            <div class="goal_description">@Model.Body</div>
+                        
+        </div>
+                   
+                   
+                    
+    </div>
+</div>

@@ -9,32 +9,7 @@ body {
     width: 97%;
 }
 
-.goal{
-    text-align: justify;
-    border-radius: 10px;
-    background: #f1f1f1;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-left: 21px;
-    margin-right: 21px;
-    padding: 5px;
-    /* height: 200px; */
-    flex: 134px;
-    margin-bottom: 50px;
-}
-.goalUser{
-    padding: 10px;
-    font-size: 23px;
-}
-.goalsLine
-{
-    width: 98%;
-    height: 60px;
-}
-.goalTitle{
-    padding-left: 10px;
-    font-size: 21px;
-}
+
 .profileMiniImage{
   
     position: relative;
@@ -120,6 +95,19 @@ body {
     margin: 15px;
     font-size: 19px;
     /* font-family: 'Balsamiq Sans';*/
+}
+.iconButton
+{
+    padding: 0px;
+    border: 0;
+}
+.iconButton:focus
+{
+    outline: none;
+}
+.form-star
+{
+    display: inline-block;
 }
 .main-header-btn
 {

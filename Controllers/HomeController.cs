@@ -128,6 +128,24 @@ namespace LifeGoals.Controllers
             return PartialView("Profile");
         }
     
+        [Authorize] 
+        public IActionResult DoImportant(bool status,int goalId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            var goal = Goals.GetGoal(goalId);
+
+            if (goal.User == userId)
+            {
+                Goals.DoImportant(goalId,status);
+                goal = Goals.GetGoal(goalId);
+            }
+
+            
+
+
+            return PartialView("Profile/Goal",goal);
+        }
         
         
         public IActionResult Error404()

@@ -10,8 +10,7 @@ namespace LifeGoals.Models
    
     public class ApplicationUser : IdentityUser
     {
-        public string CustomTag { get; set; }
-       
+
         public string Imag { get; set; }
     }
    

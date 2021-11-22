@@ -25,6 +25,9 @@ namespace LifeGoals.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Important")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Titles")
                         .HasColumnType("TEXT");
 
@@ -46,9 +49,6 @@ namespace LifeGoals.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CustomTag")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

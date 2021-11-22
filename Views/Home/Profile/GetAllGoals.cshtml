@@ -1,6 +1,7 @@
 @using LifeGoals.Dbmanagement
-@using System.Security.Claims+
+@using System.Security.Claims
 @using System.Linq;
+
 @model string
 @{
         
@@ -21,26 +22,15 @@
     List<GoalObjects> goalObjectsList = new List<GoalObjects>();
     goalObjectsList= Goals.GetUserGoals(id);
 }
+@await Html.PartialAsync("SVG/Grey_star")
+
 @{
     if (goalObjectsList!=default)
         for (int i = 0; i < goalObjectsList.Count; i++)
         {
-        
+            
+            @(await Html.PartialAsync("Profile/Goal", goalObjectsList[i]))
 
-            <div class="goal">
-                <div class="goalUser">
-                    <img class="profileMiniImage" src="@user.Imag" alt="">
-                    <a>@user.UserName</a>
-                </div>
-                
-                <div class="goalInf">
-                    <div class="goalTitle">@goalObjectsList[i].Titles</div>
-                    <div class="goal_description">@goalObjectsList[i].Body</div>
-                    
-                </div>
-               
-                
-            </div>
         }
     
 }
