@@ -197,8 +197,28 @@ namespace LifeGoals.Controllers
 
             return PartialView("Profile/Goal",goal);
         }
-        
-        
+
+        [Authorize]
+        public IActionResult ChangeGoalStatus(EGoalStageImplementation status,int goalId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            var goal = Goals.GetGoal(goalId);
+
+            if (goal.User == userId)
+            {
+                Goals.ChangeGoalStatus(status,goalId);
+                goal = Goals.GetGoal(goalId);
+            }
+
+            
+
+
+            return PartialView("Profile/Goal",goal);
+            
+        }
+
+
         public IActionResult Error404()
         {
             return View();

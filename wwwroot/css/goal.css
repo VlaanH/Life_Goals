@@ -51,7 +51,7 @@
 }
 .goalStatus
 {
-    opacity:0.6;
+    opacity:0.3;
     width: 32%;
     height: 17px;
     border-radius: 10px;
@@ -60,4 +60,16 @@
 .goalStatus:hover
 {
     opacity:1;
+}
+.SelectedGoalStatus
+{
+    opacity:1;
+}
+.miniGoalStatus
+{
+    margin-bottom: 5px;
+    display: inline-block;
+    border-radius: 34px;
+    width: 23px;
+    height: 23px;
 }

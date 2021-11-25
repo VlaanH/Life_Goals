@@ -3,7 +3,7 @@ body
     background-repeat: repeat-y, repeat-y;
     background-position: left, right;
     background-attachment: fixed, fixed;
-    background-size: 100%;
+    background-size: cover;
     
     
     font-family: 'Roboto', sans-serif;
@@ -92,6 +92,7 @@ body
 
 .profileWrapper
 {
+    border-radius: 16px;
     padding: 1px;
     background: #D6D6D6;
 

@@ -12,10 +12,10 @@ namespace LifeGoals
         
         public string User { get; set; }
 
-        public EStageImplementation StageImplementation { get; set; }
+        public EGoalStageImplementation StageImplementation { get; set; }
     }
 
-    public enum EStageImplementation
+    public enum EGoalStageImplementation
     {
         created,
         startedDoing,

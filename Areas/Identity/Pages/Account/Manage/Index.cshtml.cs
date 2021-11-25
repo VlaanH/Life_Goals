@@ -89,15 +89,7 @@ namespace LifeGoals.Areas.Identity.Pages.Account.Manage
             await _signInManager.RefreshSignInAsync(user);
         
 
-            if (ZcashAddress.Pars(Input.Address)==true)
-            {    StatusMessage = "Your profile has been updated";
-              
-            }
-            else
-            {
-                StatusMessage = "Incorrect address";
-            }
-
+           
    
             return RedirectToPage();
         }

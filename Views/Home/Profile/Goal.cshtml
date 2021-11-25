@@ -21,7 +21,6 @@
 }
 <script>
     updateGoalLine();
-    
 </script>
 
 <div name="goalUpdate" id="@ajaxUpdate">
@@ -38,6 +37,19 @@
             <div>
                 <div class="goalTitle">
                     <a>@Model.Titles</a>
+                    @if (Model.StageImplementation == EGoalStageImplementation.created)
+                    {
+                        <img class="miniGoalStatus" style="background: #ff4747" src="/img/X.png">
+                    }
+                    else if (Model.StageImplementation == EGoalStageImplementation.startedDoing)
+                    {
+                        <img class="miniGoalStatus" style="background: #f8d032" src="/img/time.png">
+                    }
+                    else if (Model.StageImplementation == EGoalStageImplementation.isDone)
+                    {
+                        <img class="miniGoalStatus" style="background: #43fd43" src="/img/check.png">            
+                    }
+                    
                     <a>
                     @if (isOwner)
                     {
@@ -80,7 +92,7 @@
                         </svg>
                     }
                    </a> 
-                                
+                          
                 </div>
                             
             </div>
@@ -92,12 +104,7 @@
                    
         <div>
             
-            <div class="goalPointsStatus">
-                   
-                <div class="goalStatus" style="background: #ff7474"></div>
-                <div class="goalStatus" style="background: #f3f381"></div>
-                <div class="goalStatus" style="background: lightgreen"></div>
-            </div>
+            <partial name="Profile/GetgoalPointsStatus" model="Model"/> 
            
         </div>
        

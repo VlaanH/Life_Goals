@@ -24,3 +24,9 @@ function SetBackground(image)
 {
     document.body.style.backgroundImage=`url('${image}')`;
 }
+function updateForm(id)
+{
+
+    $( `#${id}` ).submit();
+
+}

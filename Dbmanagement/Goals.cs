@@ -55,7 +55,16 @@ namespace LifeGoals.Dbmanagement
 
             return userGoalObjects;
         }
-        
+
+        public static void ChangeGoalStatus(EGoalStageImplementation status,int goalId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                db.Goals.Single(id => id.Id == goalId).StageImplementation = status;
+                db.SaveChanges();
+            }
+        }
+
         public static List<GoalObjects> GetUserGoals(string userId)
         {
             List<GoalObjects> userGoalObjectsList;
