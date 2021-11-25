@@ -11,6 +11,10 @@ namespace LifeGoals.Models
     public class ApplicationUser : IdentityUser
     {
 
+        public string Description { get; set; }
+        
+        public string Background { get; set; }
+        
         public string Imag { get; set; }
     }
    

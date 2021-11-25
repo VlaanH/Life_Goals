@@ -28,6 +28,9 @@ namespace LifeGoals.Migrations
                     b.Property<bool>("Important")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("StageImplementation")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Titles")
                         .HasColumnType("TEXT");
 
@@ -47,8 +50,14 @@ namespace LifeGoals.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Background")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

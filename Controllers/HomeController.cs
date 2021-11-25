@@ -88,6 +88,54 @@ namespace LifeGoals.Controllers
             return Redirect("/Identity/Account/Manage");
         }
         
+        public async Task<IActionResult> AddFUserBackground(IFormFile uploadedFile)
+        {
+            if (uploadedFile != null )
+                if (uploadedFile.Length<10000000)
+                {
+                    Console.WriteLine(uploadedFile.Length);
+                    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+               
+                
+                    string path = "/UserBackground/" +userID + ImageManagement.GetRandomImageName()+"B"+".jpg";
+                    string fullPath = _appEnvironment.WebRootPath + path;
+               
+                    using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                        await uploadedFile.CopyToAsync(fileStream);
+                
+                    
+                
+                
+                
+                
+                    var imageFormat = ImageManagement.GetImageFormat(fullPath);
+                
+                    switch (imageFormat)
+                    {
+                        case ImageManagement.ImageFormat.jpeg:
+                        {
+                        
+                            ImageManagement.ResizeImage(fullPath,new Size(1920,1080));
+                            UserManagement.ReplacementBackgroundUser(userID,path, _appEnvironment.WebRootPath);
+                            break;
+                        }
+                        case ImageManagement.ImageFormat.png:
+                        {
+                            ImageManagement.ResizeImage(fullPath,new Size(1920,1080));
+                            UserManagement.ReplacementBackgroundUser(userID,path, _appEnvironment.WebRootPath);
+                            break;
+                        } 
+                    }
+                
+               
+
+               
+                }
+            
+            return Redirect("/Identity/Account/Manage");
+        }
+        
+        
         [Authorize] 
         public IActionResult GoalLineUpdate(string userId)
         {

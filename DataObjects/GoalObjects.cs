@@ -11,5 +11,17 @@ namespace LifeGoals
         public string Titles { get; set; }
         
         public string User { get; set; }
+
+        public EStageImplementation StageImplementation { get; set; }
     }
+
+    public enum EStageImplementation
+    {
+        created,
+        startedDoing,
+        isDone
+
+    } 
+    
+    
 }

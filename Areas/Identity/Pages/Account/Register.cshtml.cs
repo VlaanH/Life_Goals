@@ -93,7 +93,13 @@ namespace LifeGoals.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 
-                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email,Imag = UserManagement.StandardUserImage};
+                var user = new ApplicationUser 
+                { 
+                    UserName = Input.UserName, 
+                    Email = Input.Email,
+                    Imag = UserManagement.StandardUserImage,
+                    Background = UserManagement.StandardUserBackground
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

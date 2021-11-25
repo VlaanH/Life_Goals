@@ -11,6 +11,7 @@ namespace LifeGoals.Dbmanagement
    public static class UserManagement
    {
        public static string StandardUserImage = "/UserImages/standardUser.png";
+       public static string StandardUserBackground = "/UserBackground/standardBackground.png";
         public static ApplicationUser GetUser(string userId)
         {
             ApplicationUser user = default;
@@ -31,9 +32,20 @@ namespace LifeGoals.Dbmanagement
             
             if (oldUserImagePath!=StandardUserImage & File.Exists(rootPath+oldUserImagePath))
                 File.Delete(rootPath+oldUserImagePath);
+            
 
+        }
+        
+        public static void ReplacementBackgroundUser(string userId,string necessaryImage,string rootPath)
+        {
+            string oldUserImagePath = GetUser(userId).Background;
 
+            SetUserBackground(userId,necessaryImage);
+            
+            if (oldUserImagePath!=StandardUserBackground & File.Exists(rootPath+oldUserImagePath))
+                File.Delete(rootPath+oldUserImagePath);
 
+            
         }
         
         
@@ -69,6 +81,16 @@ namespace LifeGoals.Dbmanagement
             
         }
 
+        private static void SetUserBackground(string userId,string imagePath)
+        {
+            using (ApplicationDbContext db =new  ApplicationDbContext())
+            {
+                db.Users.Single(id => id.Id == userId).Background=imagePath;
+                db.SaveChangesAsync();
+            }   
+            
+        }
+        
 
     }
 

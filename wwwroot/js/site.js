@@ -19,3 +19,8 @@ function CopyReefLink(id)
 
 }
 
+
+function SetBackground(image)
+{
+    document.body.style.backgroundImage=`url('${image}')`;
+}

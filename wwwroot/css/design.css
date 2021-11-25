@@ -1,4 +1,11 @@
-body {
+body 
+{
+    background-repeat: repeat-y, repeat-y;
+    background-position: left, right;
+    background-attachment: fixed, fixed;
+    background-size: 100%;
+    
+    
     font-family: 'Roboto', sans-serif;
     margin: 0;
     height: 100%;
@@ -149,6 +156,7 @@ body {
     width:300px;
     border-radius:10px;
 }
+
 
 
 .g-recaptcha{

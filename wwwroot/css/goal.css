@@ -6,22 +6,28 @@
     box-sizing: border-box;
     margin-left: 21px;
     margin-right: 21px;
-    padding: 5px;
+    padding: 12px;
     /* height: 200px; */
     flex: 134px;
     margin-bottom: 50px;
 }
-.goalUser{
-    padding: 10px;
+.goalUser
+{
+    margin-left: 2px;
     font-size: 23px;
+}
+.goalInf
+{
+ margin-top: 4px;   
 }
 .goalsLine
 {
     width: 98%;
     height: 60px;
 }
-.goalTitle{
-    padding-left: 10px;
+.goalTitle
+{
+    margin-left: 4px;
     font-size: 21px;
 }
 .goalStar
@@ -35,4 +41,23 @@
     margin-bottom: 7px;
     width: 20px;
     height: 26px;
+}
+.goalPointsStatus
+{
+    margin-inline: 3px;
+    justify-content: space-between;
+    display: flex;
+    margin-top: 13px;
+}
+.goalStatus
+{
+    opacity:0.6;
+    width: 32%;
+    height: 17px;
+    border-radius: 10px;
+    
+}
+.goalStatus:hover
+{
+    opacity:1;
 }
