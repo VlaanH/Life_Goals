@@ -73,7 +73,7 @@ function getETHBalance(address,goalID,donateValue)
                 
             }
             
-            console.log(web3.utils.fromWei(result, "ether") + " ETH")
+           
             
             document.getElementById(`value_progress_${goalID}`).innerHTML=balance+"ETH";
 
@@ -113,8 +113,7 @@ function SetQrAddress(address)
 
     document.getElementById('addressTextType').innerHTML="Ethereum address:";
     document.getElementById('MainDialog').innerHTML="Donate";
-    document.getElementById('DialogDiscript').innerHTML="You are about to close your account. This action is irreversible. It will permanently delete your account along with its associated data. Are you sure you want to continue?";
-    
+    document.getElementById('DialogDiscript').innerHTML="It is an Ethereum cryptocurrency wallet. Ethereum is the community-run technology powering the cryptocurrency ether (ETH) and thousands of decentralized applications."
     makeCode()
 
 
@@ -128,7 +127,7 @@ function SetQrPrivateKey(address)
 
     document.getElementById('addressTextType').innerHTML="Ethereum PrivateKey:";
     document.getElementById('MainDialog').innerHTML="PrivateKey";
-    document.getElementById('DialogDiscript').innerHTML="You are about to close your account. This action is irreversible. It will permanently delete your account along with its associated data. Are you sure you want to continue?";
+    document.getElementById('DialogDiscript').innerHTML="It is an Ethereum cryptocurrency wallet. Ethereum is the community-run technology powering the cryptocurrency ether (ETH) and thousands of decentralized applications."
 
     makeCode()
 

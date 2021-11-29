@@ -17,6 +17,29 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+::-webkit-scrollbar {
+
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 30px;
+  background: #b1aeae;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+
+
+  background: #929292;
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
