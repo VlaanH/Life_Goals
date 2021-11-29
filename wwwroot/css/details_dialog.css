@@ -1,0 +1,51 @@
+
+.boxed-group {
+    width: 90%;
+    max-width: 680px;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+.boxed-group-inner {
+    font-size: 14px;
+    font-weight: 300;
+    color: #aaa;
+    border-width: 0 1px 1px;
+    border-style: solid;
+    border-color:  #e6e9ed;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #fff;
+}
+#qrcodeAddress {
+    margin: auto;
+    display: table;
+   
+}
+
+
+.site-dialog {
+    overflow: hidden;
+    width: 95%;
+    max-width: 500px;
+    padding: 0;
+    border-width: 0;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .3);
+}
+
+.dialog-header {
+    padding: 12px 20px;
+    background-color: #434a54;
+}
+.dialog-content {
+    padding: 30px 20px;
+    color: #555;
+    background-color: #fff;
+}
+p:last-of-type, p:only-child {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+

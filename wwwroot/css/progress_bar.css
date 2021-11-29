@@ -1,0 +1,75 @@
+.progress
+{
+    margin-top: 9px;
+    align-items: center;
+    margin-left: 5px;
+    width: 100%;
+    max-width: 99.3%;
+    height: 9px;
+    background: #e1e4e8;
+    border-radius: 6px;
+}
+
+.donate_btn
+{
+    outline: none;
+    border: 0;
+    width: 100%;
+    padding: 0px;
+}
+.progress-bar
+{
+
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg,#ffd33d,#ea4aaa 17%,#b34bff 34%,#01feff 51%,#ffd33d 68%,#ea4aaa 85%,#b34bff);
+    background-size: 300% 100%;
+}
+.value_progress
+{
+    margin-top: 3px;
+}
+.progress_percent
+{
+    margin-left: 2px;
+}
+.currency_progress
+{
+    padding: 9px;
+    margin-top: 11px;
+    border: 1px solid #333;
+    border-radius: 25px;  
+}
+.currency_progress_line
+{
+    
+    display: flex;
+
+   
+}
+.currency_svg
+{
+    margin-bottom: 2px;
+    width: 20px;
+    height: 26px;
+}
+.currency_progress:hover .progress-bar
+{
+    animation: progress-animation 2s linear infinite ;
+}
+
+
+
+@keyframes progress-animation
+{
+    0%
+    {
+        background-position: 100%;
+    }
+    100%
+    {
+        background-position: 0;
+    }
+}
+
+

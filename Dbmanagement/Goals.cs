@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Globalization;
 using System.Linq;
 using LifeGoals.Daemons;
 using LifeGoals.Models;
@@ -20,6 +22,26 @@ namespace LifeGoals.Dbmanagement
             }
            
         }
+
+        public static string GetPercentDonate(string balance,string donateValue)
+        {
+           
+            
+            try
+            {
+                return Math.Round(decimal.Parse(balance, new CultureInfo("en-us")) /
+                    decimal.Parse(donateValue, new CultureInfo("en-us")) * 100, 2).ToString(new CultureInfo("en-us"));
+           
+                 
+            }
+            catch (Exception e)
+            {
+                return "0";
+            }
+            
+            
+        }
+
 
         public static List<GoalObjects> GetAllImportantGoals(string userId)
         {

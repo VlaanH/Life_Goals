@@ -12,6 +12,15 @@ namespace LifeGoals
         
         public string User { get; set; }
 
+        public bool IsDonate { get; set; }
+
+        public string PrivateKey { get; set; }
+
+     
+        public string PublicAddress{ get; set; }
+
+        public string DonateValue{ get; set; }
+        
         public EGoalStageImplementation StageImplementation { get; set; }
     }
 

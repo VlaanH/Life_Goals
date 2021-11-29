@@ -81,7 +81,8 @@ body
 
 }
 
-.profileAllInfo{
+.profileAllInfo
+{
 
     padding: 10px;
     width: 100%;
@@ -112,6 +113,10 @@ body
 .iconButton:focus
 {
     outline: none;
+}
+.input-radius
+{
+    border-radius: 12px;
 }
 .form-star
 {

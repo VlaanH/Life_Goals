@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <UserSecretsId>aspnet-CerencyMVC-F7C11647-09ED-4BD7-B08F-6527CDB9A562</UserSecretsId>
-        <NeutralLanguage></NeutralLanguage>
+        <NeutralLanguage>en-US</NeutralLanguage>
         <RootNamespace>LifeGoals</RootNamespace>
         <LangVersion>9</LangVersion>
         <AssemblyName>LifeGoals</AssemblyName>
@@ -20,6 +20,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.2" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+        <PackageReference Include="Nethereum.Web3" Version="4.1.1" />
         <PackageReference Include="PaulMiami.AspNetCore.Mvc.Recaptcha" Version="1.2.2" />
         <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard" Version="1.0.113.2" />
         <PackageReference Include="System.Drawing.Common" Version="5.0.3" />

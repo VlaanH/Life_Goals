@@ -1,15 +1,16 @@
 @model GoalObjects
 @using Microsoft.AspNetCore.Http
 @using System.Security.Claims
+@using LifeGoals.Cryptocurrencies;
 @{
-    ViewData["Title"] = "Privacy Policy";
+    
     
     string userId = default;
     
     if (User.Identity.IsAuthenticated==true)
         userId=User.FindFirstValue(ClaimTypes.NameIdentifier);  
     
-
+    
    
 
     string id  = ViewData["id"].ToString();
@@ -17,55 +18,67 @@
 }
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
-    
+   
     
 }
 @if (id!="non"&id!="zero")
 {
- 
+
+
+    
+<partial name="Profile/DonatDialog" model="id"/> 
     
 <div id="panel" class="text-center">
-    
+  
     <div class="profileWrapper">
-        <partial name="Profile/UserAllData" model="id"/>
-        
-       <partial name="Profile/GoalLine" model="id"/> 
-       
-       @if(id==userId)
-       {
-           //ovner
-           <div class="div_create_goal">
-               
-               <form id="my_form" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#panel" data-ajax-mode='replace' data-ajax-url="@Url.Action("GoalAdd", "Home")">
-
-                   <input class="form-control" name="titles" placeholder="Titles" style="display: initial;width: 25%;margin-bottom: 24px;"/>
-
-                   <h3>description </h3>
-
-                   <textarea placeholder="Body description..."  name="body" rows="3" class="textarea_description"></textarea>
-
-                   <br/>
-                   <input type="submit"/>
-
-               </form>
-           </div>
-           
-       } 
-     
-       
-       <div class="goals">
-           <partial  name="Profile/GetAllGoals" model="id"/>
-       </div>
         
         
+        @await Html.PartialAsync("Profile/UserAllData",id)
+        
+        @await Html.PartialAsync("Profile/GoalLine",id)
         
 
-       
-        <script>
-           //Отключение подтверждение формы
-          
-              if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}
-        </script>
+        @if (id == userId)
+        {
+            //ovner
+            
+            <div class="div_create_goal">
+
+                <form id="my_form" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#panel" data-ajax-mode='replace' data-ajax-url="@Url.Action("GoalAdd", "Home")">
+
+                    <div style="display: flex;">
+                        
+                        <input class="input-radius form-control" name="titles" placeholder="Titles" style="display: initial;width: 78%;margin-bottom: 24px;"/>
+                        <input type="checkbox" name="isDonate" class="checkbox" value="true"/><span class="checkboxText">Is Donate</span>
+
+                        <input class="input-radius form-control" name="donateValue" placeholder="Value" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
+                            this.value = this.value.replace(/(\..*)\./g, '$1');"
+                               value="0.001" maxlength="10" style="display: initial;width: 16%;margin-bottom: 24px;" autocomplete="off">
+                    </div>
+                   
+                    
+
+                    <h3>description </h3>
+
+                    <textarea placeholder="Body description..."  name="body" rows="3" class="textarea_description"></textarea>
+
+                    <br/>
+                    <input type="submit"/>  
+                </form>
+            </div>
+
+        }
+
+
+        <div class="goals">
+             @await Html.PartialAsync("Profile/GetAllGoals",id)
+        </div>
+
+
+
+
+
+        
 
     </div>
 </div>

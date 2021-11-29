@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using LifeGoals.Daemons;
 using LifeGoals.Dbmanagement;
 using System.Drawing;
+using System.Threading;
+using LifeGoals.Cryptocurrencies;
 using LifeGoals.Images;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -167,14 +169,47 @@ namespace LifeGoals.Controllers
        }
         
         [Authorize] 
-        public IActionResult GoalAdd(string body,string titles)
+        public async Task<ActionResult> GoalAdd(string body,string titles,bool isDonate,string donateValue)
         {
+            await Task.Run(() =>
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (isDonate == true)
+                {
+                    var keys = new EthereumRinkebyNet().GenerateAddress();
+
+                    double dDonateValue = 0;
+                    try
+                    {
+                        dDonateValue = Convert.ToDouble(donateValue, new CultureInfo("en-us"));
+                    }
+                    catch (Exception e)
+                    {
+                        dDonateValue = 0;
+                    }
+
+                   
+
+                    Goals.GoalAddDb(new GoalObjects()
+                    {
+                        Body = body, Titles = titles,
+                        User = userId, IsDonate = true,
+                        DonateValue = dDonateValue.ToString("0.########",new CultureInfo("en-us")),
+                        PublicAddress = keys.PublicAddress,
+                        PrivateKey = keys.PrivateKey
+                    });
+                }
+                else
+                {
+                    Goals.GoalAddDb(new GoalObjects() {Body = body, Titles = titles, User = userId});
+                }
+
+
+                ViewData["id"] = userId;
+            });
             
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            Goals.GoalAddDb(new GoalObjects(){Body = body,Titles = titles,User = userId});
-            
-            ViewData["id"] = userId;
+           
             
             return PartialView("Profile");
         }
@@ -189,7 +224,7 @@ namespace LifeGoals.Controllers
             if (goal.User == userId)
             {
                 Goals.DoImportant(goalId,status);
-                goal = Goals.GetGoal(goalId);
+                goal.Important = status;
             }
 
             
@@ -199,23 +234,26 @@ namespace LifeGoals.Controllers
         }
 
         [Authorize]
-        public IActionResult ChangeGoalStatus(EGoalStageImplementation status,int goalId)
+        public  ActionResult ChangeGoalStatus(EGoalStageImplementation status,int goalId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
             var goal = Goals.GetGoal(goalId);
+          
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (goal.User == userId)
-            {
-                Goals.ChangeGoalStatus(status,goalId);
-                goal = Goals.GetGoal(goalId);
-            }
+                
 
-            
+                if (goal.User == userId)
+                {
+                    new Thread(() =>
+                    { Goals.ChangeGoalStatus(status, goalId); }).Start();
+                    
+                    
+                    goal.StageImplementation = status;
+                }
+               
 
-
+           
             return PartialView("Profile/Goal",goal);
-            
         }
 
 
