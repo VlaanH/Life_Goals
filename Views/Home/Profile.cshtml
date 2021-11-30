@@ -2,8 +2,7 @@
 @using Microsoft.AspNetCore.Http
 @using System.Security.Claims
 @{
-    ViewData["Title"] = "Privacy Policy";
-    
+
     string userId = default;
     
     if (User.Identity.IsAuthenticated==true)
@@ -47,7 +46,7 @@
 
                     <div style="display: flex;">
                         
-                        <input class="input-radius form-control blue" name="titles" placeholder="Titles" style="display: initial;width: 78%;margin-bottom: 24px;"/>
+                        <input class="input-radius form-control blue" name="titles" placeholder="Title" autocomplete="off" style="display: initial;width: 78%;margin-bottom: 24px;"/>
                         <input type="checkbox" name="isDonate" class="checkbox" value="true"/><span class="checkboxText">Is Donate</span>
 
                         <input class="input-radius form-control blue" name="donateValue" placeholder="Value" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
@@ -56,8 +55,6 @@
                     </div>
                    
                     
-
-                   <h3>description </h3>
 
                    <textarea placeholder="Body description..."  name="body" rows="3" class="textarea_description"></textarea>
 

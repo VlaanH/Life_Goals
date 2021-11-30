@@ -2,10 +2,12 @@
 {
     border-radius: 15px;
     background-color: dimgrey;
-    padding: 12px;
+    padding: 28px;
     margin: 26px;
 }
-.textarea_description{
+.textarea_description
+{
+    height: 125px;
     outline: none;
     display: block;
     width: 100%;
