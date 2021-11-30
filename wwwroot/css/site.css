@@ -40,6 +40,11 @@ a {
 
   background: #929292;
 }
+.btn-white {
+  color: #000;
+  background-color: #ffffff;
+  border-color: #6c757d;
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;

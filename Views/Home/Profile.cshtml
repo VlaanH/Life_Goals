@@ -1,16 +1,15 @@
 @model GoalObjects
 @using Microsoft.AspNetCore.Http
 @using System.Security.Claims
-@using LifeGoals.Cryptocurrencies;
 @{
-    
+    ViewData["Title"] = "Privacy Policy";
     
     string userId = default;
     
     if (User.Identity.IsAuthenticated==true)
         userId=User.FindFirstValue(ClaimTypes.NameIdentifier);  
     
-    
+
    
 
     string id  = ViewData["id"].ToString();
@@ -18,7 +17,7 @@
 }
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
-   
+    
     
 }
 @if (id!="non"&id!="zero")
@@ -48,22 +47,22 @@
 
                     <div style="display: flex;">
                         
-                        <input class="input-radius form-control" name="titles" placeholder="Titles" style="display: initial;width: 78%;margin-bottom: 24px;"/>
+                        <input class="input-radius form-control blue" name="titles" placeholder="Titles" style="display: initial;width: 78%;margin-bottom: 24px;"/>
                         <input type="checkbox" name="isDonate" class="checkbox" value="true"/><span class="checkboxText">Is Donate</span>
 
-                        <input class="input-radius form-control" name="donateValue" placeholder="Value" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
+                        <input class="input-radius form-control blue" name="donateValue" placeholder="Value" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
                             this.value = this.value.replace(/(\..*)\./g, '$1');"
                                value="0.001" maxlength="10" style="display: initial;width: 16%;margin-bottom: 24px;" autocomplete="off">
                     </div>
                    
                     
 
-                    <h3>description </h3>
+                   <h3>description </h3>
 
-                    <textarea placeholder="Body description..."  name="body" rows="3" class="textarea_description"></textarea>
+                   <textarea placeholder="Body description..."  name="body" rows="3" class="textarea_description"></textarea>
 
                     <br/>
-                    <input type="submit"/>  
+                    <input type="submit" class="btn btn-white"/>  
                 </form>
             </div>
 

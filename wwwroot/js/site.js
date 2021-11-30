@@ -93,7 +93,7 @@ function GetPercentDonate(balance,donateValue)
 {
     if (donateValue!=0)
     {
-        return (balance / donateValue * 100 )+"%";
+        return ((balance / donateValue * 100 )+"").substring(0,5)+"%";
     }
     else 
     {
