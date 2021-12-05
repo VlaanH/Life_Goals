@@ -169,13 +169,13 @@ namespace LifeGoals.Controllers
        }
         
         [Authorize] 
-        public async Task<ActionResult> GoalAdd(string body,string titles,bool isDonate,string donateValue)
+        public async Task<ActionResult> GoalAdd(string body,string titles,bool isDonate,string donateValue,bool isMyAddress,string myAddress)
         {
             await Task.Run(() =>
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                if (isDonate == true)
+                if (isDonate == true & isMyAddress==false)
                 {
                     var keys = new EthereumRinkebyNet().GenerateAddress();
 
@@ -197,7 +197,33 @@ namespace LifeGoals.Controllers
                         User = userId, IsDonate = true,
                         DonateValue = dDonateValue.ToString("0.########",new CultureInfo("en-us")),
                         PublicAddress = keys.PublicAddress,
-                        PrivateKey = keys.PrivateKey
+                        PrivateKey = keys.PrivateKey,
+                        MaxDonateValue = "0"
+                    });
+                }
+                else if(isMyAddress==true)
+                {
+                    double dDonateValue = 0;
+                    try
+                    {
+                        dDonateValue = Convert.ToDouble(donateValue, new CultureInfo("en-us"));
+                    }
+                    catch (Exception e)
+                    {
+                        dDonateValue = 0;
+                    }
+
+                   
+
+                    Goals.GoalAddDb(new GoalObjects()
+                    {
+                        Body = body, Titles = titles,
+                        User = userId, IsDonate = true,
+                        DonateValue = dDonateValue.ToString("0.########",new CultureInfo("en-us")),
+                        PublicAddress = myAddress,
+                        IsPrivateDonateGoal = true,
+                        PrivateKey = $"https://etherscan.io/address/{myAddress}",
+                        MaxDonateValue = "0"
                     });
                 }
                 else

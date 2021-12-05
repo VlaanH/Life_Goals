@@ -20,6 +20,10 @@ namespace LifeGoals
         public string PublicAddress{ get; set; }
 
         public string DonateValue{ get; set; }
+
+        public bool IsPrivateDonateGoal { get; set; }
+
+        public string MaxDonateValue{ get; set; }
         
         public EGoalStageImplementation StageImplementation { get; set; }
     }

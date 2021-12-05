@@ -41,7 +41,7 @@ function makeCode ()
 
 makeCode();
 
-function getETHBalance(address,goalID,donateValue)
+function getETHBalance(address,goalID,donateValue,maxValue)
 {
 
     if (typeof web3 !== 'undefined') 
@@ -54,7 +54,8 @@ function getETHBalance(address,goalID,donateValue)
     }
 
     var balance;
-     web3.eth.getBalance(address, function(err, result) {
+     web3.eth.getBalance(address, function(err, result)
+     {
         if (err) 
         {
             console.log(err)
@@ -80,9 +81,15 @@ function getETHBalance(address,goalID,donateValue)
 
             
             var procent = `${GetPercentDonate(balance,donateValue)}`;
-            document.getElementById(`progress_percent_${goalID}`).innerHTML=procent;
+            var procentMaxValue = `${GetPercentDonate(maxValue,donateValue)}`;
+            
+            document.getElementById(`progress_percent_${goalID}`).innerHTML=(procent+"%");
 
-        }document.getElementById(`progress-bar_${goalID}`).style.width=procent;
+        }
+         
+         
+        document.getElementById(`progress-bar-Max-Value_${goalID}`).style.width=(procentMaxValue-procent)+"%";
+        document.getElementById(`progress-bar_${goalID}`).style.width=procent+"%";
     })
 
  
@@ -93,14 +100,27 @@ function GetPercentDonate(balance,donateValue)
 {
     if (donateValue!=0)
     {
-        return ((balance / donateValue * 100 )+"").substring(0,5)+"%";
+        return ((balance / donateValue * 100 ).toString()).substring(0,5);
     }
     else 
     {
-        return 0+"%";
+        return 0;
     }
-   
-
+    
+}
+function dependencyOnCheckbox(chbox,itemId)
+{
+    
+    if (chbox.checked)
+    {
+        document.getElementById(itemId).hidden=false;
+    }
+    else
+    {
+        document.getElementById(itemId).hidden=true;
+       
+    }
+    
 }
 
 

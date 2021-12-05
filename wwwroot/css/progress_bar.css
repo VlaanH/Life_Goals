@@ -25,6 +25,13 @@
     background: linear-gradient(90deg,#ffd33d,#ea4aaa 17%,#b34bff 34%,#01feff 51%,#ffd33d 68%,#ea4aaa 85%,#b34bff);
     background-size: 300% 100%;
 }
+.progress-bar-Max-Value
+{
+    display: block;
+    height: 100%;
+    background: #8d00f512;
+    
+}
 .value_progress
 {
     margin-top: 3px;

@@ -27,7 +27,12 @@
     word-break: break-all;
     border-radius: 16px;
 }
-
+.donate_Value
+{
+    display: initial;
+    width: 16%;
+    margin-bottom: 24px;
+}
 .checkboxText
 {
     color: white;

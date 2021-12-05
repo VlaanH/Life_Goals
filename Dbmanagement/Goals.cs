@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
+using LifeGoals.Cryptocurrencies;
 using LifeGoals.Daemons;
 using LifeGoals.Models;
 
@@ -78,6 +80,7 @@ namespace LifeGoals.Dbmanagement
             return userGoalObjects;
         }
 
+        
         public static void ChangeGoalStatus(EGoalStageImplementation status,int goalId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -87,6 +90,32 @@ namespace LifeGoals.Dbmanagement
             }
         }
 
+        public static void SetMaxDonateValueThread(int goalId)
+        {
+            new Thread(async () =>
+            {
+              
+                
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var goal = db.Goals.Single(id => id.Id == goalId);
+                    
+                    var balance = await new EthereumRinkebyNet().GetBalance(goal.PublicAddress);
+
+                    if (decimal.Parse( balance,new CultureInfo("en-us"))>decimal.Parse( goal.MaxDonateValue,new CultureInfo("en-us")))
+                    {
+                        goal.MaxDonateValue = balance;
+                    }
+                   
+                    
+                    await db.SaveChangesAsync();
+                }
+                
+                
+            }).Start();
+           
+        }
+        
         public static List<GoalObjects> GetUserGoals(string userId)
         {
             List<GoalObjects> userGoalObjectsList;
