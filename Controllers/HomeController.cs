@@ -89,7 +89,16 @@ namespace LifeGoals.Controllers
             
             return Redirect("/Identity/Account/Manage");
         }
-        
+
+        public IActionResult EditDescription(string description)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            UserManagement.SetUserDescription(userId,description);
+            
+            return Redirect("/Identity/Account/Manage");
+        }
+
         public async Task<IActionResult> AddFUserBackground(IFormFile uploadedFile)
         {
             if (uploadedFile != null )

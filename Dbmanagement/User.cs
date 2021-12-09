@@ -91,6 +91,15 @@ namespace LifeGoals.Dbmanagement
             
         }
         
+        public static void SetUserDescription(string userId,string description)
+        {
+            using (ApplicationDbContext db =new  ApplicationDbContext())
+            {
+                db.Users.Single(id => id.Id == userId).Description=description;
+                db.SaveChangesAsync();
+            }   
+            
+        }
 
     }
 

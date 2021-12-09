@@ -149,7 +149,7 @@ namespace LifeGoals.Areas.Identity.Pages.Account.Manage
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("FreeZEC"),
+                _urlEncoder.Encode("LifeGoals"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }
