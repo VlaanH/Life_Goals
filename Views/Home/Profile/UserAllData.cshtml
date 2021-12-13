@@ -8,6 +8,7 @@
         userId=User.FindFirstValue(ClaimTypes.NameIdentifier);  
     
     var user= UserManagement.GetUser(Model);
+    var isUserVerified = UserManagement.IsUserVerified(Model);
 }
 <script>SetBackground("@user.Background");</script>
 <div class="profileAllInfo">
@@ -15,7 +16,21 @@
             <div class="profileLeft">
                 
                 <img class="profileImage" src="@user.Imag" alt="">
-                <span class="profileName">@user.UserName</span>
+                <div>
+                    <span class="profileName">@user.UserName</span>
+                    @if (isUserVerified)
+                    {
+                        <img class="checkmark" src="/img/checkmark.svg">
+
+                    }
+
+                </div>
+                
+                
+                
+                
+                
+                
                 @if (userId == user.Id)
                 {
                     <button class="btn btn-secondary btn-Edit-Profile" onclick="document.location='/Identity/Account/Manage'"  content="edit">Edit profile</button>  

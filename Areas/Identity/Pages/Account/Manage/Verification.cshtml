@@ -1,0 +1,43 @@
+@page
+@model Verification
+@{
+    ViewData["Title"] = "User Verification";
+    ViewData["ActivePage"] = ManageNavPages.Verification;
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            <strong>
+                To confirm your profile, you need to use a 
+            </strong>
+            <a href="https://mumbai.polygonscan.com/address/@LifeGoals.appSettings.ContractAddressVerification#writeContract">smart contract</a>
+        </p>
+        <p>
+            <h5>Step 1 Installing Metamask</h5>
+            
+            <p>1. Go to the <a href="https://metamask.io/download.html" >Metamask website</a>.</p>
+            <p>2. Click “Get Chrome Extension” to install Metamask.</p>
+            <p>3. Click “Add to Chrome” in the upper right.</p>
+            <p>4. Click “Add Extension” to complete the installation.</p>
+            <p>You will know Metamask has been installed when you see the fox logo on the upper right hand corner of your browser.</p>
+            
+        </p>
+        <p>
+            <h5 >Step 2 Configure Polygon on Metamask</h5>
+            <a href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask">link</a> 
+        </p>
+        <p>
+            <h5>Step 3 User confirmation via smart contract</h5>
+            <img src="/img/Contract.png" style=" width:100%;">
+            <p>1. Click on the "Connect to Web3" button connect via metamask</p>
+            <p>2. In the field "User ID" we write the user ID, you can find it <a href="/Identity/Account/Manage">here</a></p>
+            <p>3. In the field "payableAmount" we write the commission: 0.0000001</p>
+            <p>4. Press the "Write" button and pay for the transaction</p>
+            <p>It's all your profile is confirmed!</p>
+        </p>
+        
+    </div>
+</div>

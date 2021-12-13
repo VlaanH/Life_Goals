@@ -7,6 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LifeGoals.Models
 {
+    
+   public class VerificationUserData
+   {
+       public int id { get; set; }
+       public string VerificationUser{ get; set; }
+    }
    
     public class ApplicationUser : IdentityUser
     {
@@ -31,6 +37,8 @@ namespace LifeGoals.Models
         }
         
         public DbSet<GoalObjects> Goals{ get; set; }
+        
+        public DbSet<VerificationUserData> VerificationUsers{ get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

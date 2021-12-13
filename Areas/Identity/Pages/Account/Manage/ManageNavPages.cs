@@ -21,6 +21,8 @@ namespace LifeGoals.Areas.Identity.Pages.Account.Manage
         public static string ExternalLogins => "ExternalLogins";
 
         public static string PersonalData => "PersonalData";
+        
+        public static string Verification => "Verification";
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
@@ -38,6 +40,8 @@ namespace LifeGoals.Areas.Identity.Pages.Account.Manage
 
         public static string PersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, PersonalData);
 
+        public static string VerificationClass(ViewContext viewContext) => PageNavClass(viewContext,Verification);
+        
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
         private static string PageNavClass(ViewContext viewContext, string page)

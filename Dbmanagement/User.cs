@@ -101,7 +101,24 @@ namespace LifeGoals.Dbmanagement
             
         }
 
-    }
+        public static bool IsUserVerified(string userId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                
+                if (db.VerificationUsers.SingleOrDefault(verifiedUsers => verifiedUsers.VerificationUser == userId)==default)
+                {
+                    return false;
+                }
+                else
+                { 
+                    return true;
+                }
+            }
+            
+        }
+
+   }
 
 
 }

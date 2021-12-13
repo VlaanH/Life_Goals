@@ -21,11 +21,12 @@
     font-family: 'Roboto', sans-serif;
 }
 .goal_description{
+    hyphens: auto;
     background: #f0f0f0;
     border: 1px solid #333;
     padding: 10px;
     font-size: 18px;
-    word-break: break-all;
+    word-break: break-word;
     border-radius: 16px;
 }
 .donate_Value

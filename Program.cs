@@ -28,10 +28,15 @@ namespace LifeGoals
         {
             new Thread(()  =>
             {
+               
                 Zcash.UpdateCurrencyValue(); 
                 
             }).Start();
-            
+            new Thread(()  =>
+            {
+                UserVerification.UpdateVerificationDb();
+                
+            }).Start();
           
 
         }
