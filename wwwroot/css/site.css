@@ -11,6 +11,20 @@ a.navbar-brand {
 a {
   color: #0366d6;
 }
+.hidden
+{
+  display: none;
+  
+}
+.padding-root
+{
+  padding: 9px;
+
+}
+.rounded-root
+{
+  border-radius: 15px;
+}
 
 .btn-primary {
   color: #fff;
@@ -48,7 +62,7 @@ a {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #8247e5;
   border-color: #1861ac;
 }
 

@@ -25,13 +25,12 @@
     <script type="text/javascript" src="~/lib/davidshimjs-qrcodejs/qrcode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="~/js/site.js"></script>
-    <script src="~/js/dialog.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
 
     
 </head>
 <body>
-<header class="header" style="z-index: 10000;">
+<header class="header rounded-root" style="z-index: 10000;">
     
             @if (SignInManager.IsSignedIn(User))
             {
@@ -42,7 +41,7 @@
                     
                     <div class="header-btn" >
                         <a asp-area=""  style=" color: white; text-decoration: none" asp-controller="Home" asp-action="Index">LifeGoals</a>
-                        <img src="~/img/pic.png" widht="30" height="30" alt="">
+                        <img src="~/img/pic.png" widht="30" height="30" class="logo-icon" alt="">
                     </div>
                     
                      
@@ -55,19 +54,26 @@
 
 
 
-                <div class="aut-header-btn">
+                <div class="aut-header-btn logout">
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
-                        <button type="submit" style=" background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;" class="logout">Logout</button>
+                        <button type="submit" class="btn btn-purple rounded-root padding-root">Logout</button>
                     </form>
                 </div>
             }
             else
             {
-                <div class="aut-header-btn">
-                     <a class="register" asp-area="Identity" asp-page="/Account/Register" style="text-decoration: none">Register</a>
+                
+                <div class="main-header-btn">
+                    <div class="header-btn" >
+                        <a style=" color: white; text-decoration: none" asp-controller="Home" asp-action="Index">LifeGoals</a>
+                        <img src="~/img/pic.png" widht="30" height="30" class="logo-icon" alt="">
+                    </div>
+                </div>
+                <div class="aut-header-btn padding-root">
+                    <a class="register" asp-area="Identity" asp-page="/Account/Register" style="text-decoration: none">Register</a>
                     <a class="login" asp-area="Identity" asp-page="/Account/Login" style="text-decoration: none">Login</a>
                 </div>
-               
+                
                 
          
             }

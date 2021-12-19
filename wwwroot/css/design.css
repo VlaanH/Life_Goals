@@ -59,7 +59,6 @@ body
     box-sizing: border-box;
     width: calc(75% - 5px);
     margin-left: 21px;
-    margin-right: 21px;
     padding: 5px
 }
 .infoGrid
@@ -86,7 +85,7 @@ body
 .profileAllInfo
 {
 
-    padding: 10px;
+    padding: 26px;
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -105,12 +104,27 @@ body
     width: 28px;
     margin-top: -9px;
 }
+.btn-purple
+{
+    color: white;
+    padding: 9px;
+    background-color: #8247e5;
+    background-repeat: no-repeat;
+    border: none;
+}
 .header-btn
-{   color: white;
-    top: 10px;
-    margin: 15px;
+{
+    margin-right: 25px;
+    margin-top: 13px;
+    color: white;
+    
+
     font-size: 19px;
-    /* font-family: 'Balsamiq Sans';*/
+
+}
+.logo-icon
+{
+    margin-top: -5px;
 }
 .iconButton
 {
@@ -131,11 +145,10 @@ body
 }
 .main-header-btn
 {
-
-    display: inline-flex;
-
-    top: 2px;
     position: absolute;
+    top: 4%;
+    display: inline-flex;
+    margin-left: 16px;
 
 }
 
@@ -202,7 +215,7 @@ body
     height: 60px;
     margin: 0;
     position: relative;
-    background-color: #343a40;
+    background-color: #ae7fe5;
 }
 .name {
     position: absolute;
@@ -314,23 +327,12 @@ body
     font-size: 17px;
     color: #fff;
 }
-.logout {
-    top: 18px;
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-    font-family: 'Roboto', sans-serif;
-}
-.logout:hover {
-    color: #CCCECF;
-}
 
 .aut-header-btn{
     margin-right: 10px;
     position: inherit;
     float: right;
-    top: 18px;
+    top: 8px;
 }
 
 
@@ -387,18 +389,7 @@ body
     .home {
         display: none;
     }
-    .multiply {
-        display: none;
-    }
-    .deposit {
-        display: none;
-    }
-    .withdraw {
-        display: none;
-    }
-    .referral {
-        display: none;
-    }
+
     .stats {
         display: none;
     }

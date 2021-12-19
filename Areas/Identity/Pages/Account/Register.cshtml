@@ -17,54 +17,25 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                       <input asp-for="Input.UserName" placeholder="UserName" class="form-control aut-Input" />
-                      <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                      
                 </div>
                 <div class="form-group">
                     <input asp-for="Input.Email" placeholder="Email" class="form-control aut-Input" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    
                 </div>
                 <div class="form-group">
                     <input asp-for="Input.Password" placeholder="Password" class="form-control aut-Input" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    
                 </div>
                 <div class="form-group">
                     <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" class="form-control aut-Input" />
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    
                 </div>
                 
-                <button type="submit" class="btn btn-primary aut-button">Register</button>
+                <button type="submit" class="btn btn-purple aut-button">Register</button>
             </form>
         </div>
-        <div>
-            <section>
-                <h4>Use another service to register.</h4>
-                <hr />
-                @{
-                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                    {
-                        <div>
-                            <p>
-                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                                for details on setting up this ASP.NET application to support logging in via external services.
-                            </p>
-                        </div>
-                    }
-                    else
-                    {
-                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                            <div>
-                                <p>
-                                    @foreach (var provider in Model.ExternalLogins)
-                                    {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                    }
-                                </p>
-                            </div>
-                        </form>
-                    }
-                }
-            </section>
-        </div>
+       
     </div>
     
 </div>
