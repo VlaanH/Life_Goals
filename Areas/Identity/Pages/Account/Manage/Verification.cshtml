@@ -1,43 +1,74 @@
 @page
+@using LifeGoals.Dbmanagement;
+@using System.Security.Claims
 @model Verification
 @{
     ViewData["Title"] = "User Verification";
     ViewData["ActivePage"] = ManageNavPages.Verification;
+    var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);  
+    var isUserVerified = UserManagement.IsUserVerified(userId);
 }
-
+<script> var userId="@userId"</script>
 <h4>@ViewData["Title"]</h4>
 
-<div class="row">
-    <div class="col-md-6">
-        <p>
-            <strong>
-                To confirm your profile, you need to use a 
-            </strong>
-            <a href="https://mumbai.polygonscan.com/address/@LifeGoals.appSettings.ContractAddressVerification#writeContract">smart contract</a>
-        </p>
-        <p>
-            <h5>Step 1 Installing Metamask</h5>
-            
-            <p>1. Go to the <a href="https://metamask.io/download.html" >Metamask website</a>.</p>
-            <p>2. Click “Get Chrome Extension” to install Metamask.</p>
-            <p>3. Click “Add to Chrome” in the upper right.</p>
-            <p>4. Click “Add Extension” to complete the installation.</p>
-            <p>You will know Metamask has been installed when you see the fox logo on the upper right hand corner of your browser.</p>
-            
-        </p>
-        <p>
-            <h5 >Step 2 Configure Polygon on Metamask</h5>
-            <a href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask">link</a> 
-        </p>
-        <p>
-            <h5>Step 3 User confirmation via smart contract</h5>
-            <img src="/img/Contract.png" style=" width:100%;">
-            <p>1. Click on the "Connect to Web3" button connect via metamask</p>
-            <p>2. In the field "User ID" we write the user ID, you can find it <a href="/Identity/Account/Manage">here</a></p>
-            <p>3. In the field "payableAmount" we write the commission: 0.0000001</p>
-            <p>4. Press the "Write" button and pay for the transaction</p>
-            <p>It's all your profile is confirmed!</p>
-        </p>
+
+<div class="col-md-6">
+    
+     <div class="flex flex-col space-y-6">
+         @if (isUserVerified==false)
+         {
+             <div class="flex flex-col space-y-2" style="display: flex">
+           
+                 <button id="btnLoginWithEth" onclick="loginWithEth()" style="width: 100%;" class="btn btn-purple rounded-root">
+                     <img class="iconButtonNonBorder" src="/img/waller.png" >
+                     <span>Connect Wallet</span>
+                 </button>
         
+                 <p id="web3Net" style="width: 100%"  class="btn btn-white-purple rounded-root hidden">
+                     <img id="web3NetImg" class="iconButtonNonBorder" >
+                     <span id="web3NetName">net name</span>
+                 </p>
+                
+
+                 <button id="logoutButton" onclick="logout()" class="hidden btn btn-danger rounded-root">
+                     Logout
+                 </button>
+             </div>
+             <br/>
+         
+             <button style="width: 100%" id="getContractInfo" onclick="SendUserIdSmartContract()" class="btn btn-purple rounded-root">
+                 <img class="iconButtonNonBorder" src="/img/checkmark.svg" >
+                 <span>Verification</span>
+             </button>
+        
+                
+             
+        
+         
+       
+             <div id="InstallingMetamask" class="hidden">
+                 <p>
+                     <h5>Step 1 Installing Metamask</h5>
+
+                     <p>1. Go to the <a href="https://metamask.io/download.html">Metamask website</a>.</p>
+                     <p>2. Click “Get Chrome Extension” to install Metamask.</p>
+                     <p>3. Click “Add to Chrome” in the upper right.</p>
+                     <p>4. Click “Add Extension” to complete the installation.</p>
+                     <p>You will know Metamask has been installed when you see the fox logo on the upper right hand corner of your browser.</p>
+
+                 </p>
+                 <p>
+                     <h5 >Step 2 Configure Polygon on Metamask</h5>
+                     <a href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask">link</a>
+                 </p>
+            
+             </div> 
+         }
+         else
+         {
+             <h1>Your account is verified</h1>
+         }
+        
+
     </div>
 </div>

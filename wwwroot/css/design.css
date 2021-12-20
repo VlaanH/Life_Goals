@@ -112,6 +112,15 @@ body
     background-repeat: no-repeat;
     border: none;
 }
+.btn-white-purple
+{
+    color: white;
+    padding: 9px;
+    background-color: #ae7fe5;
+    background-repeat: no-repeat;
+    border: none;
+}
+
 .header-btn
 {
     margin-right: 25px;

@@ -23,7 +23,7 @@
                 <div class="form-group">
                         <img class="profileImage" src="@user.Imag" style="max-width: 295px; margin-bottom: 15px">
                         <form asp-action="AddFUserImage" asp-controller="Home" method="post" enctype="multipart/form-data">
-                            <label class="btn btn-primary">
+                            <label class="btn btn-purple rounded-root">
                                 <span class="button bg-green"><i class="far fa-file-image"></i>Upload new avatar (*.jpg/*.png)</span>
                                 <input type="file" name="uploadedFile" accept=".jpg,.png" onchange="this.form.submit()" style="display: none">
                             </label>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <img class="profileImage" src="@user.Background" style="max-width: 295px; margin-bottom: 15px">
                 <form asp-action="AddFUserBackground" asp-controller="Home" method="post" enctype="multipart/form-data">
-                    <label class="btn btn-primary">
+                    <label class="btn btn-purple rounded-root">
                         <span class="button bg-green"><i class="far fa-file-image"></i>Upload new background (*.jpg/*.png)</span>
                         <input type="file" name="uploadedFile" accept=".jpg,.png" onchange="this.form.submit()" style="display: none">
                     </label>
@@ -44,7 +44,7 @@
                     <textarea placeholder="Profile Description..."  
                     name="description" rows="3"  class="textarea_description">@user.Description</textarea>
                     
-                    <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+                    <button id="update-profile-button" type="submit" class="btn btn-purple rounded-root">Save</button>
                 </form>
             </div>
             

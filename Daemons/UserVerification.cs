@@ -26,7 +26,7 @@ namespace LifeGoals.Daemons
                
                 UserVerificationDb.SynchronizationVerification(onlyId);
                
-                Thread.Sleep(120000);
+                Thread.Sleep(60000);
             }
         }
 
