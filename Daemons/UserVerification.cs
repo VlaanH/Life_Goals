@@ -19,7 +19,7 @@ namespace LifeGoals.Daemons
             {
                 
                 var jsonAllUser= await new SmartContractRequest().
-                    GetStringFunction(appSettings.ContractAddressVerification,appSettings.ContractAbiVerification, "allUserID");
+                    GetStringFunction(appSettings.ContractAddressVerification,appSettings.ContractAbiVerification, "allVerificationUser");
                 string [] split = jsonAllUser.Split("\n\r");
                
                 var onlyId = Read(split.Distinct().ToList());
@@ -38,9 +38,11 @@ namespace LifeGoals.Daemons
             {
                 try
                 {
-                    var stringData = JsonSerializer.Deserialize<List<string>>(jsonData[i]);
+                    
+                    var stringData = JsonSerializer.Deserialize<LifeGoals.Models.VerificationUserData>(jsonData[i]);
                     if (stringData != null) 
-                        data.Add(new VerificationUserData{VerificationUser = stringData[0]});
+                        data.Add(new VerificationUserData{VerificationUser = stringData.VerificationUser,
+                                                            VerificationAddress = stringData.VerificationAddress});
                 }
                 catch (Exception e)
                 {

@@ -12,6 +12,8 @@ namespace LifeGoals.Models
    {
        public int id { get; set; }
        public string VerificationUser{ get; set; }
+       
+       public string VerificationAddress{ get; set; }
     }
    
     public class ApplicationUser : IdentityUser
