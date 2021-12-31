@@ -72,7 +72,7 @@ namespace LifeGoals.Areas.Identity.Pages.Account
                 SendEmail sendEmail = new SendEmail();
                 var body = $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
                 
-                await sendEmail.SendAsync(user.Email,"Reset Password",body,"free.zec@yandex.ru","2x@-c{UaYmsLfd$/");
+              
                 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
