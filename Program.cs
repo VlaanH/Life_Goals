@@ -28,7 +28,7 @@ namespace LifeGoals
         {
             new Thread(()  =>
             {
-                UserVerification.UpdateVerificationDb();
+                SynchronizationSmartContract.StartSync();
                 
             }).Start();
           

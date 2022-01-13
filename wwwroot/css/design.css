@@ -177,10 +177,10 @@ body
     padding:10px;
     margin-top:17px;
     background:#f3f3f3;
-    height:149px;
-    -moz-box-shadow:0 5px 5px rgba(0,0,0,0.3);
-    -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.3);
-    box-shadow:0 5px 5px rgba(0,0,0,0.3);
+    height:150px;
+    -moz-box-shadow:0 12px 20px rgba(0,0,0,0.3);
+    -webkit-box-shadow:0 12px 20px rgba(0,0,0,0.3);
+    box-shadow:0 12px 20px rgba(0,0,0,0.3);
 }
 .point:hover .descr{
     margin:-300px -700%;
@@ -337,7 +337,9 @@ body
     color: #fff;
 }
 
-.aut-header-btn{
+.aut-header-btn
+{
+    display: inline-flex;
     margin-right: 10px;
     position: inherit;
     float: right;
@@ -362,7 +364,13 @@ body
     visibility: hidden;
 }
 
-
+@media (max-width:1200px)
+{
+    .labeled
+    {
+        font-size: 13px;
+    }
+}
 @media (max-width:900px)
 {
 
@@ -382,29 +390,9 @@ body
     }
 
 
+/*
+  
 
-    .register{
-        display: none;
-    }
-    .name{
-        display: none;
-    }
-    .login{
-        display: none;
-    }
-    .picture{
-        display: none;
-    }
-    .home {
-        display: none;
-    }
-
-    .stats {
-        display: none;
-    }
-    .logout {
-        display: none;
-    }
     #menu__toggle {
         opacity: 0;
         margin: 0;
@@ -546,14 +534,22 @@ body
     .menu__item__but {
         transition-duration: .25s;
     }
+*/
 }
 @media (max-width:767px)
 {
-    .btn-Edit-Profile{
+
+    .labeled
+    {
+        font-size: 20px;
+    }
+    
+    .btn-Edit-Profile
+    {
         margin-bottom: 10px;
     }
     
-    .main-header-btn
+    .header-control
     {
         display: none;
     }

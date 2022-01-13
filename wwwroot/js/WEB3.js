@@ -1,6 +1,7 @@
 window.userAddress = null;
 window.onload = async () => {
     // Init Web3 connected to ETH network
+    owner(false);
     if (window.ethereum) 
     {
         window.web3 = new Web3(window.ethereum);
@@ -10,10 +11,11 @@ window.onload = async () => {
         hidden("InstallingMetamask",false);
         alert("No ETH brower extension detected.");
     }
-
+   
     // Load in Localstore key
     window.userAddress = window.localStorage.getItem("userAddress");
-    showWeb3Net();
+    ShowWeb3Net();
+    RederectToYourPage();
 };
 
 function hidden(id,isHidden)
@@ -30,7 +32,7 @@ function hidden(id,isHidden)
 
 window.ethereum.on('networkChanged', function(networkId)
 {
-    showWeb3Net();
+    ShowWeb3Net();
 });
 
 function IsAuthorizationWeb3()
@@ -71,13 +73,13 @@ async function SetNetName(netID)
 }
 
 
-async function showWeb3Net() 
+async function ShowWeb3Net() 
 {
     if (!window.userAddress) 
     {
         hidden("web3Net",true);
         hidden("logoutButton",true);
-        hidden("getContractInfo",true);
+       
         hidden("btnLoginWithEth",false);
         
         return false;
@@ -86,7 +88,7 @@ async function showWeb3Net()
     // document.getElementById("userAddress").innerText = `ETH Address: ${truncateAddress(window.userAddress)}`;
     hidden("web3Net",false);
     hidden("logoutButton",false);
-    hidden("getContractInfo",false);
+    
     hidden("btnLoginWithEth",true);
    
     await SetNetName(await web3.eth.net.getId());
@@ -98,7 +100,8 @@ function logout()
 {
     window.userAddress = null;
     window.localStorage.removeItem("userAddress");
-    showWeb3Net();
+    ShowWeb3Net();
+    RederectToYourPage();
 }
 
 
@@ -121,31 +124,165 @@ async function loginWithEth()
                 });
             window.userAddress = selectedAccount;
             window.localStorage.setItem("userAddress", selectedAccount);
-            showWeb3Net();
+            ShowWeb3Net();
         } catch (error) 
         {
             console.error(error);
         }
+        RederectToYourPage();
     } else 
     {
         alert("MetaMask not installed.");
     }
 }
 
-
-
-const CONTRACT_ADDRESS = '0x603359F21E704B5b06B8F796b4Dd89f6e733f7f3';
-async function SendUserIdSmartContract()
+function RederectToYourPage()
 {
-   
+    if (StatusPage=="non")
+    {
+       
+        window.location.href = "/?address="+userAddress;
+        
+        
+     
+    }
+    else if(StatusPage=="NotFound"&userAddress==AddressPage)
+    {
+        window.location.href ="/Home/Register";
+    }
+    else 
+    {
+        if (AddressPage==userAddress)
+        {
+           console.log("owner");
+           owner(true);
+        }
+        else 
+        {
+           owner(false);     
+        }
+    }
+}
+
+
+const CONTRACT_ADDRESS = '0x9104Eb6206044AC3E6e420B5Dc6A7EFB6d271Bb1';
+window.ABI = [{"inputs":[{"internalType":"uint256","name":"verificationCost","type":"uint256"}],"stateMutability":"payable","type":"constructor"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"},{"internalType":"string","name":"DonateValue","type":"string"},{"internalType":"address","name":"PublicAddress","type":"address"}],"name":"AddDonateGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddMessage","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"uint256","name":"status","type":"uint256"}],"name":"ChangeGoalStatus","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"nickname","type":"string"},{"internalType":"string","name":"Description","type":"string"},{"internalType":"string","name":"Background","type":"string"},{"internalType":"string","name":"Imag","type":"string"}],"name":"CreateAccount","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"bool","name":"important","type":"bool"}],"name":"DoImportant","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"background","type":"string"}],"name":"SetBackground","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"description","type":"string"}],"name":"SetDescription","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"imag","type":"string"}],"name":"SetImag","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"allGoals","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"allUsers","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"price","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"payable","type":"function"}]
+async function Web3CreateAccount(nickname,description,background,image)
+{
+    
     const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
 
-    const symbol = await contract.methods.AddVerifyProfile(userId).send({ from: window.userAddress,value: web3.utils.toWei("0.0001", "ether") });
+    const symbol = await contract.methods.CreateAccount(nickname,description,background,image).send({ from: window.userAddress,value: web3.utils.toWei("100000000000", "wei")});
 
-
+    await new Promise(r => setTimeout(r, 2100));
+    
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    window.location.href = "/?address="+userAddress;
     console.log(symbol);
 }
 
-window.ABI = [{"inputs":[{"internalType":"uint256","name":"verificationCost","type":"uint256"}],"stateMutability":"payable","type":"constructor"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"},{"internalType":"bool","name":"Important","type":"bool"},{"internalType":"bool","name":"IsDonate","type":"bool"},{"internalType":"string","name":"DonateValue","type":"string"},{"internalType":"address","name":"PublicAddress","type":"address"},{"internalType":"uint256","name":"StageImplementation","type":"uint256"}],"name":"AddDonateGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"UserID","type":"string"}],"name":"AddVerifyProfile","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"uint256","name":"status","type":"uint256"}],"name":"ChangeGoalStatus","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"bool","name":"important","type":"bool"}],"name":"DoImportant","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"allGoals","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"allVerificationUser","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"price","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+async function Web3ChangeGoalStatus(id,status,ajaxUpdate)
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
 
+    const symbol = await contract.methods.ChangeGoalStatus(id,status).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    updateForm(ajaxUpdate);
+
+    console.log(symbol);
+    
+}
+async function Web3CDoImportant(id,status,ajaxUpdate)
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    const symbol = await contract.methods.DoImportant(id,status).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    updateForm(ajaxUpdate);
+    updateGoalLine();
+    console.log(symbol);
+
+}
+
+async function Web3AddGoal(Titles,Body,ajaxUpdate)
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    const symbol = await contract.methods.AddGoal(Titles,Body).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+    
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    updateForm(ajaxUpdate);
+
+    console.log(symbol);
+
+}
+async function Web3AddMessage(Titles,Body,ajaxUpdate)
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    const symbol = await contract.methods.AddMessage(Titles,Body).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    updateForm(ajaxUpdate);
+
+    console.log(symbol);
+
+}
+
+async function Web3AddDonateGoal(titles,body,donateValue,publicAddress,ajaxUpdate) 
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    const symbol = await contract.methods.AddDonateGoal(titles,body,donateValue,publicAddress).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    updateForm(ajaxUpdate);
+
+    console.log(symbol);
+}
+
+async function Web3SetBackground(background) 
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    const symbol = await contract.methods.SetBackground(background).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+
+    console.log(symbol);
+}
+
+async function Web3SetDescription(description)
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    const symbol = await contract.methods.SetDescription(description).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+
+    console.log(symbol);
+}
+async function Web3SetImag(imag)
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    const symbol = await contract.methods.SetImag(imag).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+}

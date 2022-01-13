@@ -1,52 +1,50 @@
 @model GoalObjects
 @using Microsoft.AspNetCore.Http
-@using System.Security.Claims
 @{
 
-    string userId = default;
+  
+
+    string address  = ViewData["address"].ToString();
+    string status =  ViewData["status"].ToString();
     
-    if (User.Identity.IsAuthenticated==true)
-        userId=User.FindFirstValue(ClaimTypes.NameIdentifier);  
-    
-
-   
-
-    string id  = ViewData["id"].ToString();
-
+    ViewData["Title"] = "User "+address;
 }
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        var AddressPage="0x"+"@address";
+        var StatusPage="@status";
+    </script>
     
     
 }
-@if (id!="non"&id!="zero")
+@if (status=="exist")
 {
 
 
     
-<partial name="Profile/DonatDialog" model="id"/> 
+<partial name="Profile/DonatDialog" model="address"/> 
     
-<div id="panel" class="text-center">
+<div class="text-center">
   
     <div class="profileWrapper">
         
         
-        @await Html.PartialAsync("Profile/UserAllData",id)
+        @await Html.PartialAsync("Profile/UserAllData",address)
         
-        @await Html.PartialAsync("Profile/GoalLine",id)
+        @await Html.PartialAsync("Profile/GoalLine",address)
         
 
-        @if (id == userId)
-        {
-            //ovner
-            <partial name="Profile/CreateGoal"/> 
+      
+     
+        <partial name="Profile/CreateGoal" model="address"/> 
             
 
-        }
+        
 
 
-        <div class="goals">
-             @await Html.PartialAsync("Profile/GetAllGoals",id)
+        <div class="goals" id="allGoals">
+             @await Html.PartialAsync("Profile/GetAllGoals",address)
         </div>
 
 
@@ -61,22 +59,12 @@
 }
 else
 {
-    if (id=="zero")
-    {
-        <script>
-            //redirect
-            window.location.href  = "/Identity/Account/Login";
-        </script>
-
-    }
-    if (id=="non")
+    
+   
+    if (status=="NotFound")
     {
         <partial name="Error404"/>
     }
     
-  
-    
-   
-   
-   
+
 }

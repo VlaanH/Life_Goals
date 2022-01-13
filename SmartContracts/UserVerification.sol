@@ -1,13 +1,21 @@
 pragma solidity ^0.8.11;
 
 
-contract Payable
+contract LifeGoals
 {
-    struct VerificationData
+    struct User
     {
-        address UserAddress;
+        uint Id;
 
-        string UserID;
+        address Address;
+
+        string Nickname;
+
+        string Description;
+
+        string Background;
+
+        string Imag;
 
     }
 
@@ -89,10 +97,9 @@ contract Payable
     }
 
 
-
     address payable owner;
     uint public price;
-    VerificationData[] VerificationUserId;
+    User[] Users;
     Goal[] Goals;
 
 
@@ -103,6 +110,45 @@ contract Payable
 
         price = verificationCost;
     }
+
+    function userExist(address UserAddress) internal returns (bool)
+    {
+
+        bool isExist = false;
+
+        for (uint i = 0; i < Users.length; i++)
+        {
+            if(Users[i].Address==UserAddress)
+            {
+                isExist=true;
+            }
+
+
+        }
+
+        return isExist;
+
+    }
+
+    function getUserId(address UserAddress) internal returns (uint)
+    {
+
+        uint UserId = 0;
+
+        for (uint i = 0; i < Users.length; i++)
+        {
+            if(Users[i].Address==UserAddress)
+            {
+                UserId=i;
+            }
+
+
+        }
+
+        return UserId;
+
+    }
+
 
     function OwnerVerification(uint goalId,address sender) internal
     {
@@ -126,61 +172,183 @@ contract Payable
     }
 
 
-    function AddVerifyProfile(string memory UserID) public payable
+    function CreateAccount
+    (
+        string memory nickname,
+        string memory Description,
+        string memory Background,
+        string memory Imag
+    )
+    public payable
     {
 
-        require (msg.value >= price,"insufficient funds");
-        require (bytes(UserID).length == 36,"invalid id");
+        require (msg.value >= price,"Insufficient funds");
+
+        address userAddress = payable(msg.sender);
+        uint Id=Users.length+1;
+
+        if(userExist(userAddress))
+        {
+            require(false,"Account exists");
+        }
+        else
+        {
+            require(bytes(nickname).length>1,"Small nickname");
 
 
-        VerificationData memory newVerificationData = VerificationData(payable(msg.sender),UserID);
-        VerificationUserId.push(newVerificationData);
+            if(bytes(Description).length==0)
+                Description="non";
+
+            if(bytes(Background).length==0)
+                Background="non";
+
+            if(bytes(Imag).length==0)
+                Imag="non";
+
+            User memory newUser = User(Id,userAddress,nickname,Description,Background,Imag);
+
+            Users.push(newUser);
+        }
+
 
     }
 
-    function allVerificationUser() external view returns(string memory)
+    function SetBackground(string memory background) public payable
     {
-        string memory allJsonIDstring;
-        for (uint i = 0; i < VerificationUserId.length; i++)
+
+        address userAddress = payable(msg.sender);
+
+
+        if(userExist(userAddress))
         {
-            string memory Addressw=toString(VerificationUserId[i].UserAddress);
+            uint userId = getUserId(userAddress);
+            Users[userId].Background=background;
+        }
+        else
+        {
+            require(false,"Account does not exist");
+        }
+    }
+
+    function SetDescription(string memory description) public payable
+    {
+
+        address userAddress = payable(msg.sender);
 
 
-            string memory userAddressJson=string(abi.encodePacked("{\"VerificationAddress\":\"",Addressw,"\","));
+        if(userExist(userAddress))
+        {
+            uint userId = getUserId(userAddress);
+            Users[userId].Description=description;
+        }
+        else
+        {
+            require(false,"Account does not exist");
+        }
+    }
 
-            string memory userIDJson=string(abi.encodePacked("\"VerificationUser\":\"",VerificationUserId[i].UserID,"\"}\n\r"));
+    function SetImag(string memory imag) public payable
+    {
+
+        address userAddress = payable(msg.sender);
 
 
-            string memory json=string(abi.encodePacked(userAddressJson,userIDJson));
+        if(userExist(userAddress))
+        {
+            uint userId = getUserId(userAddress);
+            Users[userId].Imag=imag;
+        }
+        else
+        {
+            require(false,"Account does not exist");
+        }
+    }
 
+    function allUsers() external view returns(string memory)
+    {
+        string memory allJsons;
+        for (uint i = 0; i < Users.length; i++)
+        {
 
-            allJsonIDstring=string(abi.encodePacked(allJsonIDstring,json));
+            string memory openJson="{";
+
+            string memory IdJson=string(abi.encodePacked("\"Id\":",toString(Users[i].Id),","));
+            string memory AddressJson=string(abi.encodePacked("\"Address\":\"",toString(Users[i].Address),"\","));
+            string memory NicknameJson=string(abi.encodePacked("\"Nickname\":\"",Users[i].Nickname,"\","));
+            string memory DescriptionJson=string(abi.encodePacked("\"Description\":\"",Users[i].Description,"\","));
+            string memory BackgroundJson=string(abi.encodePacked("\"Background\":\"",Users[i].Background,"\","));
+            string memory ImagJson=string(abi.encodePacked("\"Imag\":\"",Users[i].Imag,"\""));
+
+            string memory closeJson="}\n\r";
+
+            allJsons=string(abi.encodePacked(allJsons,
+                openJson,
+                IdJson,
+                AddressJson,
+                NicknameJson,
+                DescriptionJson,
+                BackgroundJson,
+                ImagJson,
+                closeJson));
         }
 
 
 
 
-        return allJsonIDstring;
+        return allJsons;
     }
 
+    function AddMessage
+    (
+        string memory Titles,
+        string memory Body
+    ) public payable
+    {
+        address userAddress = payable(msg.sender);
+
+        uint Id=Goals.length+1;
+        uint StageImplementation=3;
+        string memory  DonateValue="0";
+        address PublicAddress=address(0);
+
+        Goal memory NewMassage = Goal(Id,Titles,Body,false,false,DonateValue,PublicAddress,StageImplementation,userAddress);
+        Goals.push(NewMassage);
+    }
+
+    function AddGoal
+    (
+        string memory Titles,
+        string memory Body
+    ) public payable
+    {
+        address userAddress = payable(msg.sender);
+
+        uint Id=Goals.length+1;
+        uint StageImplementation=0;
+        string memory  DonateValue="0";
+        address PublicAddress=address(0);
+
+        Goal memory NewGoal = Goal(Id,Titles,Body,false,false,DonateValue,PublicAddress,StageImplementation,userAddress);
+        Goals.push(NewGoal);
+    }
 
 
     function AddDonateGoal
     (
         string memory Titles,
         string memory Body,
-        bool Important,
-        bool IsDonate,
         string memory DonateValue,
-        address PublicAddress,
-        uint StageImplementation
+        address PublicAddress
     ) public payable
     {
-        address User = payable(msg.sender);
+        address userAddress = payable(msg.sender);
         uint Id=Goals.length+1;
-        Goal memory NewGoal = Goal(Id,Titles,Body,Important,IsDonate,DonateValue,PublicAddress,StageImplementation,User);
+        uint StageImplementation=0;
+
+        Goal memory NewGoal = Goal(Id,Titles,Body,false,true,DonateValue,PublicAddress,StageImplementation,userAddress);
         Goals.push(NewGoal);
     }
+
 
     function allGoals() external view returns(string memory)
     {
@@ -190,14 +358,14 @@ contract Payable
         {
             string memory openJson="{";
 
-            string memory IdJson=string(abi.encodePacked("\"Id\":\"",toString(Goals[i].Id),"\","));
+            string memory IdJson=string(abi.encodePacked("\"Id\":",toString(Goals[i].Id),","));
             string memory TitlesJson=string(abi.encodePacked("\"Titles\":\"",Goals[i].Titles,"\","));
             string memory BodyJson=string(abi.encodePacked("\"Body\":\"",Goals[i].Body,"\","));
-            string memory ImportantJson=string(abi.encodePacked("\"Important\":\"",toString(Goals[i].Important),"\","));
-            string memory IsDonateJson=string(abi.encodePacked("\"IsDonate\":\"",toString(Goals[i].IsDonate),"\","));
+            string memory ImportantJson=string(abi.encodePacked("\"Important\":",toString(Goals[i].Important),","));
+            string memory IsDonateJson=string(abi.encodePacked("\"IsDonate\":",toString(Goals[i].IsDonate),","));
             string memory DonateValueJson=string(abi.encodePacked("\"DonateValue\":\"",Goals[i].DonateValue,"\","));
             string memory PublicAddressJson=string(abi.encodePacked("\"PublicAddress\":\"",toString(Goals[i].PublicAddress),"\","));
-            string memory StageImplementationJson=string(abi.encodePacked("\"StageImplementation\":\"",toString(Goals[i].StageImplementation),"\","));
+            string memory StageImplementationJson=string(abi.encodePacked("\"StageImplementation\":",toString(Goals[i].StageImplementation),","));
             string memory UserJson=string(abi.encodePacked("\"User\":\"",toString(Goals[i].User),"\""));
 
 
@@ -224,9 +392,9 @@ contract Payable
 
     function DoImportant(uint goalId,bool important) public payable
     {
-        address sender_=payable(msg.sender);
+        address userAddress=payable(msg.sender);
 
-        OwnerVerification(goalId,sender_);
+        OwnerVerification(goalId,userAddress);
 
         Goals[goalId-1].Important=important;
 
@@ -234,17 +402,17 @@ contract Payable
 
     function ChangeGoalStatus(uint goalId,uint status) public payable
     {
-        address sender_=payable(msg.sender);
+        address userAddress=payable(msg.sender);
 
-        OwnerVerification(goalId,sender_);
+        OwnerVerification(goalId,userAddress);
         require(status<3,"Eror");
         Goals[goalId-1].StageImplementation=status;
 
     }
 
-    function withdraw() public
+    function withdraw() public payable
     {
-        if(msg.sender == owner)
+        if(payable(msg.sender) == owner)
         {
             uint amount = address(this).balance;
 

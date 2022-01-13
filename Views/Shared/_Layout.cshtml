@@ -1,7 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using LifeGoals.Daemons;
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +7,14 @@
 
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>LifeGoals!</title>
+    @if (ViewData["Title"] != null)
+    {
+        <title> @ViewData["Title"].ToString()</title>
+    }
+    else
+    {
+        <title>LifeGoals!</title>
+    }
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,84 +29,69 @@
     <link rel="stylesheet" href="~/css/details_dialog.css">
     <script type="text/javascript" src="~/lib/davidshimjs-qrcodejs/qrcode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/WEB3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
+    
 
     
 </head>
 <body>
 <header class="header rounded-root" style="z-index: 10000;">
     
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <div class="main-header-btn">
+           
+    <div class="main-header-btn">
 
                 
                     
                     
-                    <div class="header-btn" >
-                        <a asp-area=""  style=" color: white; text-decoration: none" asp-controller="Home" asp-action="Index">LifeGoals</a>
-                        <img src="~/img/pic.png" widht="30" height="30" class="logo-icon" alt="">
-                    </div>
+        <div class="header-btn" >
+            <a style=" color: white; text-decoration: none" href="/" >LifeGoals</a>
+            <img src="~/img/pic.png" widht="30" height="30" class="logo-icon" alt="">
+        </div>
                     
                      
                     
-                    <div class="header-btn" >
-                        <a href="/" style=" color: white; text-decoration: none">Profile</a>
-                    </div>
+        <div class="header-btn header-control" >
+            <a href="/" style=" color: white; text-decoration: none">Profile</a>
+        </div>
 
-                </div>
+        </div>
 
 
 
-                <div class="aut-header-btn logout">
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
-                        <button type="submit" class="btn btn-purple rounded-root padding-root">Logout</button>
-                    </form>
-                </div>
-            }
-            else
-            {
-                
-                <div class="main-header-btn">
-                    <div class="header-btn" >
-                        <a style=" color: white; text-decoration: none" asp-controller="Home" asp-action="Index">LifeGoals</a>
-                        <img src="~/img/pic.png" widht="30" height="30" class="logo-icon" alt="">
-                    </div>
-                </div>
-                <div class="aut-header-btn padding-root">
-                    <a class="register" asp-area="Identity" asp-page="/Account/Register" style="text-decoration: none">Register</a>
-                    <a class="login" asp-area="Identity" asp-page="/Account/Login" style="text-decoration: none">Login</a>
-                </div>
-                
-                
+        <div class="aut-header-btn logout">
+                    
+            <button id="btnLoginWithEth" onclick="loginWithEth()"  class="btn btn-purple rounded-root">
+                <img class="iconButtonNonBorder" src="/img/waller.png" >
+                <span>Connect Wallet</span>
+            </button>
+                           
+            <p id="web3Net"  class="btn btn-white-purple rounded-root hidden">
+                <img id="web3NetImg" class="iconButtonNonBorder" >
+                <span id="web3NetName">net name</span>
+            </p>
+                                   
+                   
+            <button id="logoutButton" onclick="logout()" class="hidden btn btn-danger rounded-root">
+                Logout
+            </button>
+                                
+            <br/>
+        </div>
          
-            }
             
     
     <div class="hamburger-menu">
-                    <input id="menu__toggle" type="checkbox" />
-                    <label class="menu__btn" for="menu__toggle"><span></span></label>
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle"><span></span></label>
                     
                     
-                     @if (SignInManager.IsSignedIn(User))
-                     {
-                         <ul class="menu__box" >
-                             <partial name="_LoginPartial"/>
-                         </ul>             
-                     }
-                     else
-                      {
-                                         
-                          <ul class="menu__box__login"  >
-                              <partial name="_LoginPartial"/>
-                          </ul>                     
-                                    
-                      }
-                    
-                    
-                    
+        
+        <ul class="menu__box" >
+            <partial name="_LoginPartial"/>
+        </ul>             
+        
     </div>
        
             
@@ -120,12 +110,13 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 <footer class="border-top footer text-muted">
     <div class="containerFooter" style=" color: black;">
-        &copy; 2021 - LifeGoals - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2022 - LifeGoals - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 </html>

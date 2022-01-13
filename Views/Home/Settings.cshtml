@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Account settings";
+}
+
+ <div class="aut-main-form">
+     <div class="aut-all-Input-Data">
+            
+         <H2>Settings</H2>
+         <hr/>
+         <div class="form-group">
+             <img class="profileImage" id="profileImageSettings" src="/UserImages/standardUser.png" style="width: 70%;;margin-bottom: 15px">
+             <div class="flex ">
+                 <img class="profileMiniImage" id="profileMiniImageSettings" src="/UserImages/standardUser.png" style="max-width: 40px; margin-bottom: 15px;margin-right: 5px">
+                 <input placeholder="Image url" oninput="imageBinding(this,'profileImageSettings');imageBinding(this,'profileMiniImageSettings')" id="SettingsImage" class="form-control aut-Input"/>
+             </div>
+             <button style="width: 100%" onclick="SetImag()" class="btn btn-purple rounded-root">Save</button>
+
+         </div>
+         
+         <div class="form-group">
+             <hr/>
+             
+             <input style="margin-bottom: 15px" placeholder="Background url" oninput="SetBackground(this.value)" id="SettingsBackground" class="form-control aut-Input"/>
+             
+             
+             <button style="width: 100%" onclick="SetUserBackground()" class="btn btn-purple rounded-root">Save</button>
+             
+         </div>
+
+         <div class="form-group">
+             
+             <hr/>
+             <textarea placeholder="User description..." id="SettingsDescription" rows="3" class="form-control aut-Input"></textarea>       
+                        
+             <br/>      
+             <button style="width: 100%" onclick="SetDescription()" class="btn btn-purple rounded-root">Save</button>
+         </div>
+
+     </div>
+ </div>

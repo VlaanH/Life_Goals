@@ -2,69 +2,51 @@
 @model GoalObjects
 @{
      var ajaxUpdate = "OneGoal" + Model.Id;
-     var ajaxFormSend = "_Status_"+ Model.Id;
-     bool isOwner  = false;
-
-     if (User.Identity.IsAuthenticated == true)
-     {
-          var userId= User.FindFirstValue(ClaimTypes.NameIdentifier);  
-          if (Model.User==userId)
-               isOwner = true;
-     }
-}
-
-@if (isOwner)
-{
-     <div class="goalPointsStatus">
-             
-          @if(Model.StageImplementation == EGoalStageImplementation.created)
-          {
-               <div class="goalStatus iconButton SelectedGoalStatus" > <img class="miniGoalStatusIco" src="/img/X.png"> </div>
-          }
-          else
-          {    
-               int formId = 0;
-               <form style="display: none" id="@formId@ajaxFormSend" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("ChangeGoalStatus", "Home")">
-                    <input style="display: none" name="goalId" value="@Model.Id"/>
-                    <input style="display: none" name="status" value="0"/>
-               </form>
-               
-               <button class="goalStatus iconButton" onclick="updateForm('@formId@ajaxFormSend')" ><img class="miniGoalStatusIco" src="/img/X.png"></button>
-          }
-         
-          @if(Model.StageImplementation == EGoalStageImplementation.startedDoing)
-          {
-                <div class="goalStatus iconButton SelectedGoalStatus"><img class="miniGoalStatusIco" src="/img/time.png"></div>
-          }
-          else
-          {
-               int formId = 1;
-               <form style="display: none" id="@formId@ajaxFormSend" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("ChangeGoalStatus", "Home")">
-                    <input style="display: none" name="goalId" value="@Model.Id"/>
-                    <input style="display: none" name="status" value="1"/>
-               </form>
-               
-               <button class="goalStatus iconButton" onclick="updateForm('@formId@ajaxFormSend')" ><img class="miniGoalStatusIco" src="/img/time.png"></button>
-          }
-          
-          @if(Model.StageImplementation == EGoalStageImplementation.isDone)
-          {
-               <div class="goalStatus iconButton SelectedGoalStatus" ><img class="miniGoalStatusIco" src="/img/check.png"></div>
-          }
-          else
-          {
-               int formId = 2;
-               <form style="display: none" id="@formId@ajaxFormSend" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("ChangeGoalStatus", "Home")">
-                    <input style="display: none" name="goalId" value="@Model.Id"/>
-                    <input style="display: none" name="status" value="2"/>
-               </form>
-               
-               <button class="goalStatus iconButton" onclick="updateForm('@formId@ajaxFormSend')" ><img class="miniGoalStatusIco" src="/img/check.png"></button>
-          }
-          
-         
-     </div>
- 
-     
+     var form = "formGoalUpdate";
    
 }
+<div class="goalPoints">
+     <div class="goalPointsStatus">
+                 
+
+          @if (Model.StageImplementation.ToString()!="3")
+          {
+               @if(Model.StageImplementation == EGoalStageImplementation.created)
+               {
+                    <div class="goalStatus iconButton SelectedGoalStatus" > <img class="miniGoalStatusIco" src="/img/X.png"> </div>
+               }
+               else
+               {    
+            
+                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,0,'@ajaxUpdate@form')" ><img class="miniGoalStatusIco" src="/img/X.png"></button>
+               }
+              
+               @if(Model.StageImplementation == EGoalStageImplementation.startedDoing)
+               {
+                    <div class="goalStatus iconButton SelectedGoalStatus"><img class="miniGoalStatusIco" src="/img/time.png"></div>
+               }
+               else
+               {
+                    int formId = 1;
+              
+                    
+                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,1,'@ajaxUpdate@form')" ><img class="miniGoalStatusIco" src="/img/time.png"></button>
+               }
+               
+               @if(Model.StageImplementation == EGoalStageImplementation.isDone)
+               {
+                    <div class="goalStatus iconButton SelectedGoalStatus" ><img class="miniGoalStatusIco" src="/img/check.png"></div>
+               }
+               else
+               {
+                    int formId = 2;
+             
+                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,2,'@ajaxUpdate')" ><img class="miniGoalStatusIco" src="/img/check.png"></button>
+               }  
+          }
+          
+     
+     </div>
+</div>
+
+

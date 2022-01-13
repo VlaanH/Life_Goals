@@ -34,7 +34,7 @@ namespace LifeGoals
         startedDoing,
         isDone
 
-    } 
+    }
     
     
 }

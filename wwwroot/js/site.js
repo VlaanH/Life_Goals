@@ -1,4 +1,79 @@
-﻿
+﻿function imageBinding(input,ImageID)
+{
+
+    var img = new Image();
+    img.src = input.value;
+    img.onload = function(){document.getElementById(ImageID).src = input.value};
+    img.onerror = function(){document.getElementById(ImageID).src='/UserImages/standardUser.png'};
+    
+}
+function DoImportant(id,status,ajaxUpdate) 
+{
+    Web3CDoImportant(id,status,ajaxUpdate);
+}
+function SetDescription()
+{
+    var description = document.getElementById('SettingsDescription').value.replace(/"/g, "“");
+    Web3SetDescription(description);
+    
+}
+function SetUserBackground()
+{
+    var imag = document.getElementById('SettingsBackground').value;
+
+    Web3SetBackground(imag);
+}
+function SetImag() 
+{
+    var imag = document.getElementById('SettingsImage').value;
+    
+    Web3SetImag(imag);
+}
+
+function AddGoal()
+{
+    var isGoal= document.getElementById('isGoal').checked;
+    var isDonate = document.getElementById('isDonate').checked;
+    var title = document.getElementById('CreateGoalTitle').value.replace(/"/g, "“");
+    var body = document.getElementById('CreateGoalBody').value.replace(/"/g, "“");
+    var donateValue = document.getElementById('CreateGoalDonateValue').value;
+    var address = document.getElementById('CreateGoalAddress').value;
+    if (isGoal)
+    {
+        if (isDonate)
+        {
+            Web3AddDonateGoal(title,body,donateValue,address,"create_goal")
+        }
+        else
+        {
+            Web3AddGoal(title,body,"create_goal");
+        }
+    }
+    else 
+    {
+        Web3AddMessage(title,body,"create_goal");
+    }
+    
+}
+
+
+function CreateAccount() 
+{
+   var nickname = document.getElementById("RegNickname").value.replace(/"/g, "“");
+   var background = document.getElementById("RegBackground").value.replace(/"/g, "“");
+   var profileImage = document.getElementById("RegProfileImage").value.replace(/"/g, "“");
+   var description = document.getElementById("RegDescription").value.replace(/"/g, "“");
+ 
+    
+   Web3CreateAccount(nickname,description,background,profileImage);
+}
+function ChangeGoalStatus(id,status,ajaxUpdate) 
+{
+    Web3ChangeGoalStatus(id,status,ajaxUpdate);
+    
+}
+
+
 function updateGoalLine()
 {
     
@@ -122,7 +197,50 @@ function dependencyOnCheckbox(chbox,itemId)
     }
     
 }
+function ArrayHiddenClass(class_,isHidden)
+{
+    if (isHidden)
+    {
+        var goalPointsStatus = document.getElementsByClassName(class_);
 
+        for (i=0;i<goalPointsStatus.length;i++)
+        {
+            goalPointsStatus[i].classList.add("hidden");
+        }
+    }
+    else 
+    {
+        var goalPointsStatus = document.getElementsByClassName(class_);
+
+        for (i=0;i<goalPointsStatus.length;i++)
+        {
+            goalPointsStatus[i].classList.remove("hidden");
+        } 
+    }
+}
+
+async function owner(isOwner) 
+{
+    if (isOwner)
+    {
+       
+        hidden("CreateGoal",false);
+        hidden("settingsProfile",false);
+        ArrayHiddenClass("goalPoints",false);
+        ArrayHiddenClass("ImportantButton",false);
+        ArrayHiddenClass("ImportantSvg",true);
+        
+    }
+    else 
+    {
+        hidden("CreateGoal",true);
+        hidden("settingsProfile",true);
+        ArrayHiddenClass("goalPoints",true);
+        ArrayHiddenClass("ImportantButton",true);
+        ArrayHiddenClass("ImportantSvg",false);
+        
+    }
+}
 
 function SetQrAddress(address) 
 {
@@ -163,5 +281,5 @@ function updateForm(id)
 {
 
     $( `#${id}` ).submit();
-
+    
 }

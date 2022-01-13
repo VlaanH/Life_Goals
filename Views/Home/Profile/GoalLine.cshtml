@@ -14,17 +14,27 @@
             {
                 <div class="point">
                     <div class="descr">
-                        @goal.Titles
+                   
+                        @if (goal.Titles.Length>30)
+                        {
+                           <a>@goal.Titles.Replace("<br>",default).Substring(0,30)...</a>
+                    
+                        }
+                        else
+                        {
+                           <a>@goal.Titles.Replace("<br>",default)</a>
+                        } 
+                        
                         <br>
                         @if (goal.Body!=default)
                         {
-                            @if (goal.Body.Length>60)
+                            @if (goal.Body.Length>80)
                             {
-                                <a >@goal.Body.Substring(0,60)...</a>
+                                <div class="goal_description">@goal.Body.Replace("<br>",default).Substring(0,80)...</div>
                             }
                             else
                             {
-                                <a >@goal.Body</a>
+                                <div class="goal_description">@goal.Body.Replace("<br>",default)</div>
                             } 
                         }
                       
@@ -38,7 +48,7 @@
                            
         </div>
         <svg class="goalsLine">
-            <line x1="10px" x2="98%" y1="10%" y2="10%" stroke="black" stroke-width="8" stroke-linecap="round"></line>
+            <line x1="3%" x2="97%" y1="10%" y2="10%" stroke="black" stroke-width="8" stroke-linecap="round"></line>
         </svg>
                      
                      

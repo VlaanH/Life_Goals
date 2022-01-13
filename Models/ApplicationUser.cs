@@ -2,34 +2,29 @@ using System;
 using System.Dynamic;
 using LifeGoals.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LifeGoals.Models
 {
     
-   public class VerificationUserData
-   {
-       public int id { get; set; }
-       public string VerificationUser{ get; set; }
-       
-       public string VerificationAddress{ get; set; }
-    }
    
-    public class ApplicationUser : IdentityUser
+    public class AppUser
     {
-
+        public int Id { get; set; }
+        public string Address { get; set; }
+        
+        public string Nickname { get; set; }
         public string Description { get; set; }
         
         public string Background { get; set; }
         
         public string Imag { get; set; }
     }
-   
     
     
+    
    
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext() : base() { }
  
@@ -39,8 +34,8 @@ namespace LifeGoals.Models
         }
         
         public DbSet<GoalObjects> Goals{ get; set; }
-        
-        public DbSet<VerificationUserData> VerificationUsers{ get; set; }
+        public DbSet<AppUser> Users{ get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -49,11 +44,13 @@ namespace LifeGoals.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+        
             optionsBuilder.UseSqlite("Data Source=app.db");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            
             base.OnModelCreating(builder);
         }
     

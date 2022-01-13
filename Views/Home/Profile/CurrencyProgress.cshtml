@@ -4,60 +4,36 @@
 @using System.Security.Claims
 @model GoalObjects
 @{
-    Goals.SetMaxDonateValueThread(Model.Id);
     
     var donateValueETH = Model.DonateValue + "ETH";
     bool isOwner  = false;
 
-    if (User.Identity.IsAuthenticated == true)
-    {
-        var userId= User.FindFirstValue(ClaimTypes.NameIdentifier);  
-        if (Model.User==userId)
-            isOwner = true;
-    }
+
   
 }
 
 
     
-@if (isOwner)
-{
-    <button class="donate_btn iconButton" onclick="SetQrPrivateKey('@Model.PrivateKey');showDialog()">
-        <div class="currency_progress">
-            <div class="currency_progress_line">
-                <svg aria-hidden="true" focusable="false" class="currency_svg">
-                    <use xlink:href="#ETH"/>
-                </svg>
-                <a class="value_progress" id="value_progress_@Model.Id"></a>
-                <div class="progress">
-                    <span class="progress-bar" id="progress-bar_@Model.Id" style=""></span>
-                    <span class="progress-bar-Max-Value" id="progress-bar-Max-Value_@Model.Id"  title="Max Donate Value(@Model.MaxDonateValue ETH)"  style=""></span>
-                    <a class="progress_percent" id="progress_percent_@Model.Id">@Model.MaxDonateValue ETH</a>
-                </div>
-                <a class="value_progress">@donateValueETH</a>
+
+<button class="donate_btn iconButton" onclick="SetQrAddress('@Model.PublicAddress');showDialog()">
+    <div class="currency_progress">
+        <div class="currency_progress_line">
+            <svg aria-hidden="true" focusable="false" class="currency_svg">
+                <use xlink:href="#ETH"/>
+            </svg>
+            <a class="value_progress" id="value_progress_@Model.Id"></a>
+            <div class="progress">
+                <span class="progress-bar" id="progress-bar_@Model.Id" style=""></span>
+                <span class="progress-bar-Max-Value" id="progress-bar-Max-Value_@Model.Id" title="Max Donate Value(@Model.MaxDonateValue ETH)" style=""></span>
+                
+                <a class="progress_percent" id="progress_percent_@Model.Id">@Model.MaxDonateValue ETH</a>
+            
             </div>
+            <a class="value_progress">@donateValueETH</a>
         </div>
-    </button>
-}
-else
-{
-    <button class="donate_btn iconButton" onclick="SetQrAddress('@Model.PublicAddress');showDialog()">
-        <div class="currency_progress">
-                   <div class="currency_progress_line">
-                       <svg aria-hidden="true" focusable="false" class="currency_svg">
-                           <use xlink:href="#ETH"/>
-                       </svg>
-                       <a class="value_progress" id="value_progress_@Model.Id"></a>
-                       <div class="progress">
-                           <span class="progress-bar" id="progress-bar_@Model.Id" style=""></span>
-                           <span class="progress-bar-Max-Value" id="progress-bar-Max-Value_@Model.Id" title="Max Donate Value(@Model.MaxDonateValue ETH)" style=""></span>
-                           <a class="progress_percent" id="progress_percent_@Model.Id">@Model.MaxDonateValue ETH</a>
-                       </div>
-                       <a class="value_progress">@donateValueETH</a>
-                   </div>
-               </div>
-           </button>
-}
+    </div>
+</button>
+
 <script>
 getETHBalance('@Model.PublicAddress','@Model.Id','@Model.DonateValue',@Model.MaxDonateValue);
 </script>

@@ -1,0 +1,33 @@
+@{
+    
+   ViewData["Title"] = "Create a new account";
+}
+
+<div class="aut-main-form">
+
+    
+
+    <div class="aut-all-Input-Data">
+        <h4>@ViewData["Title"].</h4>
+        
+        <hr />
+        <div  class="text-danger"></div>
+        <div class="form-group">
+            <input placeholder="Nickname" id="RegNickname" class="form-control aut-Input" />
+        </div>
+        <div class="form-group">
+            <input placeholder="Background image url" id="RegBackground" class="form-control aut-Input" />
+        </div>
+        <div class="form-group">
+            <input placeholder="Profile image url" id="RegProfileImage" class="form-control aut-Input" />
+        </div>
+        <div class="form-group">
+            <textarea placeholder="Profile description..." rows="3" id="RegDescription" class="form-control aut-Input"></textarea>
+     
+        </div>
+                
+        <button class="btn btn-purple aut-button" onclick="CreateAccount()">Register</button>
+       
+    </div>
+       
+</div>

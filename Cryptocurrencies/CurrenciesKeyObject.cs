@@ -1,6 +1,5 @@
 
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 
 namespace LifeGoals.Cryptocurrencies
 {

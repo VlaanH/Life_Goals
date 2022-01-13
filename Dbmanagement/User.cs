@@ -12,52 +12,29 @@ namespace LifeGoals.Dbmanagement
    {
        public static string StandardUserImage = "/UserImages/standardUser.png";
        public static string StandardUserBackground = "/UserBackground/standardBackground.png";
-        public static ApplicationUser GetUser(string userId)
+        public static AppUser GetUser(string address)
         {
-            ApplicationUser user = default;
+            AppUser user = default;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                user = db.Users.Single(u => u.Id == userId);
+                user = db.Users.Single(u => u.Address == address);
             }
 
             return user;
     
         }
+
+
        
-        public static void ReplacementImageUser(string userId,string necessaryImage,string rootPath)
-        {
-            string oldUserImagePath = GetUser(userId).Imag;
-
-            SetUserImage(userId,necessaryImage);
-            
-            if (oldUserImagePath!=StandardUserImage & File.Exists(rootPath+oldUserImagePath))
-                File.Delete(rootPath+oldUserImagePath);
-            
-
-        }
-        
-        public static void ReplacementBackgroundUser(string userId,string necessaryImage,string rootPath)
-        {
-            string oldUserImagePath = GetUser(userId).Background;
-
-            SetUserBackground(userId,necessaryImage);
-            
-            if (oldUserImagePath!=StandardUserBackground & File.Exists(rootPath+oldUserImagePath))
-                File.Delete(rootPath+oldUserImagePath);
-
-            
-        }
-        
-        
-        public static bool IsUserExists(string userId)
+        public static bool IsUserExists(string address)
         {
             bool result = true;
             try
             {
-                ApplicationUser user = default;
+                AppUser user = default;
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    user = db.Users.Single(u => u.Id == userId);
+                    user = db.Users.Single(u => u.Address == address);
                 }
             }
             catch (Exception e)
@@ -71,52 +48,8 @@ namespace LifeGoals.Dbmanagement
         }
 
 
-        private static void SetUserImage(string userId,string imagePath)
-        {
-            using (ApplicationDbContext db =new  ApplicationDbContext())
-            {
-               db.Users.Single(id => id.Id == userId).Imag=imagePath;
-               db.SaveChangesAsync();
-            }   
-            
-        }
 
-        private static void SetUserBackground(string userId,string imagePath)
-        {
-            using (ApplicationDbContext db =new  ApplicationDbContext())
-            {
-                db.Users.Single(id => id.Id == userId).Background=imagePath;
-                db.SaveChangesAsync();
-            }   
-            
-        }
-        
-        public static void SetUserDescription(string userId,string description)
-        {
-            using (ApplicationDbContext db =new  ApplicationDbContext())
-            {
-                db.Users.Single(id => id.Id == userId).Description=description;
-                db.SaveChangesAsync();
-            }   
-            
-        }
 
-        public static bool IsUserVerified(string userId)
-        {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                
-                if (db.VerificationUsers.SingleOrDefault(verifiedUsers => verifiedUsers.VerificationUser == userId)==default)
-                {
-                    return false;
-                }
-                else
-                { 
-                    return true;
-                }
-            }
-            
-        }
 
    }
 

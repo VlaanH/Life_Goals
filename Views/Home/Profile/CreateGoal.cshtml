@@ -1,48 +1,49 @@
-<div class="div_create_goal">
+@model string
+<div class="div_create_goal hidden" id="CreateGoal">
 
-    <form method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#panel" data-ajax-mode='replace' data-ajax-url="@Url.Action("GoalAdd", "Home")">
+    <form method="get" id="create_goal" data-ajax="true" data-ajax-method="get" data-ajax-update="#allGoals" data-ajax-mode='replace' data-ajax-url="@Url.Action("UpdateGoals", "Home")">
 
         <div style="display: flex;">
                         
-            <input class="input-radius form-control blue" name="titles" placeholder="Title" autocomplete="off" style="display: initial;width: 100%;margin-bottom: 24px;"/>
+            <input class="input-radius form-control blue" name="title" id="CreateGoalTitle" placeholder="Title" autocomplete="off" style="display: initial;width: 100%;margin-bottom: 24px;"/>
             
 
         
         </div>
                    
-                    
+        <input style="display: none" value="@Model" name="address"/>
 
-        <textarea placeholder="Body description..."  name="body" rows="3" class="textarea_description"></textarea>
+        <textarea placeholder="Body description..."  name="body" id="CreateGoalBody" rows="3" class="textarea_description"></textarea>
 
-        <div style="display: flex">
+        <div class="flex">
             
-            <input type="checkbox" onchange="dependencyOnCheckbox(this,'donate')"
+            <input type="checkbox" onchange="dependencyOnCheckbox(this,'isDonate');dependencyOnCheckbox(this,'isDonateLabel')"
+                   id="isGoal" name="isGoal" class="checkbox" value="true"/>
+            <label for="isGoal" class="checkboxText">Is Goal</label>
+            
+            <input type="checkbox" hidden="hidden" onchange="dependencyOnCheckbox(this,'donate')"
                    id="isDonate" name="isDonate" class="checkbox" value="true"/>
-            <label for="isDonate" class="checkboxText">Is Donate</label>
+            <label for="isDonate" hidden="hidden" id="isDonateLabel"  class="checkboxText">Is Donate</label>
             
             <div id="donate" hidden="hidden" style="display: flex; width: 100%">
             
-                <input class="input-radius form-control blue donate_Value" visibility="hidden" name="donateValue" placeholder="ETH Value" type="text"
+                <input class="input-radius form-control blue donate_Value"  name="donateValue" id="CreateGoalDonateValue" placeholder="ETH Value" type="text"
                        oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
                        value="0.001" maxlength="10"  autocomplete="off">
                 
                 <svg aria-hidden="true" focusable="false" class="currency_svg" style="margin-top: 5px;">
                     <use xlink:href="#ETH"></use>
                 </svg>
-                
-                <input type="checkbox" onchange="dependencyOnCheckbox(this,'MyAddressInput')"
-                       name="isMyAddress" id="IsMyAddress" class="checkbox" value="true"/>
-                <label for="IsMyAddress" class="checkboxText">My address</label>
-                            
-                            
-                <input id="MyAddressInput" class="input-radius form-control blue donate_Value" 
-                       style="width: 100%;" name="myAddress" placeholder="ETH Address" type="text"
-                       autocomplete="off" hidden="hidden">
+
+
+                <input class="input-radius form-control blue donate_Value" 
+                       style="width: 100%;" name="Address" id="CreateGoalAddress" placeholder="ETH Address" type="text"
+                       autocomplete="off" >
             </div>
             
             
             
         </div>
-        <input type="submit" value="Сreate goal" class="btn btn-white-purple rounded-root"/>
+        <button class="btn btn-white-purple rounded-root" onclick="AddGoal()">Сreate</button>
     </form>
 </div>

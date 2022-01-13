@@ -1,53 +1,56 @@
 @using LifeGoals.Dbmanagement
 @using System.Security.Claims
+
 @model string
 @{
     string userId = default;
     
-    if (User.Identity.IsAuthenticated==true)
-        userId=User.FindFirstValue(ClaimTypes.NameIdentifier);  
+    
     
     var user= UserManagement.GetUser(Model);
-    var isUserVerified = UserManagement.IsUserVerified(Model);
+    if (user.Background == "non")
+        user.Background = UserManagement.StandardUserBackground;
+    if (user.Imag == "non")
+        user.Imag = UserManagement.StandardUserImage;
 }
 <script>SetBackground("@user.Background");</script>
 <div class="profileAllInfo">
-                
-            <div class="profileLeft">
-                
-                <img class="profileImage" src="@user.Imag" alt="">
-                <div>
-                    <span class="profileName">@user.UserName</span>
-                    @if (isUserVerified)
-                    {
-                        <img class="checkmark" src="/img/checkmark.svg">
+    
+    <div class="profileLeft">
 
-                    }
+        <img class="profileImage" src="@user.Imag" alt="">
+        <div>
+            <span class="profileName">@user.Nickname</span>
 
-                </div>
-                
-                
-                
-                
-                
-                
-                @if (userId == user.Id)
-                {
-                    <button class="btn rounded-root btn-purple btn-Edit-Profile" onclick="document.location='/Identity/Account/Manage'"  
-                            content="edit">Edit profile</button>  
-                }
-                
+        </div>
 
-            </div>
 
-            <div class="profileInfoRight">
-                
-                
-                <div class="infoGrid">
-                    
-                    <div class="labeled">Description: @user.Description</div>
 
-                </div>
-                
-            </div>
+
+
+        <button class="btn rounded-root btn-purple btn-Edit-Profile hidden" id="settingsProfile"
+                onclick="document.location='/home/Settings'" content="edit">Edit profile</button>
+        
+
+
+    </div>
+
+    <div class="profileInfoRight">
+
+
+        <div class="infoGrid">
+
+            @if (user.Description.Length>1075)
+            {
+                <div class="labeled">Description: @user.Description.Substring(0,1075)...</div>  
+            }
+            else
+            {
+                <div class="labeled">Description: @user.Description</div> 
+            }
+            
+
+        </div>
+
+    </div>
 </div>

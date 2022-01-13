@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Security.Claims;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using LifeGoals.Daemons;
 using LifeGoals.Dbmanagement;
-using System.Drawing;
-using System.Threading;
-using LifeGoals.Cryptocurrencies;
-using LifeGoals.Images;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LifeGoals.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using PaulMiami.AspNetCore.Mvc.Recaptcha;
+
 
 namespace LifeGoals.Controllers
 {
@@ -36,118 +22,9 @@ namespace LifeGoals.Controllers
       
             _logger = logger;
         }
+
         
-        [ValidateRecaptcha]
-        public IActionResult Index()
-        {
-            return View();
-        }
-        
-        public async Task<IActionResult> AddFUserImage(IFormFile uploadedFile)
-        {
-            if (uploadedFile != null )
-                if (uploadedFile.Length<10000000)
-                {
-                    Console.WriteLine(uploadedFile.Length);
-                    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-               
-                
-                    string path = "/UserImages/" +userID + ImageManagement.GetRandomImageName()+".jpg";
-                    string fullPath = _appEnvironment.WebRootPath + path;
-               
-                    using (var fileStream = new FileStream(fullPath, FileMode.Create))
-                        await uploadedFile.CopyToAsync(fileStream);
-                
-                    
-                
-                
-                
-                
-                    var imageFormat = ImageManagement.GetImageFormat(fullPath);
-                
-                    switch (imageFormat)
-                    {
-                        case ImageManagement.ImageFormat.jpeg:
-                        {
-                        
-                            ImageManagement.ResizeImage(fullPath,new Size(512,512));
-                            UserManagement.ReplacementImageUser(userID,path, _appEnvironment.WebRootPath);
-                            break;
-                        }
-                        case ImageManagement.ImageFormat.png:
-                        {
-                            ImageManagement.ResizeImage(fullPath,new Size(512,512));
-                            UserManagement.ReplacementImageUser(userID,path, _appEnvironment.WebRootPath);
-                            break;
-                        } 
-                    }
-                
-               
 
-               
-                }
-            
-            return Redirect("/Identity/Account/Manage");
-        }
-
-        public IActionResult EditDescription(string description)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            UserManagement.SetUserDescription(userId,description);
-            
-            return Redirect("/Identity/Account/Manage");
-        }
-
-        public async Task<IActionResult> AddFUserBackground(IFormFile uploadedFile)
-        {
-            if (uploadedFile != null )
-                if (uploadedFile.Length<10000000)
-                {
-                    Console.WriteLine(uploadedFile.Length);
-                    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-               
-                
-                    string path = "/UserBackground/" +userID + ImageManagement.GetRandomImageName()+"B"+".jpg";
-                    string fullPath = _appEnvironment.WebRootPath + path;
-               
-                    using (var fileStream = new FileStream(fullPath, FileMode.Create))
-                        await uploadedFile.CopyToAsync(fileStream);
-                
-                    
-                
-                
-                
-                
-                    var imageFormat = ImageManagement.GetImageFormat(fullPath);
-                
-                    switch (imageFormat)
-                    {
-                        case ImageManagement.ImageFormat.jpeg:
-                        {
-                        
-                            ImageManagement.ResizeImage(fullPath,new Size(1920,1080));
-                            UserManagement.ReplacementBackgroundUser(userID,path, _appEnvironment.WebRootPath);
-                            break;
-                        }
-                        case ImageManagement.ImageFormat.png:
-                        {
-                            ImageManagement.ResizeImage(fullPath,new Size(1920,1080));
-                            UserManagement.ReplacementBackgroundUser(userID,path, _appEnvironment.WebRootPath);
-                            break;
-                        } 
-                    }
-                
-               
-
-               
-                }
-            
-            return Redirect("/Identity/Account/Manage");
-        }
-        
-        
-        [Authorize] 
         public IActionResult GoalLineUpdate(string userId)
         {
             return PartialView("Profile/GoalLine",userId);
@@ -159,143 +36,69 @@ namespace LifeGoals.Controllers
         }
         
         
-        public IActionResult Profile(GoalObjects goal,string id=default)
-       {
-           var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-          
-           
-           if (id==default & User.Identity.IsAuthenticated==false)
-               ViewData["id"] = "zero";
-           else if(id==default)
-               ViewData["id"] = userId;
-           else if(UserManagement.IsUserExists(id)==true)
-               ViewData["id"] = id;
-           else
-               ViewData["id"] = "non";
-           
-
-           return View();
-       }
-        
-        [Authorize] 
-        public async Task<ActionResult> GoalAdd(string body,string titles,bool isDonate,string donateValue,bool isMyAddress,string myAddress)
+        public IActionResult Profile(string address=default)
         {
-            await Task.Run(() =>
+            if (address != null)
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                if (isDonate == true & isMyAddress==false)
+                address = address.ToLower();
+                if (address.Length==42)
                 {
-                    var keys = new EthereumRinkebyNet().GenerateAddress();
-
-                    double dDonateValue = 0;
-                    try
-                    {
-                        dDonateValue = Convert.ToDouble(donateValue, new CultureInfo("en-us"));
-                    }
-                    catch (Exception e)
-                    {
-                        dDonateValue = 0;
-                    }
-
-                   
-
-                    Goals.GoalAddDb(new GoalObjects()
-                    {
-                        Body = body, Titles = titles,
-                        User = userId, IsDonate = true,
-                        DonateValue = dDonateValue.ToString("0.########",new CultureInfo("en-us")),
-                        PublicAddress = keys.PublicAddress,
-                        PrivateKey = keys.PrivateKey,
-                        MaxDonateValue = "0"
-                    });
+                    address=address.Remove(0,2);
                 }
-                else if(isMyAddress==true)
-                {
-                    double dDonateValue = 0;
-                    try
-                    {
-                        dDonateValue = Convert.ToDouble(donateValue, new CultureInfo("en-us"));
-                    }
-                    catch (Exception e)
-                    {
-                        dDonateValue = 0;
-                    }
-
-                   
-
-                    Goals.GoalAddDb(new GoalObjects()
-                    {
-                        Body = body, Titles = titles,
-                        User = userId, IsDonate = true,
-                        DonateValue = dDonateValue.ToString("0.########",new CultureInfo("en-us")),
-                        PublicAddress = myAddress,
-                        IsPrivateDonateGoal = true,
-                        PrivateKey = $"https://etherscan.io/address/{myAddress}",
-                        MaxDonateValue = "0"
-                    });
-                }
-                else
-                {
-                    Goals.GoalAddDb(new GoalObjects() {Body = body, Titles = titles, User = userId});
-                }
+            }
 
 
-                ViewData["id"] = userId;
-            });
-            
-           
-            
-            return PartialView("Profile");
-        }
-    
-        [Authorize] 
-        public IActionResult DoImportant(bool status,int goalId)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            var goal = Goals.GetGoal(goalId);
 
-            if (goal.User == userId)
+            if (UserManagement.IsUserExists(address) == true)
             {
-                Goals.DoImportant(goalId,status);
-                goal.Important = status;
+                ViewData["address"] = address.ToLower();
+                ViewData["status"] = "exist";
+            }
+            else if (address == null)
+            {
+                ViewData["status"] = "non";
+                ViewData["address"] = "non";
+            }
+            else
+            {
+                ViewData["address"] = address.ToLower();
+                ViewData["status"]= "NotFound"; 
             }
 
             
 
 
-            return PartialView("Profile/Goal",goal);
-        }
+            return View();
+       }
+        
 
-        [Authorize]
-        public  ActionResult ChangeGoalStatus(EGoalStageImplementation status,int goalId)
+        public async Task<ActionResult> UpdateGoals(string address)
+        {
+           
+            return PartialView("Profile/GetAllGoals",address);
+        }
+        public async Task<ActionResult> Goal(int goalId)
         {
             var goal = Goals.GetGoal(goalId);
-          
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                
-
-                if (goal.User == userId)
-                {
-                    new Thread(() =>
-                    { Goals.ChangeGoalStatus(status, goalId); }).Start();
-                    
-                    
-                    goal.StageImplementation = status;
-                }
-               
-
            
             return PartialView("Profile/Goal",goal);
         }
+        
 
+        public IActionResult Settings()
+        {
+            return View();
+        }
 
         public IActionResult Error404()
         {
             return View();
         }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
