@@ -1,5 +1,6 @@
 @model GoalObjects
-@using Microsoft.AspNetCore.Http
+@using LifeGoals.PageObjects
+
 @{
 
   
@@ -20,8 +21,9 @@
 }
 @if (status=="exist")
 {
-
-
+    
+@await Html.PartialAsync("SVG/SVG")
+<partial name="Profile/Scroll" model="address"/>
     
 <partial name="Profile/DonatDialog" model="address"/> 
     
@@ -44,7 +46,7 @@
 
 
         <div class="goals" id="allGoals">
-             @await Html.PartialAsync("Profile/GetAllGoals",address)
+             @await Html.PartialAsync("Profile/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1})
         </div>
 
 

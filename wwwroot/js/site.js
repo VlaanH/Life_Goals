@@ -72,7 +72,28 @@ function ChangeGoalStatus(id,status,ajaxUpdate)
     Web3ChangeGoalStatus(id,status,ajaxUpdate);
     
 }
+function GoalLoadingOnScroll(scrollNumber)
+{
+    document.getElementById('ScrollNumber').value=scrollNumber;
+    updateForm("Scroll");
+    ScrollNumber++;
+}
+var ScrollNumber=1;
 
+window.onscroll = function () {
+    
+    new Promise(r => setTimeout(r, 350));
+    var clientHeight = document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
+    var documentHeight = document.documentElement.scrollHeight ? document.documentElement.scrollHeight : document.body.scrollHeight;
+    var scrollTop = window.pageYOffset ? window.pageYOffset : (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+
+    if ((documentHeight - 10 - clientHeight) <= scrollTop) 
+    {
+       
+        GoalLoadingOnScroll(ScrollNumber);
+
+    }
+}
 
 function updateGoalLine()
 {

@@ -4,6 +4,7 @@ using LifeGoals.Dbmanagement;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LifeGoals.Models;
+using LifeGoals.PageObjects;
 using Microsoft.AspNetCore.Hosting;
 
 
@@ -72,10 +73,10 @@ namespace LifeGoals.Controllers
        }
         
 
-        public async Task<ActionResult> UpdateGoals(string address)
+        public async Task<ActionResult> UpdateGoals(string address,int scrollNumber)
         {
            
-            return PartialView("Profile/GetAllGoals",address);
+            return PartialView("Profile/GetAllGoals",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber});
         }
         public async Task<ActionResult> Goal(int goalId)
         {

@@ -1,19 +1,16 @@
 @model string
 <div class="div_create_goal hidden" id="CreateGoal">
-
-    <form method="get" id="create_goal" data-ajax="true" data-ajax-method="get" data-ajax-update="#allGoals" data-ajax-mode='replace' data-ajax-url="@Url.Action("UpdateGoals", "Home")">
-
-        <div style="display: flex;">
+    
+    <div style="display: flex;">
                         
-            <input class="input-radius form-control blue" name="title" id="CreateGoalTitle" placeholder="Title" autocomplete="off" style="display: initial;width: 100%;margin-bottom: 24px;"/>
-            
+        <input class="input-radius form-control blue" name="title" id="CreateGoalTitle" placeholder="Title" autocomplete="off" style="display: initial;width: 100%;margin-bottom: 24px;"/>
 
-        
-        </div>
+
+    </div>
                    
-        <input style="display: none" value="@Model" name="address"/>
+        
 
-        <textarea placeholder="Body description..."  name="body" id="CreateGoalBody" rows="3" class="textarea_description"></textarea>
+    <textarea placeholder="Body description..."  name="body" id="CreateGoalBody" rows="3" class="textarea_description"></textarea>
 
         <div class="flex">
             
@@ -44,6 +41,7 @@
             
             
         </div>
-        <button class="btn btn-white-purple rounded-root" onclick="AddGoal()">Сreate</button>
-    </form>
+    
+    <button class="btn btn-white-purple rounded-root" onclick="AddGoal()">Сreate</button>
+   
 </div>
