@@ -9,7 +9,7 @@ window.onload = async () => {
     else 
     {
         hidden("InstallingMetamask",false);
-        alert("No ETH brower extension detected.");
+        alert("No ETH browser extension detected.");
     }
    
     // Load in Localstore key
@@ -125,7 +125,8 @@ async function loginWithEth()
             window.userAddress = selectedAccount;
             window.localStorage.setItem("userAddress", selectedAccount);
             ShowWeb3Net();
-        } catch (error) 
+        } 
+        catch (error) 
         {
             console.error(error);
         }
@@ -142,7 +143,6 @@ function RederectToYourPage()
     {
        
         window.location.href = "/?address="+userAddress;
-        
         
      
     }
@@ -208,7 +208,7 @@ async function Web3CDoImportant(id,status,ajaxUpdate)
 
 }
 
-async function Web3AddGoal(Titles,Body,ajaxUpdate)
+async function Web3AddGoal(Titles,Body)
 {
     const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
 
@@ -217,12 +217,13 @@ async function Web3AddGoal(Titles,Body,ajaxUpdate)
     await new Promise(r => setTimeout(r, 2100));
     
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
-    updateForm(ajaxUpdate);
+
+    UpdateScrollView();
 
     console.log(symbol);
 
 }
-async function Web3AddMessage(Titles,Body,ajaxUpdate)
+async function Web3AddMessage(Titles,Body)
 {
     const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
 
@@ -231,13 +232,14 @@ async function Web3AddMessage(Titles,Body,ajaxUpdate)
     await new Promise(r => setTimeout(r, 2100));
 
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
-    updateForm(ajaxUpdate);
+
+    UpdateScrollView();
 
     console.log(symbol);
 
 }
 
-async function Web3AddDonateGoal(titles,body,donateValue,publicAddress,ajaxUpdate) 
+async function Web3AddDonateGoal(titles,body,donateValue,publicAddress) 
 {
     const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
 
@@ -246,8 +248,10 @@ async function Web3AddDonateGoal(titles,body,donateValue,publicAddress,ajaxUpdat
     await new Promise(r => setTimeout(r, 2100));
 
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
-    updateForm(ajaxUpdate);
 
+    UpdateScrollView();
+  
+    
     console.log(symbol);
 }
 
