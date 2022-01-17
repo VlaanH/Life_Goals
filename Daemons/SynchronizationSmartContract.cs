@@ -32,7 +32,7 @@ namespace LifeGoals.Daemons
             
             json=json.Replace("\n","<br>");
             json=json.Replace("\r","<br>");
-            json=json.Replace("/","//");
+          
             json=json.Replace(@"\",@"\\");
 
 
