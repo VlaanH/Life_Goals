@@ -4,8 +4,7 @@
 @model AllGoalsScroll
 @{
 
-    var user = UserManagement.GetUser(Model.Address);
-
+    
     List<GoalObjects> goalObjectsList = new List<GoalObjects>();
     goalObjectsList = Goals.GetUserGoals(Model.Address);
 
@@ -18,19 +17,15 @@
         
     if (goalObjectsList != default)
     {
-
-        int startRead = Model.ScrollNumber-1;
-    
-        if (startRead>0)
-        {
-            startRead=((Model.ScrollNumber-1) * step)-1;
-        }
+        int startRead = (Model.ScrollNumber * step)-step;
+        
             
         int stopRead = (Model.ScrollNumber*step);
     
         if (stopRead>goalObjectsList.Count)
             stopRead = goalObjectsList.Count;
-            
+
+  
             
         for (int i = startRead; i < stopRead; i++)
         {
