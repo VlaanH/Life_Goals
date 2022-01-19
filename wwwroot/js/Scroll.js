@@ -21,23 +21,29 @@ function GoalsLoadingOnScroll(scrollNumber)
 
     ScrollNumber=scrollNumber+1;
 
+    DoubleScrollProtection=false;
 }
 
-
+var DoubleScrollProtection=false;
 window.onscroll = function () {
 
-    new Promise(r => setTimeout(r, 350));
+   
+    
     var clientHeight = document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
     var documentHeight = document.documentElement.scrollHeight ? document.documentElement.scrollHeight : document.body.scrollHeight;
     var scrollTop = window.pageYOffset ? window.pageYOffset : (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
 
-    if ((documentHeight - 10 - clientHeight) <= scrollTop && GoalDivEmpty()===false)
-    {
+    if ((documentHeight - 10 - clientHeight) <= scrollTop && GoalDivEmpty()===false && DoubleScrollProtection===false)
+    {     
+        DoubleScrollProtection=true;
 
         GoalsLoadingOnScroll(ScrollNumber);
 
-    }
+    } 
+    
+  
 }
+
 function UpdateScrollView()
 {
 
