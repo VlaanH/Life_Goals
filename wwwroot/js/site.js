@@ -123,6 +123,24 @@ function dependencyOnCheckbox(chbox,itemId)
     }
     
 }
+function CheckboxOff(chbox) 
+{
+   
+   
+    document.getElementById(chbox).checked=false;
+    
+}
+
+function dependencyOnCheckboxHiddenOnly(chbox,itemId)
+{
+
+    if (chbox.checked!=true)
+    {
+        document.getElementById(itemId).hidden=true;
+    }
+   
+
+}
 function ArrayHiddenClass(class_,isHidden)
 {
     if (isHidden)
