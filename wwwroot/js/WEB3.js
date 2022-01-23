@@ -137,6 +137,13 @@ async function loginWithEth()
     }
 }
 
+window.ethereum.on('accountsChanged', function (accounts) 
+{
+    loginWithEth()
+
+})
+
+
 function RederectToYourPage()
 {
     if (StatusPage=="non")
