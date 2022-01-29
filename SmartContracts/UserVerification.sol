@@ -163,7 +163,7 @@ contract LifeGoals
     }
 
 
-    function OwnerVerification(uint goalId,address sender) internal
+    function ownerVerification(uint goalId,address sender) internal
     {
 
 
@@ -407,7 +407,7 @@ contract LifeGoals
     {
         address userAddress=payable(msg.sender);
 
-        OwnerVerification(goalId,userAddress);
+        ownerVerification(goalId,userAddress);
 
         Goals[goalId-1].Important=important;
 
@@ -417,7 +417,7 @@ contract LifeGoals
     {
         address userAddress=payable(msg.sender);
 
-        OwnerVerification(goalId,userAddress);
+        ownerVerification(goalId,userAddress);
         require(status<3,"Eror");
         Goals[goalId-1].StageImplementation=status;
 
@@ -550,7 +550,7 @@ contract LifeGoals
 
             string memory IdJson=string(abi.encodePacked("\"Id\":",toString(Subscriptions[i].Id),","));
             string memory UserJson=string(abi.encodePacked("\"User\":\"",toString(Subscriptions[i].User),"\""));
-            string memory StatusJson=string(abi.encodePacked("\"User\":\"",toString(Subscriptions[i].Status),"\""));
+            string memory StatusJson=string(abi.encodePacked("\"Status\":\"",toString(Subscriptions[i].Status),"\""));
             string memory SubscriberJson=string(abi.encodePacked("\"Subscriber\":\"",toString(Subscriptions[i].Subscriber),"\""));
 
             string memory closeJson="}\n\r";
