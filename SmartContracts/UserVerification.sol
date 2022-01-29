@@ -40,6 +40,19 @@ contract LifeGoals
 
     }
 
+    struct Subscription
+    {
+
+        uint Id;
+
+        address User;
+
+        address Subscriber;
+
+        bool Status;
+
+    }
+
     function toString(uint256 x)internal pure returns (string memory)
     {
         if (x == 0)
@@ -101,7 +114,7 @@ contract LifeGoals
     uint public price;
     User[] Users;
     Goal[] Goals;
-
+    Subscription[] Subscriptions;
 
 
     constructor(uint verificationCost) payable
@@ -410,6 +423,151 @@ contract LifeGoals
 
     }
 
+
+    function subscriptionExists(Subscription memory objSubscribe) internal returns (bool)
+    {
+
+        bool isExist = false;
+
+        for (uint i = 0; i < Subscriptions.length; i++)
+        {
+            if(Subscriptions[i].User==objSubscribe.User && Subscriptions[i].Subscriber==objSubscribe.Subscriber)
+            {
+                isExist=true;
+            }
+
+
+        }
+
+        return isExist;
+
+    }
+
+    function getSubscriptionId(Subscription memory objSubscribe) internal returns (uint)
+    {
+
+        uint UserId = 0;
+
+        for (uint i = 0; i < Subscriptions.length; i++)
+        {
+            if(Subscriptions[i].User==objSubscribe.User && Subscriptions[i].Subscriber==objSubscribe.Subscriber)
+            {
+                UserId=i;
+            }
+
+
+        }
+
+        return UserId;
+
+    }
+
+
+    function SubscribeToUser(address subscribeTo) public payable
+    {
+
+        address subscriber = payable(msg.sender);
+
+        uint Id=Subscriptions.length+1;
+
+        if(userExist(subscriber) && userExist(subscribeTo))
+        {
+
+            Subscription memory newSubscribe = Subscription(Id,subscribeTo,subscriber,true);
+
+            if(subscriptionExists(newSubscribe))
+            {
+
+
+                if(Subscriptions[getSubscriptionId(newSubscribe)].Status==true)
+                {
+                    require(false,"You are already subscribed to this account");
+                }
+                else
+                {
+                    Subscriptions[getSubscriptionId(newSubscribe)].Status=true;
+                }
+
+            }
+            else
+            {
+                if(subscriber==subscribeTo)
+                {
+                    require(false,"You cant subscribe to yourself");
+                }
+                else
+                {
+                    Subscriptions.push(newSubscribe);
+                }
+            }
+
+        }
+        else
+        {
+            require(false,"You have not created an account or you want to subscribe to a non-existent account");
+        }
+
+
+
+    }
+
+    function UnfollowUser(address unfollowTo) public payable
+    {
+        address subscriber = payable(msg.sender);
+
+        uint Id=Subscriptions.length+1;
+
+        if(userExist(subscriber) && userExist(unfollowTo))
+        {
+
+            Subscription memory objSubscribe = Subscription(Id,unfollowTo,subscriber,true);
+
+
+            if(Subscriptions[getSubscriptionId(objSubscribe)].Status==false)
+            {
+                require(false,"You are not subscribed to the account");
+            }
+            else
+            {
+                Subscriptions[getSubscriptionId(objSubscribe)].Status=false;
+            }
+
+        }
+        else
+        {
+            require(false,"You have not created an account or you want to subscribe to a non-existent account");
+        }
+    }
+
+    function allUserSubscriptions() external view returns(string memory)
+    {
+        string memory allJsonSubscriptions;
+
+
+        for (uint i = 0; i < Subscriptions.length; i++)
+        {
+            string memory openJson="{";
+
+            string memory IdJson=string(abi.encodePacked("\"Id\":",toString(Subscriptions[i].Id),","));
+            string memory UserJson=string(abi.encodePacked("\"User\":\"",toString(Subscriptions[i].User),"\""));
+            string memory StatusJson=string(abi.encodePacked("\"User\":\"",toString(Subscriptions[i].Status),"\""));
+            string memory SubscriberJson=string(abi.encodePacked("\"Subscriber\":\"",toString(Subscriptions[i].Subscriber),"\""));
+
+            string memory closeJson="}\n\r";
+
+            allJsonSubscriptions=string(abi.encodePacked(allJsonSubscriptions,
+                openJson,
+                IdJson,
+                UserJson,
+                StatusJson,
+                SubscriberJson,
+                closeJson));
+        }
+
+
+
+        return allJsonSubscriptions;
+    }
     function withdraw() public payable
     {
         if(payable(msg.sender) == owner)
