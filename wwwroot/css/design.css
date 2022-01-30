@@ -16,6 +16,12 @@ body
     width: 97%;
 }
 
+.profileStats
+{
+    padding: 4px;
+    border-top: 2px solid #ae7fe5;
+    justify-content: space-around;
+}
 
 .profileMiniImage{
   
@@ -59,7 +65,12 @@ body
     box-sizing: border-box;
     width: calc(75% - 5px);
     margin-left: 21px;
-    padding: 5px
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: stretch;
+    min-height: 100%;
 }
 .infoGrid
 {
@@ -137,6 +148,7 @@ body
 }
 .iconButton
 {
+    background: none;
     padding: 0px;
     border: 0;
 }
