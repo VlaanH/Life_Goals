@@ -549,8 +549,8 @@ contract LifeGoals
             string memory openJson="{";
 
             string memory IdJson=string(abi.encodePacked("\"Id\":",toString(Subscriptions[i].Id),","));
-            string memory UserJson=string(abi.encodePacked("\"User\":\"",toString(Subscriptions[i].User),"\""));
-            string memory StatusJson=string(abi.encodePacked("\"Status\":\"",toString(Subscriptions[i].Status),"\""));
+            string memory UserJson=string(abi.encodePacked("\"User\":\"",toString(Subscriptions[i].User),"\","));
+            string memory StatusJson=string(abi.encodePacked("\"Status\":\"",toString(Subscriptions[i].Status),"\","));
             string memory SubscriberJson=string(abi.encodePacked("\"Subscriber\":\"",toString(Subscriptions[i].Subscriber),"\""));
 
             string memory closeJson="}\n\r";
