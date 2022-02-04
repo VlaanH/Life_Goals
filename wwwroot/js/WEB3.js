@@ -172,8 +172,9 @@ function RederectToYourPage()
 }
 
 
-const CONTRACT_ADDRESS = '0x9104Eb6206044AC3E6e420B5Dc6A7EFB6d271Bb1';
-window.ABI = [{"inputs":[{"internalType":"uint256","name":"verificationCost","type":"uint256"}],"stateMutability":"payable","type":"constructor"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"},{"internalType":"string","name":"DonateValue","type":"string"},{"internalType":"address","name":"PublicAddress","type":"address"}],"name":"AddDonateGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddMessage","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"uint256","name":"status","type":"uint256"}],"name":"ChangeGoalStatus","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"nickname","type":"string"},{"internalType":"string","name":"Description","type":"string"},{"internalType":"string","name":"Background","type":"string"},{"internalType":"string","name":"Imag","type":"string"}],"name":"CreateAccount","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"bool","name":"important","type":"bool"}],"name":"DoImportant","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"background","type":"string"}],"name":"SetBackground","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"description","type":"string"}],"name":"SetDescription","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"imag","type":"string"}],"name":"SetImag","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"allGoals","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"allUsers","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"price","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"payable","type":"function"}]
+const CONTRACT_ADDRESS = '0xFB982341b86028E4dC9EbADc70fa7f01263D5479';
+window.ABI = [{"inputs":[{"internalType":"uint256","name":"verificationCost","type":"uint256"}],"stateMutability":"payable","type":"constructor"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"},{"internalType":"string","name":"DonateValue","type":"string"},{"internalType":"address","name":"PublicAddress","type":"address"}],"name":"AddDonateGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddMessage","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"uint256","name":"status","type":"uint256"}],"name":"ChangeGoalStatus","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"nickname","type":"string"},{"internalType":"string","name":"Description","type":"string"},{"internalType":"string","name":"Background","type":"string"},{"internalType":"string","name":"Imag","type":"string"}],"name":"CreateAccount","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"bool","name":"important","type":"bool"}],"name":"DoImportant","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"background","type":"string"}],"name":"SetBackground","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"description","type":"string"}],"name":"SetDescription","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"imag","type":"string"}],"name":"SetImag","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"subscribeTo","type":"address"}],"name":"SubscribeToUser","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"unfollowTo","type":"address"}],"name":"UnfollowUser","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"allGoals","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"allUserSubscriptions","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"allUsers","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"price","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"payable","type":"function"}]
+    
 async function Web3CreateAccount(nickname,description,background,image)
 {
     
@@ -296,4 +297,28 @@ async function Web3SetImag(imag)
     await new Promise(r => setTimeout(r, 2100));
 
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+}
+async function Web3SubscribeToUser(subscribeTo) 
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+    
+    const symbol = await contract.methods.SubscribeToUser(subscribeTo).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    
+}
+async function Web3UnfollowUser(unfollowTo)
+{
+    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+
+
+    const symbol = await contract.methods.UnfollowUser(unfollowTo).send({ from: window.userAddress});
+
+    await new Promise(r => setTimeout(r, 2100));
+
+    alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+
 }
