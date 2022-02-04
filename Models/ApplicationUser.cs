@@ -1,5 +1,6 @@
 using System;
 using System.Dynamic;
+using lifeGoals.DataObjects;
 using LifeGoals.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ namespace LifeGoals.Models
         public DbSet<GoalObjects> Goals{ get; set; }
         public DbSet<AppUser> Users{ get; set; }
 
+        public DbSet<SubscriptionObjects> Subscriptions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

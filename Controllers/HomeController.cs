@@ -24,8 +24,18 @@ namespace LifeGoals.Controllers
             _logger = logger;
         }
 
+        public IActionResult GetSubscribers(string address)
+        {
+            var allUserSubscribers = UserManagement.GetSubscribers(address);
+            return PartialView("Profile/UserListDialog",new UserListDialog(){Users = allUserSubscribers,IsOpen = true});
+        }
+        public IActionResult GetSubscriptions(string address)
+        {
+            var allUserSubscriptions = UserManagement.GetSubscriptions(address);
+            
+            return PartialView("Profile/UserListDialog",new UserListDialog(){Users = allUserSubscriptions,IsOpen = true});
+        }
         
-
         public IActionResult GoalLineUpdate(string userId)
         {
             return PartialView("Profile/GoalLine",userId);

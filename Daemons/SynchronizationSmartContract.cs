@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using LifeGoals.Cryptocurrencies;
 using LifeGoals.Dbmanagement;
 using System.Text.Json;
+using lifeGoals.DataObjects;
 
 namespace LifeGoals.Daemons
 {
@@ -19,6 +20,7 @@ namespace LifeGoals.Daemons
             {
                
                 SyncUserAddress();
+                SyncSubscriptions();
                 SyncGoals();
                 Thread.Sleep(2000);
 
@@ -37,6 +39,18 @@ namespace LifeGoals.Daemons
 
 
             return json;
+        }
+        static async void SyncSubscriptions()
+        {
+            var jsonAllUser = await new SmartContractRequest().
+                GetStringFunction(appSettings.ContractAddressVerification,appSettings.ContractAbiVerification, "allUserSubscriptions");
+                
+            string [] split = jsonAllUser.Split("\n\r");
+               
+            var onlyNewSyncData = ReadSubscription(split.Distinct().ToList());
+               
+            SynchronizationSmartContractsDb.SynchronizationSubscription(onlyNewSyncData);
+            
         }
 
         static async void SyncUserAddress()
@@ -124,7 +138,30 @@ namespace LifeGoals.Daemons
             
             return data;
         }
-        
+        private static List<SubscriptionObjects> ReadSubscription(List<string> jsonData)
+        {
+            List<SubscriptionObjects> data = new List<SubscriptionObjects>();
+            for (int i = 0; i < jsonData.Count; i++)
+            {
+                try
+                {
+                    jsonData[i] = JsonNormalization(jsonData[i]);
+                    
+                    var suber = JsonSerializer.Deserialize<SubscriptionObjects>(jsonData[i]);
+                    if (suber != null) 
+                        data.Add(suber);
+                }
+                catch (Exception e)
+                {
+                  
+                    // ignored
+                } 
+            }
+                
+            
+            
+            return data;
+        }
 
     }
 }
