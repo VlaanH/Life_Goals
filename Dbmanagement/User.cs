@@ -82,6 +82,23 @@ namespace LifeGoals.Dbmanagement
             return subscriptionsCount;
         }
 
+        public static bool IsSubscriber(string address,string subscriberAddress)
+        {
+            bool isSubscriber = false;
+            using (ApplicationDbContext db= new ApplicationDbContext())
+            {
+                var singleOrDefault = db.Subscriptions.SingleOrDefault(u => u.User == address & u.Subscriber==subscriberAddress & u.Status==true);
+                
+                if (singleOrDefault!=default)
+                {
+                    isSubscriber = true;
+                }
+                
+            }
+
+            return isSubscriber;
+        }
+
         public static int GetGoalsCount(string address)
         {
             int goalsCount = 0;

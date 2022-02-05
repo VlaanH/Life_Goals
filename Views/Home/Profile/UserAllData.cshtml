@@ -1,56 +1,102 @@
 @using LifeGoals.Dbmanagement
 @using System.Security.Claims
 
-@model string
+@model LifeGoals.PageObjects.UserAllData
 @{
-    string userId = default;
     
     
     
-    var user= UserManagement.GetUser(Model);
-    if (user.Background == "non")
-        user.Background = UserManagement.StandardUserBackground;
-    if (user.Imag == "non")
-        user.Imag = UserManagement.StandardUserImage;
+    var user= UserManagement.GetUser(Model.UserAddress);
+   
+    
+    
 }
+
 <script>SetBackground("@user.Background");</script>
-<div class="profileAllInfo">
-    
-    <div class="profileLeft">
-
-        <img class="profileImage" src="@user.Imag" alt="">
-        <div>
-            <span class="profileName">@user.Nickname</span>
-
-        </div>
 
 
-
-
-
-        <button class="btn rounded-root btn-purple btn-Edit-Profile hidden" id="settingsProfile"
-                onclick="document.location='/home/Settings'" content="edit">Edit profile</button>
+@await Html.PartialAsync("Profile/UserListDialog",
+    new LifeGoals.PageObjects.UserListDialog() {Users = UserManagement.GetSubscribers(Model.UserAddress),IsOpen = false})
+<div id="User-All-Data">
+    <div class="profileAllInfo">
         
-
-
-    </div>
-
-    <div class="profileInfoRight">
-
-
-        <div class="infoGrid">
-
-            @if (user.Description.Length>1075)
+        <div class="profileLeft">
+    
+            <img class="profileImage" src="@user.Imag" alt="">
+            <div>
+                <span class="profileName">@user.Nickname</span>
+            </div>
+    
+    
+            @if (Model.PageVisitor!=default)
             {
-                <div class="labeled">Description: @user.Description.Substring(0,1075)...</div>  
-            }
-            else
-            {
-                <div class="labeled">Description: @user.Description</div> 
+                @if (Model.UserAddress==Model.PageVisitor)
+                {
+                    <button class="btn rounded-root btn-purple btn-Edit-Profile" id="settingsProfile"
+                            onclick="document.location='/home/Settings'" content="edit">Edit profile</button>
+                }
+                else
+                {
+                    @if (UserManagement.IsSubscriber(Model.UserAddress,Model.PageVisitor))
+                    {
+                        <button class="btn rounded-root btn-purple btn-Edit-Profile" id="subscribeButton"
+                                onclick="UnfollowUser()" content="edit">Unsubscribe</button> 
+                    }
+                    else
+                    {
+                           
+                        <button class="btn rounded-root btn-purple btn-Edit-Profile" id="subscribeButton"
+                                onclick="SubscribeToUser()" content="edit">Subscribe</button>    
+                    }
+                }
             }
             
-
+         
+    
         </div>
-
+    
+        <div class="profileInfoRight">
+    
+    
+            <div class="infoGrid">
+    
+                @if (user.Description.Length>1075)
+                {
+                    <div class="labeled">Description: @user.Description.Substring(0,1075)...</div>  
+                }
+                else
+                {
+                    <div class="labeled">Description: @user.Description</div> 
+                }
+                
+    
+            </div>
+            <div class="flex profileStats">
+                    
+             
+                <button class="iconButton grid" onclick="updateForm('User-dialog-update-GetSubscribers');showDialog('User-list-dialog')">
+                    <a>Subscribers</a>
+                    <a>@UserManagement.GetSubscribersCount(Model.UserAddress)</a>
+                </button>
+    
+               
+              
+                
+                <button class="iconButton grid" onclick="updateForm('User-dialog-update-GetSubscriptions');showDialog('User-list-dialog')">
+                    <a>Subscriptions</a>
+                    <a>@UserManagement.GetSubscriptionsCount(Model.UserAddress)</a>
+                </button>
+                
+                <button class="iconButton grid">
+                    <a>Number of messages</a>
+                    <a>@UserManagement.GetGoalsCount(Model.UserAddress)</a>
+                </button>
+                
+            </div>
+            
+            
+            
+        </div>
     </div>
+    
 </div>

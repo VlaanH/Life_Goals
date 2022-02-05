@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using LifeGoals.Dbmanagement;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using LifeGoals.Models;
 using LifeGoals.PageObjects;
 using Microsoft.AspNetCore.Hosting;
-
 
 namespace LifeGoals.Controllers
 {
@@ -24,9 +24,36 @@ namespace LifeGoals.Controllers
             _logger = logger;
         }
 
+        public IActionResult GetSubscriptionStatus(string address,string pageVisitor)
+        {
+            
+            if (address != null)
+            {
+                address = address.ToLower();
+                if (address.Length==42)
+                {
+                    address=address.Remove(0,2);
+                }
+            }
+            if (pageVisitor != null)
+            {
+                pageVisitor = pageVisitor.ToLower();
+                if (pageVisitor.Length==42)
+                {
+                    pageVisitor=pageVisitor.Remove(0,2);
+                }
+            }
+            
+            
+            return PartialView("Profile/UserAllData",new UserAllData()
+                {UserAddress = address, PageVisitor = pageVisitor});
+        }
+        
+
         public IActionResult GetSubscribers(string address)
         {
             var allUserSubscribers = UserManagement.GetSubscribers(address);
+            
             return PartialView("Profile/UserListDialog",new UserListDialog(){Users = allUserSubscribers,IsOpen = true});
         }
         public IActionResult GetSubscriptions(string address)

@@ -166,9 +166,15 @@ function RederectToYourPage()
         }
         else 
         {
-           owner(false);     
+
+            
+            
+            owner(false);
+           
         }
+     
     }
+    GetSubscriptionStatus();
 }
 
 
@@ -306,9 +312,12 @@ async function Web3SubscribeToUser(subscribeTo)
     const symbol = await contract.methods.SubscribeToUser(subscribeTo).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
-
+    
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
     
+    GetSubscriptionStatus();
+
+    console.log(symbol);
 }
 async function Web3UnfollowUser(unfollowTo)
 {
@@ -320,5 +329,8 @@ async function Web3UnfollowUser(unfollowTo)
     await new Promise(r => setTimeout(r, 2100));
 
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
+    
+    GetSubscriptionStatus();
 
+    console.log(symbol);
 }

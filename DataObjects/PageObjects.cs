@@ -22,7 +22,7 @@ namespace LifeGoals.PageObjects
     {
         public string UserAddress { get; set; }
         
-        public bool PageVisitor { get; set; }
+        public string PageVisitor { get; set; }
 
     }
     

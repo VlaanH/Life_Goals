@@ -72,3 +72,11 @@ function ChangeGoalStatus(id,status,ajaxUpdate)
     Web3ChangeGoalStatus(id,status,ajaxUpdate);
 
 }
+function SubscribeToUser()
+{
+    Web3SubscribeToUser(AddressPage);
+}
+function UnfollowUser()
+{
+    Web3UnfollowUser(AddressPage);
+}

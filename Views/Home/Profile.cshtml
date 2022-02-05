@@ -23,30 +23,31 @@
 {
     
 @await Html.PartialAsync("SVG/SVG")
-<partial name="Profile/Scroll" model="address"/>
+<partial name="Profile/AjaxForms" model="address"/>
     
-<partial name="Profile/DonatDialog" model="address"/> 
-    
+<partial name="Profile/DonatDialog" model="address"/>
+
+
 <div class="text-center">
   
     <div class="profileWrapper">
         
         
-        @await Html.PartialAsync("Profile/UserAllData",address)
+        @await Html.PartialAsync("Profile/UserAllData",new UserAllData(){UserAddress = address})
         
         @await Html.PartialAsync("Profile/GoalLine",address)
         
 
       
      
-        <partial name="Profile/CreateGoal" model="address"/> 
+        @await Html.PartialAsync("Profile/CreateGoal")
             
 
         
 
 
         <div class="goals" id="allGoals">
-             @await Html.PartialAsync("Profile/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1})
+            @await Html.PartialAsync("Profile/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1})
         </div>
 
 

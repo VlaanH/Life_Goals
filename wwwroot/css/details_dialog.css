@@ -28,7 +28,7 @@
 .site-dialog {
     overflow: hidden;
     width: 95%;
-    max-width: 500px;
+    max-width: 600px;
     padding: 0;
     border-width: 0;
     border-radius: 35px;
@@ -49,3 +49,18 @@ p:last-of-type, p:only-child {
     margin-bottom: 0;
 }
 
+.user-list-unit
+{
+    font-size: 15px;
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #ae7fe5;
+    margin: 5px;
+}
+.user-list-title
+{
+    margin-inline: 30px;
+    display: flex;
+    justify-content: space-between;
+}

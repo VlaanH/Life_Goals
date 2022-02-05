@@ -13,16 +13,18 @@ function updateGoalLine()
 
     var $accountDeleteDialog = $('#Donate-dialog');
 
-    $('#cancel').on('click', function() {
+    $('#cancel-donate-dialog').on('click', function() {
         $accountDeleteDialog[0].close();
     });
 
 })(jQuery);
 
-function showDialog()
+
+
+function showDialog(id)
 {
 
-    $( "#Donate-dialog" )[0].showModal();
+    $( `#${id}`)[0].showModal();
 
 }
 
@@ -169,16 +171,14 @@ async function owner(isOwner)
     {
        
         hidden("CreateGoal",false);
-        hidden("settingsProfile",false);
         ArrayHiddenClass("goalPoints",false);
         ArrayHiddenClass("ImportantButton",false);
         ArrayHiddenClass("ImportantSvg",true);
-        
+    
     }
     else 
     {
         hidden("CreateGoal",true);
-        hidden("settingsProfile",true);
         ArrayHiddenClass("goalPoints",true);
         ArrayHiddenClass("ImportantButton",true);
         ArrayHiddenClass("ImportantSvg",false);
@@ -201,6 +201,13 @@ function SetQrAddress(address)
 
 }
 
+function GetSubscriptionStatus()
+{
+    document.getElementById("Get-Subscription-Status-address").value = AddressPage;
+    document.getElementById("Get-Subscription-Status-pageVisitor").value = userAddress;
+    updateForm("Get-Subscription-Status");
+
+}
 
 
 function SetBackground(image)

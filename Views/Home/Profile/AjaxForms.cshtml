@@ -1,0 +1,18 @@
+@model string
+<form method="get" id="Scroll" data-ajax="true" data-ajax-method="get" data-ajax-update="#allGoals" data-ajax-mode='after' data-ajax-url="@Url.Action("UpdateGoals", "Home")">
+        <input style="display: none" value="@Model" name="address"/>
+        <input style="display: none" value="1" id="ScrollNumber" name="scrollNumber">
+</form>
+
+<form method="get" id="User-dialog-update-GetSubscribers" data-ajax="true" data-ajax-method="get" data-ajax-update="#Update-User-dialog" data-ajax-mode='replace' data-ajax-url="@Url.Action("GetSubscribers", "Home")">
+        <input style="display: none" value="@Model" name="address"/>
+</form>
+
+<form method="get" id="User-dialog-update-GetSubscriptions" data-ajax="true" data-ajax-method="get" data-ajax-update="#Update-User-dialog" data-ajax-mode='replace' data-ajax-url="@Url.Action("GetSubscriptions", "Home")">
+        <input style="display: none" value="@Model" name="address"/>
+</form>
+
+<form method="get" id="Get-Subscription-Status" data-ajax="true" data-ajax-method="get" data-ajax-update="#User-All-Data" data-ajax-mode='replace' data-ajax-url="@Url.Action("GetSubscriptionStatus", "Home")">
+        <input style="display: none" name="address" id="Get-Subscription-Status-address"/>
+        <input style="display: none" name="pageVisitor" id="Get-Subscription-Status-pageVisitor"/>
+</form>

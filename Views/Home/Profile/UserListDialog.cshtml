@@ -1,0 +1,56 @@
+@model LifeGoals.PageObjects.UserListDialog
+@if (Model.IsOpen)
+{
+    <script>showDialog("User-list-dialog")</script>
+}
+<div id="Update-User-dialog">
+    <div class="text-center" id="User-dialog">
+        <section>
+            <dialog id="User-list-dialog" class="site-dialog" >
+                <header class="dialog-header">
+                    <h1 id="MainDialog" style="color: white">User list</h1>
+                </header>
+                <div class="dialog-content">
+                    <div style="">
+                        <div class="user-list-title">
+                            <a>User</a>
+                            <a>Address</a>
+                        </div>
+                        @if (Model.Users.Count!=0)
+                        {
+                            @foreach (var user in Model.Users)
+                            {              
+                                <div class="user-list-unit pointer iconButton" onclick="document.location='/?address=@user.Address'">
+                                
+                              
+                                    <div>
+                                        <img src="@user.Imag" class="profileMiniImage"/>
+                                        <a>@user.Nickname</a>
+                                    </div>
+                                                
+                                    <div class="flex center">
+                                        <a>@user.Address</a>
+                                    </div> 
+                               
+                              
+                                
+                                </div>
+                            } 
+                        }
+                        else
+                        {
+                            <div>User list is empty</div>
+                        }
+                        
+                    </div>
+    
+    
+                </div>
+                <div class="btn-group cf">
+                    <button class="btn btn-cancel" id="cancel-user-list-dialog" onclick="$('#User-list-dialog')[0].close()">Cancel</button>
+    
+                </div>
+            </dialog>
+        </section>
+    </div>
+</div>

@@ -5,17 +5,16 @@
 @model GoalObjects
 @{
     
-    var donateValueETH = Model.DonateValue + "ETH";
-    bool isOwner  = false;
+    var donateValueEth = Model.DonateValue + "ETH";
 
 
-  
+
 }
 
 
     
 
-<button class="donate_btn iconButton" onclick="SetQrAddress('@Model.PublicAddress');showDialog()">
+<button class="donate_btn iconButton" onclick="SetQrAddress('@Model.PublicAddress');showDialog('Donate-dialog')">
     <div class="currency_progress">
         <div class="currency_progress_line">
             <svg aria-hidden="true" focusable="false" class="currency_svg">
@@ -29,7 +28,7 @@
                 <a class="progress_percent" id="progress_percent_@Model.Id">@Model.MaxDonateValue ETH</a>
             
             </div>
-            <a class="value_progress">@donateValueETH</a>
+            <a class="value_progress">@donateValueEth</a>
         </div>
     </div>
 </button>
