@@ -1,0 +1,25 @@
+@model LifeGoals.PageObjects.ListGoals
+@{
+    int step = 10;
+    
+    if (Model.GoalObjectsList != default)
+    {
+        int startRead = (Model.Scroll.ScrollNumber * step)-step;
+        
+            
+        int stopRead = (Model.Scroll.ScrollNumber*step);
+    
+        if (stopRead>Model.GoalObjectsList.Count)
+            stopRead = Model.GoalObjectsList.Count;
+
+  
+            
+        for (int i = startRead; i < stopRead; i++)
+        {
+                
+            @(await Html.PartialAsync("Goal/Goal", Model.GoalObjectsList[i]))
+    
+        } 
+           
+    }
+}

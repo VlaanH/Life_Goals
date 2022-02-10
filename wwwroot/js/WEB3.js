@@ -30,7 +30,7 @@ function hidden(id,isHidden)
     }
 }
 
-window.ethereum.on('networkChanged', function(networkId)
+window.ethereum.on('networkChanged', function()
 {
     ShowWeb3Net();
 });
@@ -51,7 +51,7 @@ function IsAuthorizationWeb3()
     
    
 }
-async function SetNetName(netID) 
+async function SetNetName() 
 {
     var id = await web3.eth.net.getId();
     if (id==80001)
@@ -143,13 +143,43 @@ window.ethereum.on('accountsChanged', function (accounts)
 
 })
 
+function pageAccessControl()
+{
+    if (PageName!=null)
+    {
+        if (PageName=="Profile")
+        {
+            if (AddressPage==userAddress)
+            {
+                console.log("owner");
+                owner(true);
+            }
+            else
+            {
+
+
+
+                owner(false);
+
+            }
+            GetSubscriptionStatus();
+        }
+        else if(PageName=="Feed") 
+        {
+            owner(false);
+        }
+        
+    }
+    
+}
+
 
 function RederectToYourPage()
 {
     if (StatusPage=="non")
     {
        
-        window.location.href = "/?address="+userAddress;
+        window.location.href = window.location.href+"?address="+userAddress;
         
      
     }
@@ -159,22 +189,11 @@ function RederectToYourPage()
     }
     else 
     {
-        if (AddressPage==userAddress)
-        {
-           console.log("owner");
-           owner(true);
-        }
-        else 
-        {
 
-            
-            
-            owner(false);
-           
-        }
-     
+        pageAccessControl();
     }
-    GetSubscriptionStatus();
+    
+    
 }
 
 

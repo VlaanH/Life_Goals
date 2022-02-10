@@ -33,13 +33,13 @@ window.onscroll = function () {
     var documentHeight = document.documentElement.scrollHeight ? document.documentElement.scrollHeight : document.body.scrollHeight;
     var scrollTop = window.pageYOffset ? window.pageYOffset : (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
 
-    if ((documentHeight - 10 - clientHeight) <= scrollTop && GoalDivEmpty()===false && DoubleScrollProtection===false)
+    if ((documentHeight - 100 - clientHeight) <= scrollTop && GoalDivEmpty()===false && DoubleScrollProtection===false)
     {     
         DoubleScrollProtection=true;
 
         GoalsLoadingOnScroll(ScrollNumber);
-
-    } 
+        pageAccessControl();
+    }
     
   
 }

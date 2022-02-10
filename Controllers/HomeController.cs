@@ -108,18 +108,57 @@ namespace LifeGoals.Controllers
 
             return View();
        }
-        
+        public IActionResult Feed(string address = default)
+        {
+            if (address != null)
+            {
+                address = address.ToLower();
+                if (address.Length==42)
+                {
+                    address=address.Remove(0,2);
+                }
+            }
+
+
+
+            if (UserManagement.IsUserExists(address) == true)
+            {
+                ViewData["address"] = address.ToLower();
+                ViewData["status"] = "exist";
+            }
+            else if (address == null)
+            {
+                ViewData["status"] = "non";
+                ViewData["address"] = "non";
+            }
+            else
+            {
+                ViewData["address"] = address.ToLower();
+                ViewData["status"]= "NotFound"; 
+            }
+
+            
+
+
+            return View();
+        }
 
         public async Task<ActionResult> UpdateGoals(string address,int scrollNumber)
         {
            
-            return PartialView("Profile/GetAllGoals",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber});
+            return PartialView("Goal/GetAllGoals",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber});
         }
+        public async Task<ActionResult> UpdateFeedGoals(string address,int scrollNumber)
+        {
+           
+            return PartialView("Goal/GetUserFeed",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber});
+        }
+        
         public async Task<ActionResult> Goal(int goalId)
         {
             var goal = Goals.GetGoal(goalId);
            
-            return PartialView("Profile/Goal",goal);
+            return PartialView("Goal/Goal",goal);
         }
         
 

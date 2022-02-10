@@ -26,4 +26,10 @@ namespace LifeGoals.PageObjects
 
     }
     
+    public class ListGoals
+    {
+        public AllGoalsScroll Scroll { get; set; }
+
+        public List<GoalObjects> GoalObjectsList { get; set; }
+    }
 }

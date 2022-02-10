@@ -164,6 +164,22 @@ function ArrayHiddenClass(class_,isHidden)
         } 
     }
 }
+function elementExist(Id) 
+{
+    try
+    {
+        if ( document.getElementById(Id)!=null)
+        {
+            return true;
+        }
+    }
+    catch (e)
+    {
+        return false;
+    }
+    
+}
+
 
 async function owner(isOwner) 
 {
@@ -178,7 +194,11 @@ async function owner(isOwner)
     }
     else 
     {
-        hidden("CreateGoal",true);
+        if (elementExist("CreateGoal"))
+        {
+            hidden("CreateGoal",true);
+        }
+        
         ArrayHiddenClass("goalPoints",true);
         ArrayHiddenClass("ImportantButton",true);
         ArrayHiddenClass("ImportantSvg",false);

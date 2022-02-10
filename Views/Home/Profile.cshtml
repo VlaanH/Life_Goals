@@ -9,10 +9,12 @@
     string status =  ViewData["status"].ToString();
     
     ViewData["Title"] = "User "+address;
+    Console.WriteLine(LifeGoals.Dbmanagement.Goals.GetUsersFeed(address).Count);
 }
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
     <script>
+        var PageName="Profile";
         var AddressPage="0x"+"@address";
         var StatusPage="@status";
     </script>
@@ -47,7 +49,7 @@
 
 
         <div class="goals" id="allGoals">
-            @await Html.PartialAsync("Profile/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1})
+            @await Html.PartialAsync("Goal/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1})
         </div>
 
 

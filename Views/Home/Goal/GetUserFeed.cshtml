@@ -1,0 +1,14 @@
+@using LifeGoals.Dbmanagement
+@using LifeGoals.PageObjects;
+
+@model AllGoalsScroll
+@{
+
+    
+    List<GoalObjects> goalObjectsList = new List<GoalObjects>();
+    goalObjectsList = Goals.GetUsersFeed(Model.Address);
+
+}
+
+    
+@(await Html.PartialAsync("Goal/_ListGoals", new ListGoals(){GoalObjectsList = goalObjectsList, Scroll = Model}))

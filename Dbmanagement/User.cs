@@ -42,6 +42,7 @@ namespace LifeGoals.Dbmanagement
 
             return subscribers;
         }
+        
         public static List<AppUser> GetSubscriptions(string address)
         {
             List<AppUser> Subscriptions = new List<AppUser>();
