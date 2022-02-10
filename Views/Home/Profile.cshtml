@@ -9,7 +9,6 @@
     string status =  ViewData["status"].ToString();
     
     ViewData["Title"] = "User "+address;
-    Console.WriteLine(LifeGoals.Dbmanagement.Goals.GetUsersFeed(address).Count);
 }
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
