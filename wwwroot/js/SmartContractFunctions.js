@@ -59,10 +59,18 @@ function AddGoal()
 
 function CreateAccount()
 {
-    var nickname = document.getElementById("RegNickname").value.replace(/"/g, "“");
-    var background = document.getElementById("RegBackground").value.replace(/"/g, "“");
-    var profileImage = document.getElementById("RegProfileImage").value.replace(/"/g, "“");
-    var description = document.getElementById("RegDescription").value.replace(/"/g, "“");
+    if (IsAuthorizationWeb3())
+    {
+        var nickname = document.getElementById("RegNickname").value.replace(/"/g, "“");
+        var background = document.getElementById("RegBackground").value.replace(/"/g, "“");
+        var profileImage = document.getElementById("RegProfileImage").value.replace(/"/g, "“");
+        var description = document.getElementById("RegDescription").value.replace(/"/g, "“");
+    }
+    else
+    {
+        alert("You are not logged into your web3 provider");
+    }
+   
 
 
     Web3CreateAccount(nickname,description,background,profileImage);

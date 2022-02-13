@@ -97,13 +97,17 @@ namespace LifeGoals.Controllers
                 ViewData["status"] = "non";
                 ViewData["address"] = "non";
             }
+            else if(address=="null")
+            {
+                ViewData["status"] = "NoWeb3";
+                ViewData["address"] = "non";
+            }
             else
             {
                 ViewData["address"] = address.ToLower();
                 ViewData["status"]= "NotFound"; 
             }
 
-            
 
 
             return View();
