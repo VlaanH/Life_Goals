@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using LifeGoals.Models;
 using LifeGoals.PageObjects;
 using Microsoft.AspNetCore.Hosting;
+using lifeGoals.Cryptocurrencies.Ethereum;
 
 namespace LifeGoals.Controllers
 {
@@ -26,23 +27,9 @@ namespace LifeGoals.Controllers
 
         public IActionResult GetSubscriptionStatus(string address,string pageVisitor)
         {
-            
-            if (address != null)
-            {
-                address = address.ToLower();
-                if (address.Length==42)
-                {
-                    address=address.Remove(0,2);
-                }
-            }
-            if (pageVisitor != null)
-            {
-                pageVisitor = pageVisitor.ToLower();
-                if (pageVisitor.Length==42)
-                {
-                    pageVisitor=pageVisitor.Remove(0,2);
-                }
-            }
+            address = AddressManagement.AddressNormalization(address);
+            pageVisitor=AddressManagement.AddressNormalization(pageVisitor);
+         
             
             
             return PartialView("Profile/UserAllData",new UserAllData()
@@ -76,15 +63,7 @@ namespace LifeGoals.Controllers
         
         public IActionResult Profile(string address=default)
         {
-            if (address != null)
-            {
-                address = address.ToLower();
-                if (address.Length==42)
-                {
-                    address=address.Remove(0,2);
-                }
-            }
-
+            address = AddressManagement.AddressNormalization(address);
 
 
             if (UserManagement.IsUserExists(address) == true)
@@ -114,15 +93,7 @@ namespace LifeGoals.Controllers
        }
         public IActionResult Feed(string address = default)
         {
-            if (address != null)
-            {
-                address = address.ToLower();
-                if (address.Length==42)
-                {
-                    address=address.Remove(0,2);
-                }
-            }
-
+            address = AddressManagement.AddressNormalization(address);
 
 
             if (UserManagement.IsUserExists(address) == true)
@@ -149,7 +120,8 @@ namespace LifeGoals.Controllers
 
         public async Task<ActionResult> UpdateGoals(string address,int scrollNumber)
         {
-           
+            address = AddressManagement.AddressNormalization(address);
+            
             return PartialView("Goal/GetAllGoals",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber});
         }
         public async Task<ActionResult> UpdateFeedGoals(string address,int scrollNumber)
