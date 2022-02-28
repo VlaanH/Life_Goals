@@ -157,12 +157,9 @@ function pageAccessControl()
             else
             {
 
-
-
                 owner(false);
 
             }
-            GetSubscriptionStatus();
         }
         else if(PageName=="Feed") 
         {
@@ -191,6 +188,7 @@ function RederectToYourPage()
     {
 
         pageAccessControl();
+        GetSubscriptionStatus();
     }
     
     

@@ -221,14 +221,6 @@ function SetQrAddress(address)
 
 }
 
-function GetSubscriptionStatus()
-{
-    document.getElementById("Get-Subscription-Status-address").value = AddressPage;
-    document.getElementById("Get-Subscription-Status-pageVisitor").value = userAddress;
-    updateForm("Get-Subscription-Status");
-
-}
-
 
 function SetBackground(image)
 {

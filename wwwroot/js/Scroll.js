@@ -11,12 +11,12 @@ function GoalDivEmpty()
 
 }
 
-
+var DoubleScrollProtection=false;
 function GoalsLoadingOnScroll(scrollNumber)
 {
-    document.getElementById('ScrollNumber').value=scrollNumber;
-    updateForm("Scroll");
-
+    
+    GetScroll(scrollNumber,AddressPage);
+    
     console.log("pg "+scrollNumber);
 
     ScrollNumber=scrollNumber+1;
@@ -24,7 +24,6 @@ function GoalsLoadingOnScroll(scrollNumber)
     DoubleScrollProtection=false;
 }
 
-var DoubleScrollProtection=false;
 window.onscroll = function () {
 
    
