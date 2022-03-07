@@ -74,7 +74,7 @@
             <div class="flex profileStats">
                     
              
-                <button class="iconButton grid" onclick="updateForm('User-dialog-update-GetSubscribers');showDialog('User-list-dialog')">
+                <button class="iconButton grid" onclick="GetSubscribers();showDialog('User-list-dialog')">
                     <a>Subscribers</a>
                     <a>@UserManagement.GetSubscribersCount(Model.UserAddress)</a>
                 </button>
@@ -82,7 +82,7 @@
                
               
                 
-                <button class="iconButton grid" onclick="updateForm('User-dialog-update-GetSubscriptions');showDialog('User-list-dialog')">
+                <button class="iconButton grid" onclick="GetSubscriptions();showDialog('User-list-dialog')">
                     <a>Subscriptions</a>
                     <a>@UserManagement.GetSubscriptionsCount(Model.UserAddress)</a>
                 </button>

@@ -49,3 +49,20 @@ function GetScroll(scrollNumber,userAddress)
     getAjaxRequest('/Home/UpdateGoals','allGoals',data,'after',true)   
     
 }
+
+function GetSubscribers()
+{
+
+    var data = {"address":AddressPage};
+
+    getAjaxRequest('/Home/GetSubscribers','Update-User-dialog',data,'replace',false)
+
+}
+
+function GetSubscriptions()
+{
+    var data = {"address":AddressPage};
+
+    getAjaxRequest('/Home/GetSubscriptions','Update-User-dialog',data,'replace',false)
+
+}

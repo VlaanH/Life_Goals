@@ -39,12 +39,14 @@ namespace LifeGoals.Controllers
 
         public IActionResult GetSubscribers(string address)
         {
+            address = AddressManagement.AddressNormalization(address);
             var allUserSubscribers = UserManagement.GetSubscribers(address);
             
             return PartialView("Profile/UserListDialog",new UserListDialog(){Users = allUserSubscribers,IsOpen = true});
         }
         public IActionResult GetSubscriptions(string address)
         {
+            address = AddressManagement.AddressNormalization(address);
             var allUserSubscriptions = UserManagement.GetSubscriptions(address);
             
             return PartialView("Profile/UserListDialog",new UserListDialog(){Users = allUserSubscriptions,IsOpen = true});
