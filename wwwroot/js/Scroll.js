@@ -21,7 +21,7 @@ function GoalsLoadingOnScroll(scrollNumber)
 
     ScrollNumber=scrollNumber+1;
 
-    DoubleScrollProtection=false;
+   
 }
 
 window.onscroll = function () {
