@@ -36,8 +36,11 @@ namespace LifeGoals.Daemons
             json=json.Replace("\r","<br>");
           
             json=json.Replace(@"\",@"\\");
-
-
+            
+            
+            
+            json=json.Replace("<","'");
+            json=json.Replace(">","'");
             return json;
         }
         static async void SyncSubscriptions()
