@@ -28,19 +28,20 @@ namespace LifeGoals.Daemons
             }
         }
 
-        private static string JsonNormalization(string json)
+        private static string JsonNormalization(this string json)
         {
-        
             
-            json=json.Replace("\n","<br>");
-            json=json.Replace("\r","<br>");
-          
-            json=json.Replace(@"\",@"\\");
-            
-            
-            
+            //replacing all html tags
             json=json.Replace("<","'");
             json=json.Replace(">","'");
+            
+            
+            //replacing special characters with an indent tag
+            json=json.Replace("\n","<br>");
+            json=json.Replace("\r","<br>");
+            
+            
+            json=json.Replace(@"\",@"\\");
             return json;
         }
         static async void SyncSubscriptions()
@@ -91,19 +92,13 @@ namespace LifeGoals.Daemons
             {
                 try
                 {
-
-                    jsonData[i] = JsonNormalization(jsonData[i]);
                     
-
-                    var goal = JsonSerializer.Deserialize<GoalObjects>(jsonData[i]);
-
-
+                    var goal = JsonSerializer.Deserialize<GoalObjects>(jsonData[i].JsonNormalization());
+                    
                    
                     if (goal != null)
-                    {
                         data.Add(goal);
-                    }
-
+                    
                     
                 }
                 catch (Exception e)
@@ -125,9 +120,8 @@ namespace LifeGoals.Daemons
             {
                 try
                 {
-                    jsonData[i] = JsonNormalization(jsonData[i]);
+                    var user = JsonSerializer.Deserialize<AppUser>(jsonData[i].JsonNormalization());
                     
-                    var user = JsonSerializer.Deserialize<AppUser>(jsonData[i]);
                     if (user != null) 
                         data.Add(user);
                 }
@@ -148,9 +142,8 @@ namespace LifeGoals.Daemons
             {
                 try
                 {
-                    jsonData[i] = JsonNormalization(jsonData[i]);
+                    var suber = JsonSerializer.Deserialize<SubscriptionObjects>(jsonData[i].JsonNormalization());
                     
-                    var suber = JsonSerializer.Deserialize<SubscriptionObjects>(jsonData[i]);
                     if (suber != null) 
                         data.Add(suber);
                 }
