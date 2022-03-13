@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Nethereum.Web3;
 namespace LifeGoals.Cryptocurrencies
@@ -11,8 +12,18 @@ namespace LifeGoals.Cryptocurrencies
 
             
             var contract = web3.Eth.GetContract(abi, contractAddress);
-            var function = contract.GetFunction(nameFunction);
-            return await function.CallAsync<string>();
+            try
+            {
+                var function = contract.GetFunction(nameFunction);
+                return await function.CallAsync<string>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return default;
+            }
+            
+            
 
         }
     }

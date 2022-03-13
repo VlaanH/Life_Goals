@@ -48,25 +48,31 @@ namespace LifeGoals.Daemons
         {
             var jsonAllUser = await new SmartContractRequest().
                 GetStringFunction(appSettings.ContractAddressVerification,appSettings.ContractAbiVerification, "allUserSubscriptions");
-                
-            string [] split = jsonAllUser.Split("\n\r");
-               
-            var onlyNewSyncData = ReadSubscription(split.Distinct().ToList());
-               
-            SynchronizationSmartContractsDb.SynchronizationSubscription(onlyNewSyncData);
             
+            if (jsonAllUser != default)
+            {
+                string[] split = jsonAllUser.Split("\n\r");
+
+                var onlyNewSyncData = ReadSubscription(split.Distinct().ToList());
+
+                SynchronizationSmartContractsDb.SynchronizationSubscription(onlyNewSyncData);
+            }
         }
 
         static async void SyncUserAddress()
         {
             var jsonAllUser= await new SmartContractRequest().
                 GetStringFunction(appSettings.ContractAddressVerification,appSettings.ContractAbiVerification, "allUsers");
-                
-            string [] split = jsonAllUser.Split("\n\r");
+            
+            if (jsonAllUser!=default)
+            {
+                string [] split = jsonAllUser.Split("\n\r");
                
-            var onlyNewSyncData = ReadUser(split.Distinct().ToList());
+                var onlyNewSyncData = ReadUser(split.Distinct().ToList());
                
-            SynchronizationSmartContractsDb.SynchronizationUsers(onlyNewSyncData);
+                SynchronizationSmartContractsDb.SynchronizationUsers(onlyNewSyncData);
+            }
+            
             
         }
         static async void SyncGoals()
@@ -74,14 +80,15 @@ namespace LifeGoals.Daemons
             var jsonAllGoal= await new SmartContractRequest().
                 GetStringFunction(appSettings.ContractAddressVerification,appSettings.ContractAbiVerification, "allGoals");
 
-        
-            string [] split = jsonAllGoal.Split("\n\r");
+            if (jsonAllGoal != default)
+            {
+                string [] split = jsonAllGoal.Split("\n\r");
 
-            var onlyNewSyncData = ReadGoals(split.Distinct().ToList());
-       
-           
-            SynchronizationSmartContractsDb.SynchronizationGoals(onlyNewSyncData);
-            
+                var onlyNewSyncData = ReadGoals(split.Distinct().ToList());
+
+                SynchronizationSmartContractsDb.SynchronizationGoals(onlyNewSyncData);
+            }
+
         }
 
 
