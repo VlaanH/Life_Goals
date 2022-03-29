@@ -8,43 +8,64 @@ function updateGoalLine()
     $( "#goalsLineForm" ).submit();
     
 }
-(function($) {
-    'use strict';
 
-    var $accountDeleteDialog = $('#Donate-dialog');
-
-    $('#cancel-donate-dialog').on('click', function() {
-        $accountDeleteDialog[0].close();
-    });
-
-})(jQuery);
-
+function cancelDialog(id)
+{
+    var accountDeleteDialog = $('#'+id);
+    accountDeleteDialog[0].close();
+}
 
 
 function showDialog(id)
 {
-
     $( `#${id}`)[0].showModal();
 
 }
 
-var qrcode = new QRCode("qrcodeAddress", {
-   
-    width: 140,
-    height: 140,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    
-});;
-
-function makeCode ()
+function QrcodeDivEmpty()
 {
-    var elText = document.getElementById("Address");
-    qrcode.makeCode(elText.value);
+    if ($('#qrcodeAddress').find('*').length == 0)
+        return true;
+    else
+        return false;
+
+}
+var qrcode;
+function makeCode (text)
+{
+    
+    if (QrcodeDivEmpty()===true)
+    {
+
+        qrcode= new QRCode("qrcodeAddress", {
+
+            width: 140,
+            height: 140,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+
+        });
+        
+    }
+
+    qrcode.makeCode(text); 
     
 }
 
-makeCode();
+function SetQrAddress(address)
+{
+
+    document.getElementById('addressText').innerHTML=address;
+
+    document.getElementById('addressTextType').innerHTML="Ethereum address:";
+    document.getElementById('MainDialog').innerHTML="Donate";
+    document.getElementById('DialogDiscript').innerHTML="It is an Ethereum cryptocurrency wallet. Ethereum is the community-run technology powering the cryptocurrency ether (ETH) and thousands of decentralized applications."
+    
+    makeCode(address)
+
+
+}
+
 
 function getETHBalance(address,goalID,donateValue,maxValue)
 {
@@ -206,20 +227,6 @@ async function owner(isOwner)
     }
 }
 
-function SetQrAddress(address) 
-{
-
-    document.getElementById('Address').value=address;
-   
-    document.getElementById('addressText').innerHTML=address;
-
-    document.getElementById('addressTextType').innerHTML="Ethereum address:";
-    document.getElementById('MainDialog').innerHTML="Donate";
-    document.getElementById('DialogDiscript').innerHTML="It is an Ethereum cryptocurrency wallet. Ethereum is the community-run technology powering the cryptocurrency ether (ETH) and thousands of decentralized applications."
-    makeCode()
-
-
-}
 
 
 function SetBackground(image)
