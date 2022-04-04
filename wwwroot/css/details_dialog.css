@@ -48,7 +48,16 @@ p:last-of-type, p:only-child {
     margin-top: 0;
     margin-bottom: 0;
 }
-
+.black-link:hover
+{
+    text-decoration: none;
+    color: black;
+}
+.black-link
+{
+    text-decoration: none;
+    color: black;
+}
 .user-list-unit
 {
     font-size: 15px;

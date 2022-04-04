@@ -19,36 +19,28 @@
                         @if (Model.Users.Count!=0)
                         {
                             @foreach (var user in Model.Users)
-                            {              
-                                <div class="user-list-unit pointer iconButton" onclick="document.location='/?address=@user.Address'">
-                                
-                              
-                                    <div>
-                                        <img src="@user.Imag" class="profileMiniImage"/>
-                                        <a>@user.Nickname</a>
-                                    </div>
-                                                
-                                    <div class="flex center">
-                                        <a>@user.Address</a>
-                                    </div> 
-                               
-                              
-                                
-                                </div>
+                            {
+                                <a class="user-list-unit pointer iconButton black-link" href="/?address=@user.Address">
+                                    
+                                    <span>
+                                        <image src="@user.Imag" class="profileMiniImage"/>
+                                        <span>@user.Nickname</span>
+                                    </span>
+
+                                    <span class="flex center">
+                                        <span>@user.Address</span>
+                                    </span>
+                                </a>
                             } 
                         }
                         else
                         {
                             <div>User list is empty</div>
                         }
-                        
                     </div>
-    
-    
                 </div>
                 <div class="btn-group cf">
                     <button class="btn btn-cancel" id="cancel-user-list-dialog" onclick="cancelDialog('User-list-dialog')">Cancel</button>
-    
                 </div>
             </dialog>
         </section>
