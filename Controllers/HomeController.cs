@@ -1,12 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using LifeGoals.Dbmanagement;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using LifeGoals.Models;
-using LifeGoals.PageObjects;
-using Microsoft.AspNetCore.Hosting;
 using lifeGoals.Cryptocurrencies.Ethereum;
 
 namespace LifeGoals.Controllers
@@ -16,7 +11,7 @@ namespace LifeGoals.Controllers
         
         public IActionResult Privacy()
         {
-            return View();
+            return View("Pages/Privacy");
         }
         
         
@@ -48,7 +43,7 @@ namespace LifeGoals.Controllers
 
 
 
-            return View();
+            return View("Pages/Profile");
        }
         public IActionResult Feed(string address = default)
         {
@@ -79,21 +74,21 @@ namespace LifeGoals.Controllers
             
 
 
-            return View();
+            return View("Pages/Feed");
         }
 
         public IActionResult Settings()
         {
-            return View();
+            return View("Pages/Settings");
         }
 
         public IActionResult Error404()
         {
-            return View();
+            return View("Pages/Error404");
         }
         public IActionResult Register()
         {
-            return View();
+            return View("Pages/Register");
         }
         
         
