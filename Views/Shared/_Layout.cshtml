@@ -27,14 +27,8 @@
     <link rel="stylesheet" href="~/css/goal.css">
     <link rel="stylesheet" href="~/css/progress_bar.css">
     <link rel="stylesheet" href="~/css/details_dialog.css">
-    <script type="text/javascript" src="~/lib/davidshimjs-qrcodejs/qrcode.js"></script>
+    <partial name="_ValidationScriptsPartial"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
-    <script src="~/js/site.js"></script>
-    <script src="~/js/WEB3.js"></script>
-    <script src="~/js/SmartContractFunctions.js"></script>
-    <script src="~/js/Scroll.js"></script>
-    <script src="~/js/Ajax.js"></script>
 
     
 </head>
@@ -48,14 +42,14 @@
                     
                     
         <div class="header-btn" >
-            <a style=" color: white; text-decoration: none" href="/home/feed" >LifeGoals</a>
+            <a style=" color: white; text-decoration: none" onclick="return false" href="/home/feed" address="true" page="Feed">LifeGoals</a>
             <img src="~/img/pic.png" widht="30" height="30" class="logo-icon" alt="">
         </div>
                     
                      
                     
         <div class="header-btn header-control" >
-            <a href="/" style=" color: white; text-decoration: none">Profile</a>
+            <a onclick="return false" href="/" page="Profile" address="true" style=" color: white; text-decoration: none" >Profile</a>
         </div>
 
         </div>
@@ -98,27 +92,26 @@
        
             
 </header>
-<div class="container">
+<div class="container" id="MainFrame">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
 <script>
-           //Отключение подтверждение формы
-         
-              if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}
-     </script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+//Disable form validation
+ if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}
+</script>
+
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 <footer class="border-top footer text-muted">
     <div class="containerFooter" style=" color: black;">
-        &copy; 2022 - LifeGoals - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2022 - LifeGoals - <a onclick="return false" page="Privacy" address="false" href="/home/Privacy">Privacy</a>
     </div>
 </footer>
 </html>
