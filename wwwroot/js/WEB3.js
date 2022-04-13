@@ -5,17 +5,21 @@ window.onload = async () => {
     if (window.ethereum) 
     {
         window.web3 = new Web3(window.ethereum);
+        // Load in Localstore key
+        window.userAddress = window.localStorage.getItem("userAddress");
+        await ShowWeb3NetAndAccount();
+        window.ethereum.on('accountsChanged', function (accounts)
+        {
+            loginWithEth();
+        });
+        window.ethereum.on('networkChanged', function()
+        {
+            ShowWeb3NetAndAccount();
+        });
+        InitContract();
     } 
-    else 
-    {
-        hidden("InstallingMetamask",false);
-        alert("No ETH browser extension detected.");
-    }
-   
-    // Load in Localstore key
-    window.userAddress = window.localStorage.getItem("userAddress");
-    ShowWeb3Net();
-    RederectToYourPage();
+    
+    RedirectToYourPage();
 };
 
 function hidden(id,isHidden)
@@ -30,10 +34,7 @@ function hidden(id,isHidden)
     }
 }
 
-window.ethereum.on('networkChanged', function()
-{
-    ShowWeb3Net();
-});
+
 
 function IsAuthorizationWeb3()
 {
@@ -73,7 +74,7 @@ async function SetNetName()
 }
 
 
-async function ShowWeb3Net() 
+async function ShowWeb3NetAndAccount() 
 {
     if (!window.userAddress) 
     {
@@ -96,12 +97,13 @@ async function ShowWeb3Net()
 }
 
 
-function logout() 
+async function logout() 
 {
     window.userAddress = null;
     window.localStorage.removeItem("userAddress");
-    ShowWeb3Net();
-    RederectToYourPage();
+    
+    await ShowWeb3NetAndAccount();
+    RedirectToYourPage();
 }
 
 
@@ -124,24 +126,24 @@ async function loginWithEth()
                 });
             window.userAddress = selectedAccount;
             window.localStorage.setItem("userAddress", selectedAccount);
-            ShowWeb3Net();
+            await ShowWeb3NetAndAccount();
         } 
         catch (error) 
         {
             console.error(error);
-        }
-        RederectToYourPage();
-    } else 
+        } 
+        
+        RedirectToYourPage();
+       
+    } 
+    else 
     {
-        alert("MetaMask not installed.");
+       alert("MetaMask not installed.");
     }
 }
 
-window.ethereum.on('accountsChanged', function (accounts) 
-{
-    loginWithEth()
 
-})
+
 
 function pageAccessControl()
 {
@@ -156,13 +158,12 @@ function pageAccessControl()
             }
             else
             {
-
                 owner(false);
-
             }
         }
         else if(PageName=="Feed") 
         {
+            //your goals are not displayed in the feed yet
             owner(false);
         }
         
@@ -171,38 +172,49 @@ function pageAccessControl()
 }
 
 
-function RederectToYourPage()
+function RedirectToYourPage()
 {
-    if (StatusPage=="non")
+    if (typeof StatusPage !== 'undefined')
     {
-       
-        window.location.href = window.location.href+"?address="+userAddress;
-        
-     
-    }
-    else if(StatusPage=="NotFound"&userAddress==AddressPage)
-    {
-        window.location.href ="/Home/Register";
-    }
-    else 
-    {
+        if(StatusPage==="non" && IsAuthorizationWeb3()===false)
+        {
+            PageAjaxTransition("Register");
+        }
+        else if (StatusPage==="non")
+        {
+            PageAjaxTransition(PageName,userAddress);
+        }
+        else if(StatusPage==="NotFound" & userAddress==AddressPage)
+        {
+            PageAjaxTransition("Register");
+        }
+        else
+        {
+            pageAccessControl();
+            if (StatusPage!=="NotFound")
+            {
+                GetSubscriptionStatus();
+            }
+            
+        }
 
-        pageAccessControl();
-        GetSubscriptionStatus();
+        
     }
-    
-    
 }
 
 
 const CONTRACT_ADDRESS = '0xFB982341b86028E4dC9EbADc70fa7f01263D5479';
 window.ABI = [{"inputs":[{"internalType":"uint256","name":"verificationCost","type":"uint256"}],"stateMutability":"payable","type":"constructor"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"},{"internalType":"string","name":"DonateValue","type":"string"},{"internalType":"address","name":"PublicAddress","type":"address"}],"name":"AddDonateGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddGoal","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"Titles","type":"string"},{"internalType":"string","name":"Body","type":"string"}],"name":"AddMessage","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"uint256","name":"status","type":"uint256"}],"name":"ChangeGoalStatus","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"nickname","type":"string"},{"internalType":"string","name":"Description","type":"string"},{"internalType":"string","name":"Background","type":"string"},{"internalType":"string","name":"Imag","type":"string"}],"name":"CreateAccount","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"goalId","type":"uint256"},{"internalType":"bool","name":"important","type":"bool"}],"name":"DoImportant","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"background","type":"string"}],"name":"SetBackground","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"description","type":"string"}],"name":"SetDescription","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"string","name":"imag","type":"string"}],"name":"SetImag","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"subscribeTo","type":"address"}],"name":"SubscribeToUser","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"unfollowTo","type":"address"}],"name":"UnfollowUser","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"allGoals","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"allUserSubscriptions","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"allUsers","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"price","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"payable","type":"function"}]
-    
+
+var contract;
+function InitContract()
+{
+    contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
+}
+
 async function Web3CreateAccount(nickname,description,background,image)
 {
     
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
     const symbol = await contract.methods.CreateAccount(nickname,description,background,image).send({ from: window.userAddress,value: web3.utils.toWei("100000000000", "wei")});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -214,8 +226,7 @@ async function Web3CreateAccount(nickname,description,background,image)
 
 async function Web3ChangeGoalStatus(id,status,ajaxUpdate)
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
+    
     const symbol = await contract.methods.ChangeGoalStatus(id,status).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -227,8 +238,7 @@ async function Web3ChangeGoalStatus(id,status,ajaxUpdate)
 }
 async function Web3CDoImportant(id,status,ajaxUpdate)
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
+    
     const symbol = await contract.methods.DoImportant(id,status).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -241,8 +251,6 @@ async function Web3CDoImportant(id,status,ajaxUpdate)
 
 async function Web3AddGoal(Titles,Body)
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
     const symbol = await contract.methods.AddGoal(Titles,Body).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -256,8 +264,6 @@ async function Web3AddGoal(Titles,Body)
 }
 async function Web3AddMessage(Titles,Body)
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
     const symbol = await contract.methods.AddMessage(Titles,Body).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -272,8 +278,6 @@ async function Web3AddMessage(Titles,Body)
 
 async function Web3AddDonateGoal(titles,body,donateValue,publicAddress) 
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
     const symbol = await contract.methods.AddDonateGoal(titles,body,donateValue,publicAddress).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -288,8 +292,6 @@ async function Web3AddDonateGoal(titles,body,donateValue,publicAddress)
 
 async function Web3SetBackground(background) 
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
     const symbol = await contract.methods.SetBackground(background).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -301,8 +303,6 @@ async function Web3SetBackground(background)
 
 async function Web3SetDescription(description)
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
     const symbol = await contract.methods.SetDescription(description).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -313,8 +313,6 @@ async function Web3SetDescription(description)
 }
 async function Web3SetImag(imag)
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
     const symbol = await contract.methods.SetImag(imag).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -323,9 +321,6 @@ async function Web3SetImag(imag)
 }
 async function Web3SubscribeToUser(subscribeTo) 
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
-    
     const symbol = await contract.methods.SubscribeToUser(subscribeTo).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
@@ -338,9 +333,6 @@ async function Web3SubscribeToUser(subscribeTo)
 }
 async function Web3UnfollowUser(unfollowTo)
 {
-    const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS);
-
-
     const symbol = await contract.methods.UnfollowUser(unfollowTo).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
