@@ -20,7 +20,8 @@
                         {
                             @foreach (var user in Model.Users)
                             {
-                                <a class="user-list-unit pointer iconButton black-link" href="/?address=@user.Address">
+                                <a class="user-list-unit pointer iconButton black-link"
+                                    onclick="return PageAjaxTransition('Profile','@user.Address')" page="Profile" address="true" href="/?address=@user.Address">
                                     
                                     <span>
                                         <image src="@user.Imag" class="profileMiniImage"/>
