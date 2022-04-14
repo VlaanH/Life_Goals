@@ -231,6 +231,9 @@ async function owner(isOwner)
 
 function SetBackground(image)
 {
+    if (image==="default")
+        document.body.style.backgroundImage=null;
+    else 
     document.body.style.backgroundImage=`url('${image}')`;
 }
 function updateForm(id)
