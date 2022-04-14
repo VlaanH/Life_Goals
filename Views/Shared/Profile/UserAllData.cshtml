@@ -32,20 +32,20 @@
             {
                 @if (Model.UserAddress==Model.PageVisitor)
                 {
-                    <button class="btn rounded-root btn-purple btn-Edit-Profile" id="settingsProfile"
-                            onclick="document.location='/home/Settings'" content="edit">Edit profile</button>
+                    <a class="btn rounded-root btn-purple btn-Edit-Profile" id="settingsProfile"
+                            onclick="return PageAjaxTransition('Settings')" page="Settings" address="false" href="/home/Settings" content="edit">Edit profile</a>
                 }
                 else
                 {
                     @if (UserManagement.IsSubscriber(Model.UserAddress,Model.PageVisitor))
                     {
-                        <button class="btn rounded-root btn-purple btn-Edit-Profile" id="subscribeButton"
+                        <button class="btn rounded-root btn-purple btn-Edit-Profile" 
                                 onclick="UnfollowUser()" content="edit">Unsubscribe</button> 
                     }
                     else
                     {
                            
-                        <button class="btn rounded-root btn-purple btn-Edit-Profile" id="subscribeButton"
+                        <button class="btn rounded-root btn-purple btn-Edit-Profile"
                                 onclick="SubscribeToUser()" content="edit">Subscribe</button>    
                     }
                 }
