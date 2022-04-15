@@ -3,23 +3,17 @@
 
 @{
 
-  
-
     string address  = ViewData["address"].ToString();
     string status =  ViewData["status"].ToString();
     
-    ViewData["Title"] = "User "+address;
 }
-@section scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
-    <script>
-        var PageName="Profile";
-        var AddressPage="0x"+"@address";
-        var StatusPage="@status";
-    </script>
-    
-    
-}
+@await Html.PartialAsync("_title",$"User {address}")
+<script>
+    var PageName="Profile";
+    var AddressPage="0x"+"@address";
+    var StatusPage="@status";
+</script>
+
 @if (status=="exist")
 {
     
@@ -45,17 +39,10 @@
             
 
         
-
-
         <div class="goals" id="allGoals">
             @await Html.PartialAsync("Goal/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1})
         </div>
 
-
-
-
-
-        
 
     </div>
 </div>
@@ -67,11 +54,12 @@ else
    
     if (status=="NotFound")
     {
-        <partial name="Error404"/>
+        @await Html.PartialAsync("Pages/Error404")
+
     }
     else if (status=="NoWeb3")
     {
-        <partial name="Register"/>   
+        <partial name="Pages/Register"/>   
     }
 
 }

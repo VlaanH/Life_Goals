@@ -8,21 +8,22 @@
     string address  = ViewData["address"].ToString();
     string status =  ViewData["status"].ToString();
     
-    ViewData["Title"] = "User "+address;
 }
-@section scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
-    <script>
-        var PageName="Feed";
-        var AddressPage="0x"+"@address";
-        var StatusPage="@status";
-    </script>
+@await Html.PartialAsync("_title",$"Feed {address}")
+<script>
+    var PageName="Feed";
+    var AddressPage="0x"+"@address";
+    var StatusPage="@status";
+</script>
     
   
-}
+
 @if (status == "exist")
 {
+    @await Html.PartialAsync("SVG/SVG")
+
     <script>SetBackground("@UserManagement.GetUser(address).Background");</script>
+                                                                       
     <partial name="Profile/DonatDialog" model="address"/>
 
     
@@ -43,11 +44,11 @@ else
 
     if (status=="NotFound")
     {
-        <partial name="Error404"/>
+        <partial name="Pages/Error404"/>
     }
     else if (status=="NoWeb3")
     {
-        <partial name="Register"/>   
+        <partial name="Pages/Register"/>   
     }
 
 }
