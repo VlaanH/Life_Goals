@@ -160,10 +160,7 @@ body
 {
     border-radius: 12px;
 }
-.form-star
-{
-    display: inline-block;
-}
+
 .main-header-btn
 {
     position: absolute;
@@ -204,149 +201,18 @@ body
     border-radius:10px;
 }
 
-
-
-.g-recaptcha{
-
-    margin-left: auto;
-    margin-right: auto;
-    display: inline-block;
-}
 .content {
     padding-bottom: 10px;
-    width: 95%; /* Ширина слоя */
-    margin: 0 auto 10px; /* Выравнивание по центру */
+    width: 95%; 
+    margin: 0 auto 10px;
 }
-.frame_blc{
-    overflow: hidden;
-    position: relative;
-    padding-bottom: 46.25%;
-    padding-top: 30px;
-    height: 0;
-}
-.frame_blc iframe {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-}
+
 .header {
     width: 100%;
     height: 60px;
     margin: 0;
     position: relative;
     background-color: #ae7fe5;
-}
-.name {
-    position: absolute;
-    top: 15px;
-    height: 60px;
-    width: 160px;
-    margin: 0;
-    text-align: center;
-    color: #fff;
-    font-family: 'Alfa Slab One', cursive;
-    font-size: 20px;
-    z-index: 1000;
-}
-.home {
-    position: absolute;
-    width: 80px;
-    height: 20px;
-    left: 170px;
-    top: 18px;
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-    font-family: 'Balsamiq Sans';
-}
-.home:hover {
-    color: #CCCECF;
-}
-.multiply {
-    position: absolute;
-    width: 80px;
-    height: 20px;
-    left: 240px;
-    top: 18px;
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-    font-family: 'Balsamiq Sans';
-}
-.multiply:hover {
-    color: #CCCECF;
-}
-
-.stats {
-    position: absolute;
-    width: 80px;
-    height: 20px;
-    left: 400px;
-    top: 18px;
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-    font-family: 'Balsamiq Sans';
-}
-.stats:hover {
-    color: #CCCECF;
-}
-.deposit {
-    position: absolute;
-    width: 80px;
-    height: 20px;
-    left: 480px;
-    top: 18px;
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-    font-family: 'Balsamiq Sans';
-}
-.deposit:hover {
-    color: #CCCECF;
-}
-.withdraw {
-    position: absolute;
-    width: 80px;
-    height: 20px;
-    left: 570px;
-    top: 18px;
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-    font-family: 'Balsamiq Sans';
-}
-.withdraw:hover {
-    color: #CCCECF;
-}
-.login:hover {
-    color: #CCCECF;
-}
-.login {
-    top: 18px;
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-}
-.register:hover {
-    color: #CCCECF;
-}
-.register {
-    top: 18px;
-    text-decoration: none;
-    margin-top: 0;
-    font-family: 'Roboto', sans-serif;
-
-    font-size: 17px;
-    color: #fff;
 }
 
 .aut-header-btn
@@ -366,15 +232,7 @@ body
     left: 145px;
     z-index: 1000;
 }
-#menu__toggle {
-    visibility: hidden;
-}
-.menu__box {
-    visibility: hidden;
-}
-.menu__box__login {
-    visibility: hidden;
-}
+
 
 @media (max-width:1200px)
 {
@@ -402,151 +260,7 @@ body
     }
 
 
-/*
-  
 
-    #menu__toggle {
-        opacity: 0;
-        margin: 0;
-        height: 30px;
-        width: 30px;
-    }
-    .hamburger-menu {
-        margin: 0;
-        position: absolute;
-        right: 20px;
-        top: 15px;
-        height: 30px;
-        width: 30px;
-    }
-    .menu__btn {
-        display: flex;
-        align-items: center;
-        position: fixed;
-        top: 15px;
-        right: 20px;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        z-index: 1;
-    }
-    .menu__btn > span,
-    .menu__btn > span::before,
-    .menu__btn > span::after {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background-color: #fff;
-    }
-    .menu__btn > span::before {
-        content: '';
-        top: -8px;
-    }
-    .menu__btn > span::after {
-        content: '';
-        top: 8px;
-    }
-    .menu__box {
-        position: fixed;
-        visibility: hidden;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 260px;
-        margin: 0;
-        padding: 80px 0;
-        list-style: none;
-        background-color: #343a40;
-        box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
-    }
-    .menu__item {
-        margin: 0;
-        display: block;
-        padding: 12px 24px;
-        font-family: 'Balsamiq Sans';
-        color: #fff;
-        font-size: 20px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-    .menu__item__but {
-        margin: 0;
-        display: block;
-    }
-    .menu__item__button {
-        background-color: Transparent;
-        background-repeat:no-repeat;
-        border: none;
-        width: 100%;
-        padding: 12px 24px;
-        text-align: left;
-        font-family: 'Balsamiq Sans';
-        color: #fff;
-        font-size: 20px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-    .menu__box__login {
-        position: fixed;
-        visibility: hidden;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 250px;
-        margin: 0;
-        padding: 80px 0;
-        list-style: none;
-        background-color: #343a40;
-        box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
-    }
-    #menu__toggle:checked ~ .menu__box__login {
-        visibility: visible;
-        right: 0;
-    }
-    .menu__box__login {
-        transition-duration: .25s;
-    }
-    .menu__item:hover {
-        background-color: #1e2124;
-        text-decoration: none;
-        color: white;
-    }
-    .menu__item__but:hover {
-        background-color: #1e2124;
-        text-decoration: none;
-        color: white;
-    }
-    #menu__toggle:checked ~ .menu__btn > span {
-        transform: rotate(45deg);
-    }
-    #menu__toggle:checked ~ .menu__btn > span::before {
-        top: 0;
-        transform: rotate(0);
-    }
-    #menu__toggle:checked ~ .menu__btn > span::after {
-        top: 0;
-        transform: rotate(90deg);
-    }
-    #menu__toggle:checked ~ .menu__box {
-        visibility: visible;
-        right: 0;
-    }
-    .menu__btn > span,
-    .menu__btn > span::before,
-    .menu__btn > span::after {
-        transition-duration: .25s;
-    }
-    .menu__box {
-        transition-duration: .25s;
-    }
-    .menu__item {
-        transition-duration: .25s;
-    }
-    .menu__item__but {
-        transition-duration: .25s;
-    }
-*/
 }
 @media (max-width:767px)
 {
