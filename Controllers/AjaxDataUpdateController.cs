@@ -15,7 +15,7 @@ namespace LifeGoals.Controllers
          
             
             
-            return PartialView("Profile/UserAllData",new UserAllData()
+            return PartialView("Profile/UserAllData",new BasicView()
                 {UserAddress = address, PageVisitor = pageVisitor});
         }
 
