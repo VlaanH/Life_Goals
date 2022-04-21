@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using LifeGoals.Models;
 
@@ -10,6 +11,15 @@ namespace LifeGoals.PageObjects
         public int ScrollNumber { get; set; }
     }
 
+    public class BasicView
+    {
+        public string UserAddress { get; set; }
+        
+        public string PageVisitor { get; set; }
+    }
+    
+    
+    
     public class UserListDialog
     {
         public List<AppUser> Users { get; set; }
@@ -17,13 +27,11 @@ namespace LifeGoals.PageObjects
         public bool IsOpen { get; set; }
 
     }
-
-    public class UserAllData
-    {
-        public string UserAddress { get; set; }
-        
-        public string PageVisitor { get; set; }
-
+    
+    
+    public class UniversalAddressPage:BasicView
+    { 
+        public string Page { get; set; }
     }
     
     public class ListGoals

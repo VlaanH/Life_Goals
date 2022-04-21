@@ -28,7 +28,7 @@
     <div class="profileWrapper">
         
         
-        @await Html.PartialAsync("Profile/UserAllData",new UserAllData(){UserAddress = address})
+        @await Html.PartialAsync("Profile/UserAllData",new BasicView(){UserAddress = address})
         
         @await Html.PartialAsync("Profile/GoalLine",address)
         
