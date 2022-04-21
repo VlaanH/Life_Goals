@@ -7,12 +7,13 @@ function getAjaxPage(url, idHtml,address)
                 type: "POST",
                 success: function (callback) {
                     jQuery("#" + idHtml).html(callback);
-    
-                    if (address!=null)
-                    {
-                        pageAccessControl();
-                        GetSubscriptionStatus();
-                    }
+                    
+                    if (typeof address !== 'undefined')
+                        if (address.address!=null)
+                        {
+                            pageAccessControl();
+                            GetSubscriptionStatus();
+                        }
                     
                 },
                 error: function () {
@@ -21,37 +22,63 @@ function getAjaxPage(url, idHtml,address)
     
             });
 }
+function AddHistory(transitionUrl,dataHistory) 
+{
+    var thisPage=window.location.pathname+window.location.search;
+    
+    if (thisPage!==transitionUrl)
+        history.pushState(dataHistory, null, transitionUrl);
+    else
+    {
+        document.addEventListener("DOMContentLoaded", () => {
+            history.replaceState(dataHistory, null, transitionUrl);
+        });
 
-function PageAjaxTransition(ajaxUrl,address)
+    }
+}
+
+
+function PageAjaxTransition(ajaxUrl,address,isAddressPage=false)
 {
 
     var addressJson={"address":address};
-
-    var thisPage=window.location.pathname+window.location.search;
-
-    if (address==null)
+    
+    var dataHistory,transitionUrl;
+    
+    if (isAddressPage===false)
     {
         SetBackground("default");
         getAjaxPage(/AjaxPageTransition/+ajaxUrl, "MainFrame");
 
-        const transitionUrl="/home/"+ajaxUrl;
+        transitionUrl="/home/"+ajaxUrl;
+
+        dataHistory={'PageName': ajaxUrl};
         
-        if (thisPage!==transitionUrl)
-            history.pushState({'PageName': ajaxUrl}, null, transitionUrl);
     }
     else 
     {
         ScrollNumber=2;
         getAjaxPage(/AjaxPageTransition/+ajaxUrl, "MainFrame",addressJson);
 
-        const transitionUrl="/home/"+ajaxUrl+"?address="+address;
-        
-        if (thisPage!==transitionUrl)
-            history.pushState({'PageName': ajaxUrl,'address':address}, null, transitionUrl);
-        
-            
+        transitionUrl="/home/"+ajaxUrl+"?address="+address;
+
+        dataHistory={'PageName': ajaxUrl,'address':address};
         
     }
+    
+    
+    if (isAddressPage)
+    {
+        if (address!=null)
+        {
+            AddHistory(transitionUrl,dataHistory,isAddressPage)
+        }
+    }
+    else 
+    {
+        AddHistory(transitionUrl,dataHistory,isAddressPage)
+    }
+   
     
     return false;
 }
@@ -70,7 +97,7 @@ $(window).on('load', function()
             if (isAddressTeg==="true")
             {
                 if (userAddress!=null)
-                    PageAjaxTransition(namePage,userAddress);
+                    PageAjaxTransition(namePage,userAddress,true);
                 else
                     PageAjaxTransition("Register"); 
                     
@@ -96,6 +123,7 @@ window.onpopstate = function(event)
     }
     else
     {
+        SetBackground("default");
         PageAjaxTransition(event.state.PageName,event.state.address,true)
     }
 
