@@ -1,0 +1,18 @@
+@model LifeGoals.PageObjects.UniversalAddressPage
+
+<script>
+var AddressPage="0x"+"@Model";
+</script>
+@if (Model.UserAddress==default)
+{   
+    <script>
+        PageAjaxTransition("@Model.Page",userAddress,true);    
+    </script>
+}
+else
+{
+    <script>
+       PageAjaxTransition("@Model.Page","@Model.UserAddress",true);
+    </script>
+}
+
