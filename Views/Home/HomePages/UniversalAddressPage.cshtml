@@ -6,13 +6,22 @@ var AddressPage="0x"+"@Model";
 @if (Model.UserAddress==default)
 {   
     <script>
-        PageAjaxTransition("@Model.Page",userAddress,true);    
+        
+        function initPage() 
+        {
+            PageAjaxTransition("@Model.Page",userAddress,true);       
+        }
+           
     </script>
 }
 else
 {
     <script>
-       PageAjaxTransition("@Model.Page","@Model.UserAddress",true);
+        function initPage() 
+        {
+            PageAjaxTransition("@Model.Page","@Model.UserAddress",true);  
+        }
+       
     </script>
 }
 

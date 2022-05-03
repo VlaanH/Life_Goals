@@ -17,21 +17,35 @@ window.onload = async () => {
             ShowWeb3NetAndAccount();
         });
         InitContract();
-    } 
-    
+       
+    }
+
+    if (typeof (initPage) === "function") {
+        initPage();
+    }
+  
     RedirectToYourPage();
 };
 
 function hidden(id,isHidden)
 {
-    if (isHidden)
+    try 
     {
-        document.getElementById(id).classList.add("hidden");
+        if (isHidden)
+        {
+            document.getElementById(id).classList.add("hidden");
+        }
+        else
+        {
+            document.getElementById(id).classList.remove("hidden");
+        } 
     }
-    else
+    catch (e) 
     {
-        document.getElementById(id).classList.remove("hidden");
+        
     }
+    
+    
 }
 
 
@@ -127,6 +141,7 @@ async function loginWithEth()
             window.userAddress = selectedAccount;
             window.localStorage.setItem("userAddress", selectedAccount);
             await ShowWeb3NetAndAccount();
+            
         } 
         catch (error) 
         {
