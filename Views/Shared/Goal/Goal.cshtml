@@ -1,9 +1,9 @@
 @using LifeGoals.Dbmanagement
-@model GoalObjects
+@using LifeGoals.PageObjects
+@model LifeGoals.PageObjects.GoalAndStatusObjects
 @{
-    var ajaxUpdate = "OneGoal" + Model.Id;
-    var user = UserManagement.GetUser(Model.User);
-
+    var ajaxUpdate = "OneGoal" + Model.GoalObjects.Id;
+    var user = UserManagement.GetUser(Model.GoalObjects.User);
     
     var form = "formGoalUpdate";
 
@@ -19,7 +19,7 @@
         </div>
         
         <form style="display: none" id="@ajaxUpdate@form" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("Goal", "AjaxDataUpdate")">
-            <input style="display: none" name="goalId" value="@Model.Id"/>
+            <input style="display: none" name="goalId" value="@Model.GoalObjects.Id"/>
         </form>       
         
         <div class="goalInf">
@@ -27,52 +27,55 @@
            
             <div>
                 <div class="goalTitle">
-                    <a>@Model.Titles</a>
-                    @if (Model.StageImplementation == EGoalStageImplementation.created)
+                    <a>@Model.GoalObjects.Titles</a>
+                    @if (Model.GoalObjects.StageImplementation == EGoalStageImplementation.created)
                     {
                         <img class="miniGoalStatus" src="/img/X.png">
                     }
-                    else if (Model.StageImplementation == EGoalStageImplementation.startedDoing)
+                    else if (Model.GoalObjects.StageImplementation == EGoalStageImplementation.startedDoing)
                     {
                         <img class="miniGoalStatus" src="/img/time.png">
                     }
-                    else if (Model.StageImplementation == EGoalStageImplementation.isDone)
+                    else if (Model.GoalObjects.StageImplementation == EGoalStageImplementation.isDone)
                     {
                         <img class="miniGoalStatus" src="/img/check.png">            
                     }
                     
                     <a>
-
                         
-                        @if (Model.Important==false)
+                        @if (Model.GoalObjects.Important==false )
                         {
-                            
-                            <button class="iconButton ImportantButton" id="ImportantButton" type="submit" onclick="DoImportant(@Model.Id,true,'@ajaxUpdate@form')">
-                                <svg aria-hidden="true" focusable="false" class="goalStar">
-                                    <use xlink:href="#stars-empty-star"/>
-                                </svg>
-                            </button>
+                            @if(Model.PageStatus == EPageStatus.Owner)
+                            {
+                                <button class="iconButton ImportantButton" id="ImportantButton" type="submit" onclick="DoImportant(@Model.GoalObjects.Id,true,'@ajaxUpdate@form')">
+                                    <svg aria-hidden="true" focusable="false" class="goalStar">
+                                        <use xlink:href="#stars-empty-star"/>
+                                    </svg>
+                                </button>  
+                            }
                             
                         }
                         else
                         {
-                          
-                            <button class="iconButton ImportantButton" type="submit" onclick="DoImportant(@Model.Id,false,'@ajaxUpdate@form')">
+                            @if (Model.PageStatus == EPageStatus.Owner)
+                            {
+                                <button class="iconButton ImportantButton" type="submit" onclick="DoImportant(@Model.GoalObjects.Id,false,'@ajaxUpdate@form')">
                                 
-                                <svg aria-hidden="true" focusable="false" class="goalStar">
+                                    <svg aria-hidden="true" focusable="false" class="goalStar">
+                                        <use xlink:href="#stars-full-star"/>
+                                    </svg>
+                                </button>
+                                
+                            }
+                            else
+                            {
+                                <svg aria-hidden="true" focusable="false" class="goalStar ImportantSvg">
                                     <use xlink:href="#stars-full-star"/>
-                                </svg>
-                            </button>
-                      
+                                </svg>    
+                            }
                             
-                            <svg aria-hidden="true" focusable="false" class="goalStar ImportantSvg hidden">
-                                <use xlink:href="#stars-full-star"/>
-                            </svg>
                         }
                         
-                        
-                    
-                  
                    </a> 
                           
                 </div>
@@ -80,24 +83,23 @@
             </div>
             
             
-            <div class="goal_description" >@Html.Raw(Model.Body)</div>
+            <div class="goal_description" >@Html.Raw(Model.GoalObjects.Body)</div>
                         
         </div>
                    
         <div>
             
-          @if (Model.IsDonate)
-          {
-             
-             @(await Html.PartialAsync("Profile/CurrencyProgress", Model))
-             
-              
-            
-          }
+            @if (Model.GoalObjects.IsDonate)
+            { 
+                @(await Html.PartialAsync("Profile/CurrencyProgress", Model.GoalObjects))
+            }
             
             
+            @if (Model.PageStatus== EPageStatus.Owner)
+            {
+                <partial name="Profile/GetgoalPointsStatus" model="Model.GoalObjects"/>
+            }
             
-            <partial name="Profile/GetgoalPointsStatus" model="Model"/>
 
         </div>
        

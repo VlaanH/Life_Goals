@@ -1,3 +1,4 @@
+@using LifeGoals.PageObjects
 @model LifeGoals.PageObjects.ListGoals
 @{
     int step = 3;
@@ -16,9 +17,9 @@
             
         for (int i = startRead; i < stopRead; i++)
         {
-                
-            @(await Html.PartialAsync("Goal/Goal", Model.GoalObjectsList[i]))
-    
+
+            @(await Html.PartialAsync("Goal/Goal", new GoalAndStatusObjects { GoalObjects = Model.GoalObjectsList[i], PageStatus = Model.Scroll.PageStatus } ));
+
         } 
            
     }

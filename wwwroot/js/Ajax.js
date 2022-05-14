@@ -44,7 +44,7 @@ function GetSubscriptionStatus()
 function GetScroll(scrollNumber,userAddress) 
 {
   
-    var data = {"scrollNumber": scrollNumber,"address":userAddress};
+    var data = {"scrollNumber": scrollNumber,"address":userAddress,"status":StatusPage};
     
     getAjaxRequest('/'+Controller+'/UpdateGoals','allGoals',data,'after',true)   
     

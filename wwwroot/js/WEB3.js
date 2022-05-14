@@ -1,18 +1,19 @@
 window.userAddress = null;
 window.onload = async () => {
     // Init Web3 connected to ETH network
-    owner(false);
     if (window.ethereum) 
     {
         window.web3 = new Web3(window.ethereum);
         // Load in Localstore key
         window.userAddress = window.localStorage.getItem("userAddress");
         await ShowWeb3NetAndAccount();
-        window.ethereum.on('accountsChanged', function (accounts)
+        
+        window.ethereum.on('accountsChanged', function ()
         {
-            loginWithEth();
+            loginWithEth(true);
+           
         });
-        window.ethereum.on('networkChanged', function()
+        window.ethereum.on('chainChanged', function()
         {
             ShowWeb3NetAndAccount();
         });
@@ -24,7 +25,7 @@ window.onload = async () => {
         initPage();
     }
   
-    RedirectToYourPage();
+ 
 };
 
 function hidden(id,isHidden)
@@ -117,7 +118,7 @@ async function logout()
     window.localStorage.removeItem("userAddress");
     
     await ShowWeb3NetAndAccount();
-    RedirectToYourPage();
+    RefreshAjaxPage();
 }
 
 
@@ -148,7 +149,7 @@ async function loginWithEth()
             console.error(error);
         } 
         
-        RedirectToYourPage();
+        RefreshAjaxPage();
        
     } 
     else 
@@ -158,64 +159,6 @@ async function loginWithEth()
 }
 
 
-
-
-function pageAccessControl()
-{
-    if (PageName!=null)
-    {
-        if (PageName=="Profile")
-        {
-            if (AddressPage==userAddress)
-            {
-                console.log("owner");
-                owner(true);
-            }
-            else
-            {
-                owner(false);
-            }
-        }
-        else if(PageName=="Feed") 
-        {
-            //your goals are not displayed in the feed yet
-            owner(false);
-        }
-        
-    }
-    
-}
-
-
-function RedirectToYourPage()
-{
-    if (typeof StatusPage !== 'undefined')
-    {
-        if(StatusPage==="non" && IsAuthorizationWeb3()===false)
-        {
-            PageAjaxTransition("Register");
-        }
-        else if (StatusPage==="non")
-        {
-            PageAjaxTransition(PageName,userAddress);
-        }
-        else if(StatusPage==="NotFound" & userAddress==AddressPage)
-        {
-            PageAjaxTransition("Register");
-        }
-        else
-        {
-            pageAccessControl();
-            if (StatusPage!=="NotFound")
-            {
-                GetSubscriptionStatus();
-            }
-            
-        }
-
-        
-    }
-}
 
 
 const CONTRACT_ADDRESS = '0xFB982341b86028E4dC9EbADc70fa7f01263D5479';

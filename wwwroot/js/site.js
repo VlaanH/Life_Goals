@@ -204,27 +204,7 @@ function elementExist(Id)
 
 async function owner(isOwner) 
 {
-    if (isOwner)
-    {
-       
-        hidden("CreateGoal",false);
-        ArrayHiddenClass("goalPoints",false);
-        ArrayHiddenClass("ImportantButton",false);
-        ArrayHiddenClass("ImportantSvg",true);
-    
-    }
-    else 
-    {
-        if (elementExist("CreateGoal"))
-        {
-            hidden("CreateGoal",true);
-        }
-        
-        ArrayHiddenClass("goalPoints",true);
-        ArrayHiddenClass("ImportantButton",true);
-        ArrayHiddenClass("ImportantSvg",false);
-        
-    }
+
 }
 
 

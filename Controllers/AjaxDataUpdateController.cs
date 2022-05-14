@@ -12,11 +12,12 @@ namespace LifeGoals.Controllers
         {
             address = AddressManagement.AddressNormalization(address);
             pageVisitor=AddressManagement.AddressNormalization(pageVisitor);
-         
-            
-            
-            return PartialView("Profile/UserAllData",new BasicView()
-                {UserAddress = address, PageVisitor = pageVisitor});
+
+            var pageStatus = new BasicView { PageVisitor = pageVisitor, UserAddress = address }.GetPageStatus();
+
+           
+                
+            return PartialView("Profile/UserAllData", new UniversalAddressPage { UserAddress = address, PageVisitor = pageVisitor, PageStatus = pageStatus });
         }
 
         public IActionResult GetSubscribers(string address)
@@ -40,23 +41,23 @@ namespace LifeGoals.Controllers
             return PartialView("Profile/UserListDialog",new UserListDialog(){Users = allUserSubscriptions,IsOpen = true});
         }
         
-        public async Task<ActionResult> UpdateGoals(string address,int scrollNumber)
+        public async Task<ActionResult> UpdateGoals(string address,int scrollNumber,EPageStatus status)
         {
             address = AddressManagement.AddressNormalization(address);
             
-            return PartialView("Goal/GetAllGoals",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber});
+            return PartialView("Goal/GetAllGoals",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber,PageStatus = status});
         }
-        public async Task<ActionResult> UpdateFeedGoals(string address,int scrollNumber)
+        public async Task<ActionResult> UpdateFeedGoals(string address,int scrollNumber,EPageStatus status)
         {
            
-            return PartialView("Goal/GetUserFeed",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber});
+            return PartialView("Goal/GetUserFeed",new AllGoalsScroll(){Address =  address, ScrollNumber = scrollNumber,PageStatus = status});
         }
         
-        public async Task<ActionResult> Goal(int goalId)
+        public async Task<ActionResult> Goal(int goalId,EPageStatus status)
         {
             var goal = Goals.GetGoal(goalId);
            
-            return PartialView("Goal/Goal",goal);
+            return PartialView("Goal/Goal",new GoalAndStatusObjects(){ PageStatus = status, GoalObjects = goal});
         }
 
     }

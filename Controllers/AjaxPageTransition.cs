@@ -1,5 +1,7 @@
+using System;
 using lifeGoals.Cryptocurrencies.Ethereum;
 using LifeGoals.Dbmanagement;
+using LifeGoals.PageObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LifeGoals.Controllers
@@ -10,68 +12,57 @@ namespace LifeGoals.Controllers
         {
             return PartialView("Pages/Privacy");
         }
-        
-        
-        public IActionResult Profile(string address=default)
+
+
+        public IActionResult Profile(string addressVisitor,string address = default)
         {
-            address = AddressManagement.AddressNormalization(address);
+            if (address!=default)
+                address = AddressManagement.AddressNormalization(address);
 
-
-            if (UserManagement.IsUserExists(address) == true)
-            {
-                ViewData["address"] = address.ToLower();
-                ViewData["status"] = "exist";
-            }
-            else if (address == null)
-            {
-                ViewData["status"] = "non";
-                ViewData["address"] = "non";
-            }
-            else if(address=="null")
-            {
-                ViewData["status"] = "NoWeb3";
-                ViewData["address"] = "non";
-            }
-            else
-            {
-                ViewData["address"] = address.ToLower();
-                ViewData["status"] = "NotFound"; 
-            }
-
-
-
-            return PartialView("Pages/Profile");
-       }
-        public IActionResult Feed(string address = default)
-        {
-            address = AddressManagement.AddressNormalization(address);
-
-
-            if (UserManagement.IsUserExists(address) == true)
-            {
-                ViewData["address"] = address.ToLower();
-                ViewData["status"] = "exist";
-            }
-            else if (address == null)
-            {
-                ViewData["status"] = "non";
-                ViewData["address"] = "non";
-            }
-            else if(address=="null")
-            {
-                ViewData["status"] = "NoWeb3";
-                ViewData["address"] = "non";
-            }
-            else
-            {
-                ViewData["address"] = address.ToLower();
-                ViewData["status"] = "NotFound"; 
-            }
-
+            if (addressVisitor!=default)
+                addressVisitor = AddressManagement.AddressNormalization(addressVisitor);
+            
+            var pageStatus = new BasicView { PageVisitor = addressVisitor, UserAddress = address }.GetPageStatus();
             
 
+            if (pageStatus == EPageStatus.NotFound)
+            {
+                return PartialView("Pages/Error404");
+            }
+            else if (pageStatus == EPageStatus.NoAccount)
+            {
+                return PartialView("Pages/Register");
+            }
+            else
+            {
+                return PartialView("Pages/Profile", new UniversalAddressPage { UserAddress = address, PageVisitor = addressVisitor, PageStatus = pageStatus });
+            }
+        }
+        public IActionResult Feed(string addressVisitor,string address = default)
+        {
+            if (address!=default)
+                address = AddressManagement.AddressNormalization(address);
 
-            return PartialView("Pages/Feed");
+            if (addressVisitor!=default)
+                addressVisitor = AddressManagement.AddressNormalization(addressVisitor);
+            
+            var pageStatus = new BasicView { PageVisitor = addressVisitor, UserAddress = address }.GetPageStatus();
+
+
+            if (pageStatus == EPageStatus.NotFound)
+            {
+                return PartialView("Pages/Error404");
+                
+            }
+            else if (pageStatus == EPageStatus.NoAccount)
+            {
+                return PartialView("Pages/Register");
+            }
+            else
+            {
+                return PartialView("Pages/Feed", new UniversalAddressPage { UserAddress = address, PageVisitor = addressVisitor, PageStatus = pageStatus });
+            }
+           
         }
 
         public IActionResult Settings()

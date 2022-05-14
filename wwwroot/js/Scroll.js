@@ -37,7 +37,7 @@ window.onscroll = function () {
         DoubleScrollProtection=true;
 
         GoalsLoadingOnScroll(ScrollNumber);
-        pageAccessControl();
+        
     }
     
   

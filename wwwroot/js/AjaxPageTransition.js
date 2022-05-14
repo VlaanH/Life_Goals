@@ -1,19 +1,12 @@
-function getAjaxPage(url, idHtml,address)
+function getAjaxPage(url, idHtml,jsonData)
 {
 
     jQuery.ajax({
                 url: url,
-                data: address,
+                data: jsonData,
                 type: "POST",
                 success: function (callback) {
                     jQuery("#" + idHtml).html(callback);
-                    
-                    if (typeof address !== 'undefined')
-                        if (address.address!=null)
-                        {
-                            pageAccessControl();
-                            GetSubscriptionStatus();
-                        }
                     
                 },
                 error: function () {
@@ -30,18 +23,24 @@ function AddHistory(transitionUrl,dataHistory)
         history.pushState(dataHistory, null, transitionUrl);
     else
     {
-        document.addEventListener("DOMContentLoaded", () => {
-            history.replaceState(dataHistory, null, transitionUrl);
-        });
-
+        history.replaceState(dataHistory, null, transitionUrl);
     }
 }
 
+function RefreshAjaxPage() 
+{
+    var thisPage=history.state.PageName;
+    
+    var pageAddress=history.state.address;
+
+    PageAjaxTransition(thisPage,pageAddress,true);
+    
+}
 
 function PageAjaxTransition(ajaxUrl,address,isAddressPage=false)
 {
 
-    var addressJson={"address":address};
+    var addressJson={"address":address,"addressVisitor":userAddress};
     
     var dataHistory,transitionUrl;
     

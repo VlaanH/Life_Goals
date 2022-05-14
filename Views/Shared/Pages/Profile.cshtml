@@ -1,10 +1,10 @@
-@model GoalObjects
+@model UniversalAddressPage
 @using LifeGoals.PageObjects
 
 @{
 
-    string address  = ViewData["address"].ToString();
-    string status =  ViewData["status"].ToString();
+    var address = Model.UserAddress;
+    var status = Model.PageStatus;
     
 }
 @await Html.PartialAsync("_title",$"User {address}")
@@ -14,9 +14,7 @@
     var StatusPage="@status";
 </script>
 
-@if (status=="exist")
-{
-    
+  
 @await Html.PartialAsync("SVG/SVG")
 
     
@@ -28,38 +26,23 @@
     <div class="profileWrapper">
         
         
-        @await Html.PartialAsync("Profile/UserAllData",new BasicView(){UserAddress = address})
+        @await Html.PartialAsync("Profile/UserAllData",Model)
         
         @await Html.PartialAsync("Profile/GoalLine",address)
-        
 
-      
-     
-        @await Html.PartialAsync("Profile/CreateGoal")
+
+        @if (status == EPageStatus.Owner)
+        {
+            @await Html.PartialAsync("Profile/CreateGoal")
+        }
+        
             
 
         
         <div class="goals" id="allGoals">
-            @await Html.PartialAsync("Goal/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1})
+            @await Html.PartialAsync("Goal/GetAllGoals",new AllGoalsScroll(){Address = address,ScrollNumber = 1,PageStatus = status})
         </div>
 
 
     </div>
 </div>
-    
-}
-else
-{
-    
-   
-    if (status=="NotFound")
-    {
-        @await Html.PartialAsync("Pages/Error404")
-
-    }
-    else if (status=="NoWeb3")
-    {
-        <partial name="Pages/Register"/>   
-    }
-
-}

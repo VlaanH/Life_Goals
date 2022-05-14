@@ -1,7 +1,8 @@
 @using LifeGoals.Dbmanagement
 @using System.Security.Claims
+@using LifeGoals.PageObjects
 
-@model LifeGoals.PageObjects.BasicView
+@model LifeGoals.PageObjects.UniversalAddressPage
 @{
     
     
@@ -28,9 +29,9 @@
             </div>
     
     
-            @if (Model.PageVisitor!=default)
+            @if (Model.PageStatus != EPageStatus.NoAccount)
             {
-                @if (Model.UserAddress==Model.PageVisitor)
+                @if (Model.PageStatus == EPageStatus.Owner)
                 {
                     <a class="btn rounded-root btn-purple btn-Edit-Profile" id="settingsProfile"
                             onclick="return PageAjaxTransition('Settings')" page="Settings" address="false" href="/home/Settings" content="edit">Edit profile</a>
@@ -42,11 +43,16 @@
                         <button class="btn rounded-root btn-purple btn-Edit-Profile" 
                                 onclick="UnfollowUser()" content="edit">Unsubscribe</button> 
                     }
-                    else
+                    else if(Model.PageVisitor!=default)
                     {
                            
                         <button class="btn rounded-root btn-purple btn-Edit-Profile"
                                 onclick="SubscribeToUser()" content="edit">Subscribe</button>    
+                    }
+                    else
+                    {
+                        <button class="btn rounded-root btn-purple btn-Edit-Profile"
+                                onclick="return PageAjaxTransition('Register')" href="/home/Register" content="edit">Register</button>    
                     }
                 }
             }

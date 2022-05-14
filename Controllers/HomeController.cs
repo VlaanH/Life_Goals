@@ -21,11 +21,11 @@ namespace LifeGoals.Controllers
             return View("Pages/Privacy");
         }
 
-        public IActionResult Profile(string address=default)
+        public IActionResult Profile(string address)
         {
             return View("HomePages/UniversalAddressPage",new UniversalAddressPage{UserAddress = address,Page = GetMethodName()});
         }
-        public IActionResult Feed(string address = default)
+        public IActionResult Feed(string address)
         { 
             return View("HomePages/UniversalAddressPage",new UniversalAddressPage{UserAddress = address,Page = GetMethodName()});
         }
