@@ -28,9 +28,10 @@ namespace LifeGoals.Controllers
             return PartialView("Profile/UserListDialog",new UserListDialog(){Users = allUserSubscribers,IsOpen = true});
         }
         
-        public IActionResult GoalLineUpdate(string userId)
+        public IActionResult GoalLineUpdate(string address)
         {
-            return PartialView("Profile/GoalLine",userId);
+            address = AddressManagement.AddressNormalization(address);
+            return PartialView("Profile/GoalLine",address);
         }
         
         public IActionResult GetSubscriptions(string address)

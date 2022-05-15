@@ -2,12 +2,6 @@
 {
     $('#allGoals').empty();    
 }
-function updateGoalLine()
-{
-    
-    $( "#goalsLineForm" ).submit();
-    
-}
 
 function cancelDialog(id)
 {
