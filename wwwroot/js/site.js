@@ -158,50 +158,6 @@ function dependencyOnCheckboxHiddenOnly(chbox,itemId)
    
 
 }
-function ArrayHiddenClass(class_,isHidden)
-{
-    if (isHidden)
-    {
-        var goalPointsStatus = document.getElementsByClassName(class_);
-
-        for (i=0;i<goalPointsStatus.length;i++)
-        {
-            goalPointsStatus[i].classList.add("hidden");
-        }
-    }
-    else 
-    {
-        var goalPointsStatus = document.getElementsByClassName(class_);
-
-        for (i=0;i<goalPointsStatus.length;i++)
-        {
-            goalPointsStatus[i].classList.remove("hidden");
-        } 
-    }
-}
-function elementExist(Id) 
-{
-    try
-    {
-        if ( document.getElementById(Id)!=null)
-        {
-            return true;
-        }
-    }
-    catch (e)
-    {
-        return false;
-    }
-    
-}
-
-
-async function owner(isOwner) 
-{
-
-}
-
-
 
 function SetBackground(image)
 {
@@ -209,10 +165,4 @@ function SetBackground(image)
         document.body.style.backgroundImage=null;
     else 
     document.body.style.backgroundImage=`url('${image}')`;
-}
-function updateForm(id)
-{
-
-    $( `#${id}` ).submit();
-    
 }
