@@ -1,5 +1,6 @@
 
-.boxed-group {
+.boxed-group 
+{
     width: 90%;
     max-width: 680px;
     margin-top: 50px;
@@ -7,7 +8,8 @@
     margin-left: auto;
 
 }
-.boxed-group-inner {
+.boxed-group-inner 
+{
     font-size: 14px;
     font-weight: 300;
     color: #aaa;
@@ -18,14 +20,16 @@
     border-bottom-left-radius: 5px;
     background-color: #fff;
 }
-#qrcodeAddress {
+#qrcodeAddress 
+{
     margin: auto;
     display: table;
    
 }
 
 
-.site-dialog {
+.site-dialog 
+{
     overflow: hidden;
     width: 95%;
     max-width: 600px;
@@ -35,11 +39,15 @@
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .3);
 }
 
-.dialog-header {
+.dialog-header 
+{
     padding: 12px 20px;
     background-color: #9c72ce;
 }
-.dialog-content {
+.dialog-content 
+{    
+    overflow-y: scroll;
+    height: 500px;
     padding: 10px 20px;
     color: #555;
     background-color: #fff;
