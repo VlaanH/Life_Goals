@@ -7,9 +7,9 @@ function imageBinding(input,ImageID)
     img.onerror = function(){document.getElementById(ImageID).src='/UserImages/standardUser.png'};
 
 }
-function DoImportant(id,status,ajaxUpdate)
+function DoImportant(id,status)
 {
-    Web3CDoImportant(id,status,ajaxUpdate);
+    Web3CDoImportant(id,status);
 }
 function SetDescription()
 {
@@ -75,9 +75,9 @@ function CreateAccount()
 
     Web3CreateAccount(nickname,description,background,profileImage);
 }
-function ChangeGoalStatus(id,status,ajaxUpdate)
+function ChangeGoalStatus(id,status)
 {
-    Web3ChangeGoalStatus(id,status,ajaxUpdate);
+    Web3ChangeGoalStatus(id,status);
 
 }
 function SubscribeToUser()

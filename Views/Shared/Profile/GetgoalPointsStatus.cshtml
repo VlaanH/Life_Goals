@@ -1,14 +1,9 @@
 @using System.Security.Claims
 @model GoalObjects
-@{
-     var ajaxUpdate = "OneGoal" + Model.Id;
-     var form = "formGoalUpdate";
-   
-}
+
 <div class="goalPoints">
      <div class="goalPointsStatus">
-                 
-
+          
           @if (Model.StageImplementation.ToString()!="3")
           {
                @if(Model.StageImplementation == EGoalStageImplementation.created)
@@ -16,9 +11,8 @@
                     <div class="goalStatus iconButton SelectedGoalStatus" > <img class="miniGoalStatusIco" src="/img/X.png"> </div>
                }
                else
-               {    
-            
-                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,0,'@ajaxUpdate@form')" ><img class="miniGoalStatusIco" src="/img/X.png"></button>
+               {
+                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,0)" ><img class="miniGoalStatusIco" src="/img/X.png"></button>
                }
               
                @if(Model.StageImplementation == EGoalStageImplementation.startedDoing)
@@ -27,10 +21,7 @@
                }
                else
                {
-                    int formId = 1;
-              
-                    
-                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,1,'@ajaxUpdate@form')" ><img class="miniGoalStatusIco" src="/img/time.png"></button>
+                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,1)" ><img class="miniGoalStatusIco" src="/img/time.png"></button>
                }
                
                @if(Model.StageImplementation == EGoalStageImplementation.isDone)
@@ -39,13 +30,10 @@
                }
                else
                {
-                    int formId = 2;
-             
-                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,2,'@ajaxUpdate@form')" ><img class="miniGoalStatusIco" src="/img/check.png"></button>
+                    <button class="goalStatus iconButton" onclick="ChangeGoalStatus(@Model.Id,2)" ><img class="miniGoalStatusIco" src="/img/check.png"></button>
                }  
           }
-          
-     
+
      </div>
 </div>
 

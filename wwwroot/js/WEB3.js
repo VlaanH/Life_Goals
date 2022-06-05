@@ -182,26 +182,27 @@ async function Web3CreateAccount(nickname,description,background,image)
     console.log(symbol);
 }
 
-async function Web3ChangeGoalStatus(id,status,ajaxUpdate)
+async function Web3ChangeGoalStatus(id,status)
 {
     
     const symbol = await contract.methods.ChangeGoalStatus(id,status).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
-    updateForm(ajaxUpdate);
 
+    GoalUpdate(id);
     console.log(symbol);
     
 }
-async function Web3CDoImportant(id,status,ajaxUpdate)
+async function Web3CDoImportant(id,status)
 {
     
     const symbol = await contract.methods.DoImportant(id,status).send({ from: window.userAddress});
 
     await new Promise(r => setTimeout(r, 2100));
     alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol.status}`);
-    updateForm(ajaxUpdate);
+
+    GoalUpdate(id);
     updateGoalLine();
     console.log(symbol);
 

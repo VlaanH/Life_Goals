@@ -4,8 +4,6 @@
 @{
     var ajaxUpdate = "OneGoal" + Model.GoalObjects.Id;
     var user = UserManagement.GetUser(Model.GoalObjects.User);
-    
-    var form = "formGoalUpdate";
 
 }
 
@@ -17,11 +15,7 @@
             <a>@user.Nickname</a>
                         
         </div>
-        
-        <form style="display: none" id="@ajaxUpdate@form" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#@ajaxUpdate" data-ajax-mode='replace' data-ajax-url="@Url.Action("Goal", "AjaxDataUpdate")">
-            <input style="display: none" name="goalId" value="@Model.GoalObjects.Id"/>
-        </form>       
-        
+
         <div class="goalInf">
                         
            
@@ -47,7 +41,7 @@
                         {
                             @if(Model.PageStatus == EPageStatus.Owner)
                             {
-                                <button class="iconButton ImportantButton" id="ImportantButton" type="submit" onclick="DoImportant(@Model.GoalObjects.Id,true,'@ajaxUpdate@form')">
+                                <button class="iconButton ImportantButton" id="ImportantButton" type="submit" onclick="DoImportant(@Model.GoalObjects.Id,true)">
                                     <svg aria-hidden="true" focusable="false" class="goalStar">
                                         <use xlink:href="#stars-empty-star"/>
                                     </svg>
@@ -59,7 +53,7 @@
                         {
                             @if (Model.PageStatus == EPageStatus.Owner)
                             {
-                                <button class="iconButton ImportantButton" type="submit" onclick="DoImportant(@Model.GoalObjects.Id,false,'@ajaxUpdate@form')">
+                                <button class="iconButton ImportantButton" type="submit" onclick="DoImportant(@Model.GoalObjects.Id,false)">
                                 
                                     <svg aria-hidden="true" focusable="false" class="goalStar">
                                         <use xlink:href="#stars-full-star"/>

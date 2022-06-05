@@ -31,6 +31,14 @@ function getAjaxRequest(url, idHtml,data,mode,isScroll)
 
     })
 }
+function GoalUpdate(id) 
+{
+    var data = {"goalId": id,"status":StatusPage};
+
+    getAjaxRequest(Controller+'/Goal','OneGoal'+id,data,'replace',false)
+    
+}
+
 
 function GetSubscriptionStatus()
 {
