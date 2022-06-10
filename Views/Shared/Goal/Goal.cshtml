@@ -13,7 +13,12 @@
         <div class="goalUser">
             <img class="profileMiniImage" src="@user.Imag" alt="">
             <a>@user.Nickname</a>
-                        
+                      
+            
+            
+            <a class="float-right"
+               href="/home/Goal?address=@Model.GoalObjects.Id"  
+               onclick="return PageAjaxTransition('Goal','@Model.GoalObjects.Id',true)" style="cursor: pointer;">...</a>
         </div>
 
         <div class="goalInf">

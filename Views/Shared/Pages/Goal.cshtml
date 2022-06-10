@@ -1,0 +1,27 @@
+@model GoalAndStatusObjects
+@using LifeGoals.PageObjects
+@using LifeGoals.Dbmanagement
+
+@{
+    var address = Model.GoalObjects.User;
+    
+}
+@await Html.PartialAsync("_title",$"Goal {address}")
+
+
+@await Html.PartialAsync("SVG/SVG")
+
+<script>SetBackground("@UserManagement.GetUser(address).Background");</script>
+                                                                       
+<partial name="Profile/DonatDialog" model="address"/>
+
+    
+    
+<div class="text-center">
+    <div class="profileWrapper">
+        <div class="goals">
+            @await Html.PartialAsync("Goal/Goal",new GoalAndStatusObjects(){PageStatus = Model.PageStatus, GoalObjects = Model.GoalObjects})
+        </div>
+    </div>
+</div>  
+    

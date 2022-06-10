@@ -65,6 +65,29 @@ namespace LifeGoals.Controllers
            
         }
 
+        public IActionResult Goal(string addressVisitor,string address = default)
+        {
+      
+            if (addressVisitor!=default)
+                addressVisitor = AddressManagement.AddressNormalization(addressVisitor);
+
+            try
+            {
+                var goalObj = Goals.GetGoal(int.Parse(address));
+                
+                var pageStatus = new BasicView { PageVisitor = addressVisitor, UserAddress = goalObj.User }.GetPageStatus();
+                
+                return PartialView("Pages/goal", new GoalAndStatusObjects{PageStatus = pageStatus,GoalObjects = goalObj});
+
+            }
+            catch (Exception)
+            {
+                return PartialView("Pages/Error404");
+            }
+
+        }
+
+
         public IActionResult Settings()
         {
             return PartialView("Pages/Settings");

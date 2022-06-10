@@ -29,6 +29,11 @@ namespace LifeGoals.Controllers
         { 
             return View("HomePages/UniversalAddressPage",new UniversalAddressPage{UserAddress = address,Page = GetMethodName()});
         }
+        
+        public IActionResult Goal(string address)
+        {
+            return View("HomePages/UniversalAddressPage",new UniversalAddressPage{UserAddress = address,Page = GetMethodName()});
+        }
 
         public IActionResult Settings()
         {
