@@ -42,5 +42,5 @@
 - **HTML / CSS / JavaScript / Razor Views** — фронтенд  
 - **Ethereum RPC / Web3 / Nethereum (или аналогичный клиент-библиотека)** — взаимодействие с блокчейном  
 - **Миграции БД**  
-- **GPL-3.0** — лицензия проекта :contentReference[oaicite:0]{index=0}  
+- **GPL-3.0** — лицензия проекта  
 
